@@ -22,17 +22,17 @@ namespace DAO
                 return instance;
             }
         }
-        public async Task<User> GetUser(string email, string password)
+        public async Task<User?> GetUser(string email, string password)
         {
-            return await _context.Users.FirstOrDefaultAsync(p=> p.Email == email && p.Password == password) ?? throw new NullReferenceException(nameof(User));
+            return await _context.Users.FirstOrDefaultAsync(p => p.Email == email && p.Password == password);
         }
-        public async Task<IEnumerable<User>> GetUsers()
+        public async Task<IEnumerable<User?>?> GetUsers()
         {
             return await _context.Users.Include(u=>u.Role).Include(u=>u.Purchases).ToListAsync();
         }
-        public async Task<User> GetUserById(int id)
+        public async Task<User?> GetUserById(int id)
         {
-            return await _context.Users.FindAsync(id) ?? throw new NullReferenceException(nameof(User));
+            return await _context.Users.FindAsync(id);
         }
     }
 }

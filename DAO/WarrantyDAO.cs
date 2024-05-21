@@ -15,22 +15,19 @@ namespace DAO
         {
             get
             {
-                if (instance == null)
-                {
-                    instance = new WarrantyDAO();
-                }
+                instance ??= new WarrantyDAO();
                 return instance;
             }
         }
-        public async Task<IEnumerable<Warranty>> GetWarranties()
+        public async Task<IEnumerable<Warranty>?> GetWarranties()
         {
             return await _context.Warranties
                                  .Include(w => w.Jewelries)
                                  .ToListAsync();
         }
-        public async Task<Warranty> GetWarrantyById(int id)
+        public async Task<Warranty?> GetWarrantyById(int id)
         {
-            return await _context.Warranties.FindAsync(id) ?? new Warranty();
+            return await _context.Warranties.FindAsync(id);
         }
         public async Task<int> CreateWarranty(Warranty warranty)
         {
@@ -39,19 +36,15 @@ namespace DAO
             _context.Warranties.Add(warranty);
             return await _context.SaveChangesAsync();
         }
-        public async Task<int> UpdateWarranty(Warranty warranty)
+        public async Task<int> UpdateWarranty(int id, Warranty warranty)
         {
             var existingWarranty = await _context.Warranties
-                .AsNoTracking()
-                .FirstOrDefaultAsync(w => w.WarrantyId == warranty.WarrantyId);
-            if (existingWarranty == null)
-            {
-                _context.Warranties.Add(warranty);
-            }
-            else
-            {
-                _context.Entry(warranty).State = EntityState.Modified;
-            }
+                .FirstOrDefaultAsync(w => w.WarrantyId == id);
+            warranty.WarrantyId = id;
+            if (existingWarranty == null) return 0;
+            _context.Entry(existingWarranty).CurrentValues.SetValues(warranty);
+            _context.Entry(existingWarranty).State = EntityState.Modified;
+
             return await _context.SaveChangesAsync();
         }
         public async Task<int> DeleteWarranty(int id)

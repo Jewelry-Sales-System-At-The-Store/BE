@@ -1,4 +1,5 @@
 ﻿
+using BusinessObjects.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interface;
 
@@ -14,6 +15,12 @@ namespace API.Controllers
         {
             var users = await UserService.GetUsers();
             return Ok(users);
+        }
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login(LoginDTO loginDTO)
+        {
+            var user = await UserService.Login(loginDTO);
+            return Ok(user!=null);
         }
     }
 }

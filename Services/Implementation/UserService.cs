@@ -1,4 +1,5 @@
-﻿using BusinessObjects.Models;
+﻿using BusinessObjects.DTO;
+using BusinessObjects.Models;
 using Repositories.Interface;
 using Services.Interface;
 
@@ -8,12 +9,12 @@ namespace Services.Implementation
     {
         public IUserRepository UserRepository { get; } = userRepository;
 
-        public async Task<User> GetUser(string email, string password)
+        public async Task<User?> Login(LoginDTO loginDTO)
         {
-            return await UserRepository.GetUser(email, password);
+            return await UserRepository.GetUser(loginDTO.Email ?? "", loginDTO.Password ?? "");
         }
 
-        public async Task<IEnumerable<User>> GetUsers()
+        public async Task<IEnumerable<User?>?> GetUsers()
         {
             return await UserRepository.GetAll();
         }

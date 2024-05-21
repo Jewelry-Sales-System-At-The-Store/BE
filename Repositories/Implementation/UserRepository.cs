@@ -16,22 +16,22 @@ namespace Repositories.Implementation
             throw new NotImplementedException();
         }
 
-        public Task<User> GetUser(string email, string password)
+        public async Task<User?> GetUser(string email, string password)
         {
-            return UserDAO.Instance.GetUser(email, password);
+            return await UserDAO.Instance.GetUser(email, password);
         }
 
-        public async Task<User> GetById(int id)
+        public async Task<User?> GetById(int id)
         {
             return await UserDAO.Instance.GetUserById(id);
         }
 
-        public Task<User> Update(User entity)
+        public Task<int> Update(int id, User entity)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<User>> GetAll()
+        public async Task<IEnumerable<User?>?> GetAll()
         {
             return await UserDAO.Instance.GetUsers();
         }

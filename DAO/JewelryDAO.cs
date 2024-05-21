@@ -24,7 +24,7 @@ namespace DAO
         }
         public async Task<IEnumerable<Jewelry>> GetJewelries()
         {
-            return await _context.Jewelries.Include(j=>j.JewelryType).ToListAsync();
+            return await _context.Jewelries.Include(j => j.JewelryType).ToListAsync();
         }
 
         public async Task<Jewelry> GetJewelryById(int id)
@@ -40,21 +40,15 @@ namespace DAO
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<int> UpdateJewelry(Jewelry jewelry)
+        public async Task<int> UpdateJewelry(int id, Jewelry jewelry)
         {
+            // Find the existing jewelry based on the provided ID
             var existingJewelry = await _context.Jewelries
-                .AsNoTracking()
-                .FirstOrDefaultAsync(j => j.JewelryId == jewelry.JewelryId);
-
-            if (existingJewelry == null)
-            {
-                _context.Jewelries.Add(jewelry);
-            }
-            else
-            {
-                _context.Entry(jewelry).State = EntityState.Modified;
-            }
-
+                .FirstOrDefaultAsync(j => j.JewelryId == id);
+            jewelry.JewelryId = id;
+            if (existingJewelry == null) return 0;
+            _context.Entry(existingJewelry).CurrentValues.SetValues(jewelry);
+            _context.Entry(existingJewelry).State = EntityState.Modified;
             return await _context.SaveChangesAsync();
         }
 

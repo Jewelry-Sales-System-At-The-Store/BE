@@ -9,7 +9,7 @@ public partial class Warranty
 
     public string? Description { get; set; }
 
-    public DateOnly? EndDate { get; set; }
+    public DateTime? EndDate { get; set; }
 
     public virtual ICollection<Jewelry> Jewelries { get; set; } = new List<Jewelry>();
 }

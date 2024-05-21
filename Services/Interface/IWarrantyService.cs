@@ -10,9 +10,9 @@ namespace Services.Interface
     public interface IWarrantyService
     {
         public Task<int> CreateWarranty(Warranty warranty);
-        public Task<IEnumerable<Warranty>> GetWarranties();
-        public Task<Warranty> GetWarrantyById(int id);
-        public Task<int> UpdateWarranty(Warranty warranty);
+        public Task<IEnumerable<Warranty?>?> GetWarranties();
+        public Task<Warranty?> GetWarrantyById(int id);
+        public Task<int> UpdateWarranty(int id ,Warranty warranty);
         public Task<int> DeleteWarranty(int id);
     }
 }

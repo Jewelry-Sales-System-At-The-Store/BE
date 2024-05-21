@@ -23,19 +23,19 @@ namespace Services.Implementation
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Warranty>> GetWarranties()
+        public async Task<IEnumerable<Warranty?>?> GetWarranties()
         {
             return await WarrantyRepository.GetAll();
         }
 
-        public async Task<Warranty> GetWarrantyById(int id)
+        public async Task<Warranty?> GetWarrantyById(int id)
         {
             return await WarrantyRepository.GetById(id);
         }
 
-        public Task<int> UpdateWarranty(Warranty warranty)
+        public async Task<int> UpdateWarranty(int id,Warranty warranty)
         {
-            throw new NotImplementedException();
+            return await WarrantyRepository.Update(id,warranty);
         }
     }
 }

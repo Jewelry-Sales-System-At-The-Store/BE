@@ -16,6 +16,8 @@ builder.Services.AddScoped<IJewelryService, JewelryService>();
 builder.Services.AddScoped<IJewelryRepository, JewelryRepository>();
 builder.Services.AddScoped<IWarrantyService, WarrantyService>();
 builder.Services.AddScoped<IWarrantyRepository, WarrantyRepository>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
