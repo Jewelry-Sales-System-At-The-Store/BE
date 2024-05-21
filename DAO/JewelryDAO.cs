@@ -24,7 +24,7 @@ namespace DAO
         }
         public async Task<IEnumerable<Jewelry>> GetJewelries()
         {
-            return await _context.Jewelries.ToListAsync();
+            return await _context.Jewelries.Include(j=>j.JewelryType).ToListAsync();
         }
 
         public async Task<Jewelry> GetJewelryById(int id)

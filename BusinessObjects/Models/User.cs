@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace BusinessObjects.Models;
 
@@ -18,10 +19,8 @@ public partial class User
     public string? Password { get; set; }
 
     public virtual ICollection<Bill> Bills { get; set; } = new List<Bill>();
-
     public virtual Counter? Counter { get; set; }
 
     public virtual ICollection<Purchase> Purchases { get; set; } = new List<Purchase>();
-
     public virtual Role? Role { get; set; }
 }
