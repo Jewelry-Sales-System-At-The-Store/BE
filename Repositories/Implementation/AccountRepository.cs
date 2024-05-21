@@ -1,7 +1,7 @@
 ﻿using BusinessObjects.Models;
-using DAO.Accounts;
+using Repositories.Interface;
 
-namespace Repositories
+namespace Repositories.Implementation
 {
     public class AccountRepository : IAccountRepository
     {

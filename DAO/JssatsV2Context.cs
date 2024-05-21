@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace BusinessObjects.Models;
 
-public partial class JssatsContext : DbContext
+public partial class JssatsV2Context : DbContext
 {
-    public JssatsContext()
+    public JssatsV2Context()
     {
     }
 
-    public JssatsContext(DbContextOptions<JssatsContext> options)
+    public JssatsV2Context(DbContextOptions<JssatsV2Context> options)
         : base(options)
     {
     }
@@ -42,6 +41,9 @@ public partial class JssatsContext : DbContext
 
     public virtual DbSet<Warranty> Warranties { get; set; }
 
+    //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+    //        => optionsBuilder.UseSqlServer("Server=(local);uid=sa;pwd=Akaka9999;database=JSSATS_V2;TrustServerCertificate=True");
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)
@@ -52,19 +54,18 @@ public partial class JssatsContext : DbContext
     private string GetConnectionString()
     {
         IConfiguration config = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", true, true)
-            .Build();
+        .SetBasePath(Directory.GetCurrentDirectory())
+        .AddJsonFile("appsettings.json", true, true)
+        .Build();
         //return config["ConnectionStrings:DBConnect"];
-        var strConn = config["ConnectionStrings:StockDB"];
+        var strConn = config["ConnectionStrings:JSSATS"];
         return strConn ?? "";
     }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Bill>(entity =>
         {
-            entity.HasKey(e => e.BillId).HasName("PK__Bill__11F2FC6AF4D744A5");
+            entity.HasKey(e => e.BillId).HasName("PK__Bill__11F2FC6A0B5B397C");
 
             entity.ToTable("Bill");
 
@@ -82,7 +83,7 @@ public partial class JssatsContext : DbContext
 
         modelBuilder.Entity<BillJewelry>(entity =>
         {
-            entity.HasKey(e => e.BillJewelryId).HasName("PK__BillJewe__22A11463AC25A531");
+            entity.HasKey(e => e.BillJewelryId).HasName("PK__BillJewe__22A11463AA7B6F89");
 
             entity.ToTable("BillJewelry");
 
@@ -99,7 +100,7 @@ public partial class JssatsContext : DbContext
 
         modelBuilder.Entity<BillPromotion>(entity =>
         {
-            entity.HasKey(e => e.BillPromotionId).HasName("PK__BillProm__470D21BE64B2BD0E");
+            entity.HasKey(e => e.BillPromotionId).HasName("PK__BillProm__470D21BE61BB07A5");
 
             entity.ToTable("BillPromotion");
 
@@ -116,7 +117,7 @@ public partial class JssatsContext : DbContext
 
         modelBuilder.Entity<Counter>(entity =>
         {
-            entity.HasKey(e => e.CounterId).HasName("PK__Counter__F12879C46062171F");
+            entity.HasKey(e => e.CounterId).HasName("PK__Counter__F12879C45357F5DE");
 
             entity.ToTable("Counter");
 
@@ -125,7 +126,7 @@ public partial class JssatsContext : DbContext
 
         modelBuilder.Entity<Customer>(entity =>
         {
-            entity.HasKey(e => e.CustomerId).HasName("PK__Customer__A4AE64D838926A2D");
+            entity.HasKey(e => e.CustomerId).HasName("PK__Customer__A4AE64D82688C284");
 
             entity.ToTable("Customer");
 
@@ -137,7 +138,7 @@ public partial class JssatsContext : DbContext
 
         modelBuilder.Entity<GoldPrice>(entity =>
         {
-            entity.HasKey(e => e.GoldPriceId).HasName("PK__GoldPric__C2C7860C15E71B5C");
+            entity.HasKey(e => e.GoldPriceId).HasName("PK__GoldPric__C2C7860CE0CA1F4C");
 
             entity.ToTable("GoldPrice");
 
@@ -147,7 +148,7 @@ public partial class JssatsContext : DbContext
 
         modelBuilder.Entity<Jewelry>(entity =>
         {
-            entity.HasKey(e => e.JewelryId).HasName("PK__Jewelry__807031D54B2A1A19");
+            entity.HasKey(e => e.JewelryId).HasName("PK__Jewelry__807031D595331C05");
 
             entity.ToTable("Jewelry");
 
@@ -166,7 +167,7 @@ public partial class JssatsContext : DbContext
 
         modelBuilder.Entity<JewelryType>(entity =>
         {
-            entity.HasKey(e => e.JewelryTypeId).HasName("PK__JewelryT__7DCE241605B413D9");
+            entity.HasKey(e => e.JewelryTypeId).HasName("PK__JewelryT__7DCE2416537E000D");
 
             entity.ToTable("JewelryType");
 
@@ -176,7 +177,7 @@ public partial class JssatsContext : DbContext
 
         modelBuilder.Entity<Promotion>(entity =>
         {
-            entity.HasKey(e => e.PromotionId).HasName("PK__Promotio__52C42FCF370ED400");
+            entity.HasKey(e => e.PromotionId).HasName("PK__Promotio__52C42FCF36D3DAF7");
 
             entity.ToTable("Promotion");
 
@@ -190,7 +191,7 @@ public partial class JssatsContext : DbContext
 
         modelBuilder.Entity<Purchase>(entity =>
         {
-            entity.HasKey(e => e.PurchaseId).HasName("PK__Purchase__6B0A6BBE4F22BFE3");
+            entity.HasKey(e => e.PurchaseId).HasName("PK__Purchase__6B0A6BBEA5070B03");
 
             entity.ToTable("Purchase");
 
@@ -211,7 +212,7 @@ public partial class JssatsContext : DbContext
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.RoleId).HasName("PK__Role__8AFACE1AB86F2F76");
+            entity.HasKey(e => e.RoleId).HasName("PK__Role__8AFACE1AF3D3B665");
 
             entity.ToTable("Role");
 
@@ -221,7 +222,7 @@ public partial class JssatsContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__User__1788CC4C80E6E43E");
+            entity.HasKey(e => e.UserId).HasName("PK__User__1788CC4C022F84D8");
 
             entity.ToTable("User");
 
@@ -241,7 +242,7 @@ public partial class JssatsContext : DbContext
 
         modelBuilder.Entity<Warranty>(entity =>
         {
-            entity.HasKey(e => e.WarrantyId).HasName("PK__Warranty__2ED318137422BCE7");
+            entity.HasKey(e => e.WarrantyId).HasName("PK__Warranty__2ED3181357729305");
 
             entity.ToTable("Warranty");
 

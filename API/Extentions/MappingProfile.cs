@@ -1,0 +1,14 @@
+﻿using AutoMapper;
+using BusinessObjects.DTO;
+using BusinessObjects.Models;
+
+namespace API.Extentions
+{
+    public class MappingProfile : Profile
+    {
+        public MappingProfile()
+        {
+            CreateMap<Jewelry, JewelryDTO>().ReverseMap();
+        }
+    }
+}

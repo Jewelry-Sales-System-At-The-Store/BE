@@ -1,7 +1,8 @@
 ﻿using BusinessObjects.Models;
-using Repositories;
+using Repositories.Interface;
+using Services.Interface;
 
-namespace Services
+namespace Services.Implementation
 {
     public class AccountService(IAccountRepository accountRepository) : IAccountService
     {

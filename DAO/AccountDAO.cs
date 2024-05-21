@@ -1,7 +1,7 @@
 ﻿
 using BusinessObjects.Models;
 
-namespace DAO.Accounts
+namespace DAO
 {
     public class AccountDAO
     {

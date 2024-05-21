@@ -1,6 +1,6 @@
 ﻿using BusinessObjects.Models;
 
-namespace Repositories
+namespace Repositories.Interface
 {
     public interface IAccountRepository
     {

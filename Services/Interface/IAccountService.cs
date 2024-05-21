@@ -1,6 +1,6 @@
 ﻿using BusinessObjects.Models;
 
-namespace Services
+namespace Services.Interface
 {
     public interface IAccountService
     {
