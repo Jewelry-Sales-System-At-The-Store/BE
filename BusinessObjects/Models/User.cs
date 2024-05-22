@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
-
-namespace BusinessObjects.Models;
+﻿namespace BusinessObjects.Models;
 
 public partial class User
 {

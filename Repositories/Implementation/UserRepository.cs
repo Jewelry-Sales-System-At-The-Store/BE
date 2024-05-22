@@ -6,10 +6,7 @@ namespace Repositories.Implementation
 {
     public class UserRepository : IUserRepository
     {
-        public Task<int> Create(User entity)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public Task<IEnumerable<User>> Find(Func<User, bool> predicate)
         {
@@ -34,6 +31,11 @@ namespace Repositories.Implementation
         public async Task<IEnumerable<User?>?> GetAll()
         {
             return await UserDAO.Instance.GetUsers();
+        }
+
+        public Task<int> Create(User entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }
