@@ -1,4 +1,4 @@
-﻿namespace Repositories.Interface
+﻿namespace Repositories.Interface.GenericRepository
 {
     public interface IRepository<T>
     {

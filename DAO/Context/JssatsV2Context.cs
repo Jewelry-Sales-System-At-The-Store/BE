@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using BusinessObjects.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace BusinessObjects.Models;
+namespace DAO.Context;
 
 public partial class JssatsV2Context : DbContext
 {

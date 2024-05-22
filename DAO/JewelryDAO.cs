@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.Models;
+using DAO.Context;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAO
@@ -57,6 +58,11 @@ namespace DAO
             var jewelry = await _context.Jewelries.FindAsync(id);
             _context.Jewelries.Remove(jewelry ?? new Jewelry());
             return await _context.SaveChangesAsync();
+        }
+        public async Task<bool> IsSold(int id)
+        {
+            var jewelry = await _context.Jewelries.FindAsync(id);
+            return jewelry?.IsSold ?? false;
         }
     }
 }
