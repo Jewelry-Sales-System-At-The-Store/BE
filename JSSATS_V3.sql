@@ -1,3 +1,4 @@
+DROP DATABASE JSSATS_V2
 CREATE TABLE [User] (
   [UserId] int PRIMARY KEY,
   [RoleId] int,
@@ -30,9 +31,10 @@ CREATE TABLE [Jewelry] (
   [Name] nvarchar(255),
   [Barcode] nvarchar(255),
   [BasePrice] float,
-  [Weight] float,
+  [Weight] FLOAT,
   [LaborCost] float,
   [StoneCost] float
+  [IsSold] bit
 )
 
 
