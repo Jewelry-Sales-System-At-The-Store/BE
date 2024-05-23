@@ -34,14 +34,15 @@ public class JewelryController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateJewelry(JewelryDTO jewelryDTO)
     {
-        var jewelyEntity = _mapper.Map<Jewelry>(jewelryDTO);
-        var result = await _jewelryService.CreateJewelry(jewelyEntity);
+        Jewelry jewelry = _mapper.Map<Jewelry>(jewelryDTO);
+        var result = await _jewelryService.CreateJewelry(jewelry);
         return Ok(result);
     }
     [HttpPut]
-    public async Task<IActionResult> UpdateJewelry(Jewelry jewelry)
+    public async Task<IActionResult> UpdateJewelry(int id, JewelryDTO jewelryDTO)
     {
-        var result = await _jewelryService.UpdateJewelry(jewelry);
+        Jewelry jewelry = _mapper.Map<Jewelry>(jewelryDTO);
+        var result = await _jewelryService.UpdateJewelry(id, jewelry);
         return Ok(result);
     }
     [HttpDelete("{id}")]

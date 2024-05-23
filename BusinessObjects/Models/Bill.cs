@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace BusinessObjects.Models;
 
@@ -14,9 +15,7 @@ public partial class Bill
     public double? TotalAmount { get; set; }
 
     public DateTime? SaleDate { get; set; }
-
     public virtual ICollection<BillJewelry> BillJewelries { get; set; } = new List<BillJewelry>();
-
     public virtual ICollection<BillPromotion> BillPromotions { get; set; } = new List<BillPromotion>();
 
     public virtual Customer? Customer { get; set; }

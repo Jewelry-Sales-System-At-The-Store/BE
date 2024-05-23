@@ -1,24 +1,17 @@
 ﻿using BusinessObjects.Models;
 using DAO.Context;
+using DAO.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAO
 {
-    public class WarrantyDAO
+    public class WarrantyDAO : Singleton<WarrantyDAO>
     {
         private readonly JssatsV2Context _context;
-        public static WarrantyDAO? instance;
+
         public WarrantyDAO()
         {
             _context = new JssatsV2Context();
-        }
-        public static WarrantyDAO Instance
-        {
-            get
-            {
-                instance ??= new WarrantyDAO();
-                return instance;
-            }
         }
         public async Task<IEnumerable<Warranty>?> GetWarranties()
         {

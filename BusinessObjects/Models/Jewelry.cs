@@ -24,7 +24,6 @@ public partial class Jewelry
 
     public double? StoneCost { get; set; }
     public bool? IsSold { get; set; }
-
     public virtual ICollection<BillJewelry> BillJewelries { get; set; } = new List<BillJewelry>();
 
     public virtual JewelryType? JewelryType { get; set; }

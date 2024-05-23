@@ -1,27 +1,16 @@
 ﻿using BusinessObjects.Models;
 using DAO.Context;
+using DAO.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAO
 {
-    public class JewelryDAO
+    public class JewelryDAO : Singleton<JewelryDAO>
     {
         private readonly JssatsV2Context _context;
-        public static JewelryDAO? instance;
         public JewelryDAO()
         {
             _context = new JssatsV2Context();
-        }
-        public static JewelryDAO Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new JewelryDAO();
-                }
-                return instance;
-            }
         }
         public async Task<IEnumerable<Jewelry>> GetJewelries()
         {
@@ -43,9 +32,8 @@ namespace DAO
 
         public async Task<int> UpdateJewelry(int id, Jewelry jewelry)
         {
-            // Find the existing jewelry based on the provided ID
             var existingJewelry = await _context.Jewelries
-                .FirstOrDefaultAsync(j => j.JewelryId == id);
+                .FirstOrDefaultAsync(w => w.JewelryId == id);
             jewelry.JewelryId = id;
             if (existingJewelry == null) return 0;
             _context.Entry(existingJewelry).CurrentValues.SetValues(jewelry);

@@ -1,5 +1,4 @@
-﻿using BusinessObjects.DTO;
-using BusinessObjects.Models;
+﻿using BusinessObjects.Models;
 using DAO;
 using Repositories.Interface;
 
@@ -7,29 +6,29 @@ namespace Repositories.Implementation
 {
     public class JewelryRepository : IJewelryRepository
     {
-        public Task<int> CreateJewelry(Jewelry jewelry)
+        public async Task<int> Create(Jewelry entity)
         {
-            return JewelryDAO.Instance.CreateJewelry(jewelry);
+            return await JewelryDAO.Instance.CreateJewelry(entity);
         }
 
-        public Task<int> DeleteJewelry(int id)
+        public async Task<int> Delete(int id)
         {
-            return JewelryDAO.Instance.DeleteJewelry(id);
+            return await JewelryDAO.Instance.DeleteJewelry(id);
         }
 
-        public Task<IEnumerable<Jewelry>> GetJewelries()
+        public async Task<IEnumerable<Jewelry?>?> GetAll()
         {
-            return JewelryDAO.Instance.GetJewelries();
+            return await JewelryDAO.Instance.GetJewelries();
         }
 
-        public Task<Jewelry> GetJewelryById(int id)
+        public async Task<Jewelry?> GetById(int id)
         {
-            return JewelryDAO.Instance.GetJewelryById(id);
+            return await JewelryDAO.Instance.GetJewelryById(id);
         }
 
-        public Task<int> UpdateJewelry(Jewelry jewelry)
+        public async Task<int> Update(int id, Jewelry entity)
         {
-            throw new NotImplementedException();
+            return await JewelryDAO.Instance.UpdateJewelry(id, entity);
         }
     }
 }

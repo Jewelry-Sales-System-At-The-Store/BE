@@ -1,32 +1,18 @@
 ﻿using BusinessObjects.DTO;
 using BusinessObjects.Models;
 using DAO.Context;
+using DAO.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAO
 {
-    public class PromotionDAO
+    public class PromotionDAO : Singleton<PromotionDAO>
     {
         private readonly JssatsV2Context _context;
-        public static PromotionDAO? _instance;
 
         public PromotionDAO()
         {
             _context = new JssatsV2Context();
-        }
-
-        public static PromotionDAO Instance
-        {
-            get
-            {
-                _instance ??= new PromotionDAO();
-                return _instance;
-            }
         }
 
         public async Task<IEnumerable<Promotion>> GetPromotions()
@@ -41,14 +27,8 @@ namespace DAO
 
             var existUser = await _context.Users
                 .Include(u => u.Role)
-                .FirstOrDefaultAsync(x => x.Username == promotion.ApproveManager);
-
-            if (existUser == null)
-            {
-                throw new ArgumentException("User does not exist");
-            }
-
-            if (existUser.Role.RoleName != "Manager")
+                .FirstOrDefaultAsync(x => x.Username == promotion.ApproveManager) ?? throw new ArgumentException("User does not exist");
+            if (existUser.Role?.RoleName != "Manager")
             {
                 throw new ArgumentException("User does not have the Manager role");
             }
@@ -73,7 +53,7 @@ namespace DAO
                 throw new ArgumentException("User does not exist");
             }
 
-            if (existUser.Role.RoleName != "Manager")
+            if (existUser.Role?.RoleName != "Manager")
             {
                 throw new ArgumentException("User does not have the Manager role");
             }

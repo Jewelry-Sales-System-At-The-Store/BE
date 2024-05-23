@@ -1,24 +1,16 @@
 ﻿using BusinessObjects.Models;
 using DAO.Context;
+using DAO.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAO
 {
-    public class CustomerDAO
+    public class CustomerDAO : Singleton<CustomerDAO>
     {
         public readonly JssatsV2Context _context;
-        public static CustomerDAO? instance;
         public CustomerDAO()
         {
             _context = new JssatsV2Context();
-        }
-        public static CustomerDAO Instance
-        {
-            get
-            {
-                instance ??= new CustomerDAO();
-                return instance;
-            }
         }
         public async Task<IEnumerable<Customer>> GetCustomers()
         {

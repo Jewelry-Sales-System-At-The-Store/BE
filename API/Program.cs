@@ -1,5 +1,3 @@
-using BusinessObjects.Models;
-using Microsoft.Extensions.Options;
 using Repositories.Implementation;
 using Repositories.Interface;
 using Services.Implementation;
@@ -32,13 +30,18 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+# region Swagger
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "JSSATS-API-V1");
+    c.InjectStylesheet("/swagger-ui/SwaggerDark.css");
+});
+
+# endregion
 app.UseAuthorization();
+
+app.UseStaticFiles();
 
 app.MapControllers();
 

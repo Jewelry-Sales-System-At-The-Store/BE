@@ -1,4 +1,5 @@
-﻿using BusinessObjects.Models;
+﻿using BusinessObjects.DTO;
+using BusinessObjects.Models;
 using Repositories.Interface;
 using Services.Interface;
 
@@ -12,29 +13,28 @@ namespace Services.Implementation
             _jewelryRepository = jewelryRepository;
         }
 
-        public Task<int> CreateJewelry(Jewelry jewelry)
+        public async Task<int> CreateJewelry(Jewelry jewelry)
         {
-            return _jewelryRepository.CreateJewelry(jewelry);
+            return await _jewelryRepository.Create(jewelry);
         }
 
         public Task<int> DeleteJewelry(int id)
         {
-            return _jewelryRepository.DeleteJewelry(id);
+            throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Jewelry>> GetJewelries()
+        public async Task<IEnumerable<Jewelry?>?> GetJewelries()
         {
-            return _jewelryRepository.GetJewelries();
+            return await _jewelryRepository.GetAll();
         }
 
-        public Task<Jewelry> GetJewelryById(int id)
+        public async Task<Jewelry?> GetJewelryById(int id)
         {
-            return _jewelryRepository.GetJewelryById(id);
+            return await _jewelryRepository.GetById(id);
         }
-
-        public Task<int> UpdateJewelry(Jewelry jewelry)
+        public async Task<int> UpdateJewelry(int id, Jewelry jewelry)
         {
-            return _jewelryRepository.UpdateJewelry(jewelry);
+            return await _jewelryRepository.Update(id, jewelry);
         }
     }
 }

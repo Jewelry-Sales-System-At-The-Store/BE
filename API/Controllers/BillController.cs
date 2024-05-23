@@ -1,4 +1,5 @@
-﻿using BusinessObjects.DTO;
+﻿using AutoMapper;
+using BusinessObjects.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interface;
 
@@ -6,9 +7,11 @@ namespace API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class BillController(IBillService billService) : ControllerBase
+public class BillController(IBillService billService, IMapper mapper) : ControllerBase
 {
     public IBillService BillService { get; } = billService;
+    public IMapper Mapper { get; } = mapper;
+
     [HttpGet]
     public async Task<IActionResult> Get()
     {
@@ -28,7 +31,7 @@ public class BillController(IBillService billService) : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create(BillDTO billDto)
     {
-        var bill = await BillService.Create(billDto);
-        return Ok(bill);
+        var result = await BillService.Create(billDto);
+        return Ok(result);
     }
 }

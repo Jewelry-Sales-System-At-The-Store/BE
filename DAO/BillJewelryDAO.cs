@@ -1,23 +1,15 @@
 ﻿using BusinessObjects.Models;
 using DAO.Context;
+using DAO.Interfaces;
 using Microsoft.EntityFrameworkCore;
 namespace DAO
 {
-    public class BillJewelryDAO
+    public class BillJewelryDAO : Singleton<BillJewelryDAO>
     {
         private readonly JssatsV2Context _context;
-        public static BillJewelryDAO? instance;
         public BillJewelryDAO()
         {
             _context = new JssatsV2Context();
-        }
-        public static BillJewelryDAO Instance
-        {
-            get
-            {
-                instance ??= new BillJewelryDAO();
-                return instance;
-            }
         }
         public async Task<IEnumerable<BillJewelry?>?> GetBillJewelries()
         {

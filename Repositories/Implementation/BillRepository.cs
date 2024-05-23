@@ -13,7 +13,7 @@ namespace Repositories.Implementation
             {
                 CustomerId = entity.CustomerId,
                 UserId = entity.UserId,
-                SaleDate = entity.SaleDate
+                SaleDate = entity.SaleDate,                    
             };
             var result = await BillDAO.Instance.CreateBill(bill);
             if (result > 0)

@@ -1,18 +1,7 @@
 ﻿using BusinessObjects.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Repositories.Interface.GenericRepository;
+namespace Repositories.Interface;
 
-namespace Repositories.Interface
+public interface IJewelryRepository : IReadRepository<Jewelry>, ICreateRepository<Jewelry>, IUpdateRepository<Jewelry>, IDeleteRepository<Jewelry>
 {
-    public interface IJewelryRepository
-    {
-        public Task<IEnumerable<Jewelry>> GetJewelries();
-        public Task<Jewelry> GetJewelryById(int id);
-        public Task<int> CreateJewelry(Jewelry jewelry);
-        public Task<int> UpdateJewelry(Jewelry jewelry);
-        public Task<int> DeleteJewelry(int id);
-    }
 }
