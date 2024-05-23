@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using API.Extentions;
+using AutoMapper;
 using BusinessObjects.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interface;
@@ -15,17 +16,18 @@ public class BillController(IBillService billService, IMapper mapper) : Controll
     [HttpGet]
     public async Task<IActionResult> Get()
     {
-        var bills = await BillService.GetAll();
+        var bills = await BillService.GetAll2();
         return Ok(bills);
     }
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
-        var bill = await BillService.GetById(id);
+        var bill = await BillService.GetById2(id);
         if (bill == null)
         {
             return NotFound();
         }
+        //BillResponseDTO billResponseDTO = Mapper.Map<BillResponseDTO>(bill);
         return Ok(bill);
     }
     [HttpPost]

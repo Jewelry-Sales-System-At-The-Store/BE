@@ -47,6 +47,12 @@ namespace DAO
             _context.Customers.Remove(customer);
             return await _context.SaveChangesAsync();
         }
+        public async Task<Customer?> GetCustomerByBillId(int? billId)
+        {
+            var bill = await _context.Bills.FindAsync(billId);
+            if (bill == null) return null;
+            return await _context.Customers.FindAsync(bill.CustomerId);
+        }
 
     }
 }

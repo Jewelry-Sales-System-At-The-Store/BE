@@ -1,4 +1,5 @@
-﻿using BusinessObjects.DTO;
+﻿using API.Extentions;
+using BusinessObjects.DTO;
 using BusinessObjects.Models;
 
 namespace Services.Interface
@@ -9,5 +10,7 @@ namespace Services.Interface
         public Task<Bill?> FindBillByCustomerId(int customerId);
         public Task<IEnumerable<Bill?>?> GetAll();
         public Task<Bill?> GetById(int id);
+        public Task<BillResponseDTO?> GetById2(int id);
+        public Task<IEnumerable<BillResponseDTO?>?> GetAll2();
     }
 }

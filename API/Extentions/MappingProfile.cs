@@ -10,6 +10,7 @@ namespace API.Extentions
         {
             CreateMap<Jewelry, JewelryDTO>().ReverseMap();
             CreateMap<Warranty, WarrantyDTO>().ReverseMap();
+            CreateMap<Bill, BillResponseDTO>().ReverseMap();
         }
     }
 }

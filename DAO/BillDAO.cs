@@ -18,7 +18,7 @@ namespace DAO
         }
         public async Task<Bill?> GetBillById(int id)
         {
-            return await _context.Bills.FindAsync(id);
+            return await _context.Bills.Include(b => b.BillJewelries).FirstOrDefaultAsync(b=>b.BillId == id);
         }
         public async Task<int> CreateBill(Bill bill)
         {

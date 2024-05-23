@@ -26,5 +26,9 @@ namespace DAO
             _context.BillJewelries.Add(billJewelry);
             return await _context.SaveChangesAsync();
         }
+        public async Task<BillJewelry?> GetBillJewelryByBillId(int billId)
+        {
+            return await _context.BillJewelries.FirstOrDefaultAsync(b => b.BillId == billId);
+        } 
     }
 }

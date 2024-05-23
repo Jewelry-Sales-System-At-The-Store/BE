@@ -52,5 +52,12 @@ namespace DAO
             var jewelry = await _context.Jewelries.FindAsync(id);
             return jewelry?.IsSold ?? false;
         }
+        public async Task<IEnumerable<Jewelry>> GetJewelriesByBillId(int? billId)
+        {
+            return await _context.Jewelries
+                .Where(j => j.BillJewelries.Any(bj => bj.BillId == billId))
+                .ToListAsync();
+        }
+
     }
 }
