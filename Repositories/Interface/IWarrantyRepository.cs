@@ -1,7 +1,7 @@
 ﻿using BusinessObjects.Models;
 namespace Repositories.Interface
 {
-    public interface IWarrantyRepository : IRepository<Warranty>
+    public interface IWarrantyRepository : IReadRepository<Warranty>, ICreateRepository<Warranty>, IUpdateRepository<Warranty>
     {
 
     }

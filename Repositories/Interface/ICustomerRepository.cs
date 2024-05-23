@@ -2,7 +2,7 @@
 
 namespace Repositories.Interface
 {
-    public interface ICustomerRepository : IRepository<Customer>
+    public interface ICustomerRepository : IReadRepository<Customer>, ICreateRepository<Customer>, IUpdateRepository<Customer>
     {
     }
 }
