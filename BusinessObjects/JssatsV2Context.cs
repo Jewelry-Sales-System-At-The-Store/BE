@@ -42,16 +42,16 @@ public partial class JssatsV2Context : DbContext
 
     public virtual DbSet<Warranty> Warranties { get; set; }
 
-    //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-    //        => optionsBuilder.UseSqlServer("Server=(local);uid=sa;pwd=Akaka9999;database=JSSATS_V2;TrustServerCertificate=True");
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        if (!optionsBuilder.IsConfigured)
-        {
-            optionsBuilder.UseSqlServer(GetConnectionString());
-        }
-    }
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=(local);uid=sa;pwd=Abcd1234;database=JSSATS;TrustServerCertificate=True");
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //{
+    //    if (!optionsBuilder.IsConfigured)
+    //    {
+    //        optionsBuilder.UseSqlServer(GetConnectionString());
+    //    }
+    //}
     private string GetConnectionString()
     {
         IConfiguration config = new ConfigurationBuilder()
@@ -139,13 +139,14 @@ public partial class JssatsV2Context : DbContext
 
         modelBuilder.Entity<GoldPrice>(entity =>
         {
-            entity.HasKey(e => e.GoldPriceId).HasName("PK__GoldPric__C2C7860CE0CA1F4C");
+            entity.HasKey(e => e.Id).HasName("PK__GoldPrice__C2C7860CE0CA1F4C");
 
             entity.ToTable("GoldPrice");
 
-            entity.Property(e => e.GoldPriceId).ValueGeneratedNever();
-            entity.Property(e => e.Date).HasColumnType("datetime");
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.LastUpdated).HasColumnType("datetime"); // Assuming Timestamp corresponds to the Date property in your GoldPrice class
         });
+
 
         modelBuilder.Entity<Jewelry>(entity =>
         {

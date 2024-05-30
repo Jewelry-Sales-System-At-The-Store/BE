@@ -1,5 +1,4 @@
-﻿using API.Extentions;
-using AutoMapper;
+﻿using AutoMapper;
 using BusinessObjects.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interface;

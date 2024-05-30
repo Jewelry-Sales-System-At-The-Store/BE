@@ -1,4 +1,4 @@
-﻿namespace API.Extentions
+﻿namespace BusinessObjects.DTO
 {
     public class BillResponseDTO
     {

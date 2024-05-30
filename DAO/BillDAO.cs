@@ -15,6 +15,8 @@ namespace DAO
         public async Task<IEnumerable<Bill?>?> GetBills()
         {
             return await _context.Bills.Include(b=>b.BillJewelries).ThenInclude(bj=>bj.Jewelry).ToListAsync();
+
+            // Hello
         }
         public async Task<Bill?> GetBillById(int id)
         {
