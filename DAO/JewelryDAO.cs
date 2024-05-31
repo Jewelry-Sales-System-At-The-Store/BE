@@ -1,4 +1,5 @@
-﻿using BusinessObjects.Models;
+﻿using BusinessObjects.DTO;
+using BusinessObjects.Models;
 using DAO.Context;
 using DAO.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -14,12 +15,12 @@ namespace DAO
         }
         public async Task<IEnumerable<Jewelry>> GetJewelries()
         {
-            return await _context.Jewelries.Include(j => j.JewelryType).ToListAsync();
+            return await _context.Jewelries.Include(jt => jt.JewelryType).Include(wr => wr.Warranty).ToListAsync();
         }
 
-        public async Task<Jewelry> GetJewelryById(int id)
+        public async Task<Jewelry?> GetJewelryById(int id)
         {
-            return await _context.Jewelries.FindAsync(id) ?? new Jewelry();
+            return await _context.Jewelries.Include(jt => jt.JewelryType).Include(wr => wr.Warranty).FirstOrDefaultAsync(p => p.JewelryId == id);
         }
 
         public async Task<int> CreateJewelry(Jewelry jewelry)

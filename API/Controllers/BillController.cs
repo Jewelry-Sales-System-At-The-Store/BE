@@ -15,13 +15,13 @@ public class BillController(IBillService billService, IMapper mapper) : Controll
     [HttpGet]
     public async Task<IActionResult> Get()
     {
-        var bills = await BillService.GetAll2();
+        var bills = await BillService.GetAll();
         return Ok(bills);
     }
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
-        var bill = await BillService.GetById2(id);
+        var bill = await BillService.GetById(id);
         if (bill == null)
         {
             return NotFound();

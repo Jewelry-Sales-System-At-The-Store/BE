@@ -20,23 +20,14 @@ namespace Services.Implementation
             return await billRepository.FindBillByCustomerId(customerId);
         }
 
-        public async Task<IEnumerable<Bill?>?> GetAll()
+        public async Task<IEnumerable<BillResponseDTO?>?> GetAll()
         {
             return await billRepository.GetAll();
         }
 
-        public async Task<IEnumerable<BillResponseDTO?>?> GetAll2()
-        {
-            return await billRepository.GetAll2();
-        }
-
-        public async Task<Bill?> GetById(int id)
+        public async Task<BillResponseDTO?> GetById(int id)
         {
             return await billRepository.GetById(id);
-        }
-        public async Task<BillResponseDTO?> GetById2(int id)
-        {
-            return await billRepository.GetById2(id);
         }
     }
 }
