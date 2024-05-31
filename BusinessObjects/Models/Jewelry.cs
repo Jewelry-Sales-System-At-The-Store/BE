@@ -29,6 +29,7 @@ public partial class Jewelry
     public virtual JewelryType? JewelryType { get; set; }
 
     public virtual ICollection<Purchase> Purchases { get; set; } = new List<Purchase>();
+    [JsonIgnore]
     public virtual Warranty? Warranty { get; set; }
 }
  
