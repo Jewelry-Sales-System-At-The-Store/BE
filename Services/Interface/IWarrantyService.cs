@@ -1,4 +1,5 @@
-﻿using BusinessObjects.Models;
+﻿using BusinessObjects.DTO;
+using BusinessObjects.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,8 @@ namespace Services.Interface
     public interface IWarrantyService
     {
         public Task<int> CreateWarranty(Warranty warranty);
-        public Task<IEnumerable<Warranty?>?> GetWarranties();
-        public Task<Warranty?> GetWarrantyById(int id);
+        public Task<IEnumerable<WarrantyResponseDTO?>?> GetWarranties();
+        public Task<WarrantyResponseDTO?> GetWarrantyById(int id);
         public Task<int> UpdateWarranty(int id ,Warranty warranty);
         public Task<int> DeleteWarranty(int id);
     }

@@ -17,6 +17,7 @@ namespace DAO
         {
             return await _context.Warranties
                                  .Include(w => w.Jewelries)
+                                    .ThenInclude(jt => jt.JewelryType)
                                  .ToListAsync();
         }
         public async Task<Warranty?> GetWarrantyById(int? id)
