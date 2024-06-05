@@ -7,17 +7,14 @@ namespace DAO
 {
     public class BillDAO : Singleton<BillDAO>
     {
-        private readonly JssatsV2Context _context;
+        private readonly JssatsContext _context;
         public BillDAO()
         {
-            _context = new JssatsV2Context();
+            _context = new JssatsContext();
         }
         public async Task<IEnumerable<Bill>> GetBills()
         {
             return await _context.Bills
-                                 .Include(b => b.BillJewelries)
-                                     .ThenInclude(bj => bj.Jewelry)
-                                         .ThenInclude(j => j.Warranty)
                                  .Include(b => b.BillJewelries)
                                      .ThenInclude(bj => bj.Jewelry)
                                          .ThenInclude(j => j.JewelryType)
@@ -29,9 +26,6 @@ namespace DAO
             return await _context.Bills
                              .Include(b => b.BillJewelries)
                                  .ThenInclude(bj => bj.Jewelry)
-                                     .ThenInclude(j => j.Warranty)
-                             .Include(b => b.BillJewelries)
-                                 .ThenInclude(bj => bj.Jewelry)
                                      .ThenInclude(j => j.JewelryType)
                              .FirstOrDefaultAsync(b => b.BillId == id);
         }
@@ -39,9 +33,6 @@ namespace DAO
         public async Task<Bill?> FindBillByCustomerId(int customerId)
         {
             return await _context.Bills
-                                 .Include(b => b.BillJewelries)
-                                     .ThenInclude(bj => bj.Jewelry)
-                                         .ThenInclude(j => j.Warranty)
                                  .Include(b => b.BillJewelries)
                                      .ThenInclude(bj => bj.Jewelry)
                                          .ThenInclude(j => j.JewelryType)
