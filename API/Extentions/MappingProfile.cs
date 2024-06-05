@@ -9,8 +9,7 @@ namespace API.Extensions
         public MappingProfile()
         {
             CreateMap<Jewelry, JewelryDTO>().ReverseMap();
-            CreateMap<Warranty, WarrantyResponseDTO>()
-            .ForMember(dest => dest.Jewelries, opt => opt.MapFrom(src => src.Jewelries));
+            CreateMap<Warranty, WarrantyResponseDTO>();
             CreateMap<Bill, BillResponseDTO>()
             .ForMember(destination => destination.CustomerName, opt => opt.MapFrom(src => src.Customer.Name))
             .ForMember(destination => destination.Jewelries, opt => opt.MapFrom(src => src.BillJewelries.Select(bj => bj.Jewelry)));

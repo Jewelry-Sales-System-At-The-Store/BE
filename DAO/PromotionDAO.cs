@@ -8,11 +8,11 @@ namespace DAO
 {
     public class PromotionDAO : Singleton<PromotionDAO>
     {
-        private readonly JssatsV2Context _context;
+        private readonly JssatsContext _context;
 
         public PromotionDAO()
         {
-            _context = new JssatsV2Context();
+            _context = new JssatsContext();
         }
 
         public async Task<IEnumerable<Promotion>> GetPromotions()

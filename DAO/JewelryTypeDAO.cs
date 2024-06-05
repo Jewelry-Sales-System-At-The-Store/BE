@@ -11,10 +11,10 @@ namespace DAO
 {
     public class JewelryTypeDAO : Singleton<JewelryTypeDAO>
     {
-        private readonly JssatsV2Context _context;
+        private readonly JssatsContext _context;
         public JewelryTypeDAO()
         {
-            _context = new JssatsV2Context();
+            _context = new JssatsContext();
         }
         public async Task<JewelryType?> GetJewelryTypeById(int? id)
         {

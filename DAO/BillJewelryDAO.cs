@@ -6,10 +6,10 @@ namespace DAO
 {
     public class BillJewelryDAO : Singleton<BillJewelryDAO>
     {
-        private readonly JssatsV2Context _context;
+        private readonly JssatsContext _context;
         public BillJewelryDAO()
         {
-            _context = new JssatsV2Context();
+            _context = new JssatsContext();
         }
         public async Task<IEnumerable<BillJewelry?>?> GetBillJewelries()
         {
