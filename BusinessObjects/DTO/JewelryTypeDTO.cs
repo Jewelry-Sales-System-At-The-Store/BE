@@ -1,6 +1,6 @@
 ﻿namespace BusinessObjects.DTO;
 
-public class JewelryTypeDTo
+public class JewelryTypeDTO
 {
-    
+    public string? Name { get; set; }
 }

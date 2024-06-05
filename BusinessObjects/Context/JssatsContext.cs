@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace DAO.Context
+namespace BusinessObjects.Context
 {
     public class JssatsContext : DbContext
     {

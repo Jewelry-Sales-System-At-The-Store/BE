@@ -1,6 +1,30 @@
-﻿namespace Services.Implementation;
+﻿using BusinessObjects.Models;
+using Repositories.Interface;
+using Services.Interface;
 
-public class JewelryTypeService
+namespace Services.Implementation;
+
+public class JewelryTypeService(IJewelryTypeRepository repository) : IJewelryTypeService
 {
-    
+    public IJewelryTypeRepository Repository { get; } = repository;
+
+    public async Task<IEnumerable<JewelryType?>?> GetJewelry()
+    {
+        return await Repository.GetAll();
+    }
+
+    public async Task<JewelryType?> GetJewelryById(int id)
+    {
+        return await Repository.GetById(id);
+    }
+
+    public async Task<int> CreateJewelry(JewelryType jewelryType)
+    {
+        return await Repository.Create(jewelryType);
+    }
+
+    public async Task<int> UpdateJewelry(int id, JewelryType jewelryType)
+    {
+        return await Repository.Update(id, jewelryType);
+    }
 }

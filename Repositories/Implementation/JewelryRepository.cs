@@ -20,23 +20,16 @@ namespace Repositories.Implementation
             return await JewelryDAO.Instance.DeleteJewelry(id);
         }
 
-        public async Task<IEnumerable<JewelryResponseDTO?>?> GetAll()
+        public async Task<IEnumerable<Jewelry?>?> GetAll()
         {
-            var jewelries = JewelryDAO.Instance.GetJewelries();
-            if (jewelries == null) return null;
-            var jewelryResponses = new List<JewelryResponseDTO?>();
-            foreach (var Jewelry in await jewelries)
-            {
-                var jewelryResponse = Mapper.Map<JewelryResponseDTO>(Jewelry);
-                jewelryResponses.Add(jewelryResponse);
-            }
-            return jewelryResponses;
+            var jewelries =  await JewelryDAO.Instance.GetJewelries();
+            return jewelries;
         }
 
-        public async Task<JewelryResponseDTO?> GetById(int id)
+        public async Task<Jewelry?> GetById(int id)
         {
-            var Jewelry = await JewelryDAO.Instance.GetJewelryById(id);
-            return Mapper.Map<JewelryResponseDTO>(Jewelry);
+            var jewelry = await JewelryDAO.Instance.GetJewelryById(id);
+            return jewelry;
         }
 
         public async Task<int> Update(int id, Jewelry entity)

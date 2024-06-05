@@ -24,12 +24,12 @@ namespace Services.Implementation
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<WarrantyResponseDTO?>?> GetWarranties()
+        public async Task<IEnumerable<Warranty?>?> GetWarranties()
         {
             return await WarrantyRepository.GetAll();
         }
 
-        public async Task<WarrantyResponseDTO?> GetWarrantyById(int id)
+        public async Task<Warranty?> GetWarrantyById(int id)
         {
             return await WarrantyRepository.GetById(id);
         }

@@ -1,5 +1,5 @@
-﻿using BusinessObjects.Models;
-using DAO.Context;
+﻿using BusinessObjects.Context;
+using BusinessObjects.Models;
 using DAO.Interfaces;
 using Microsoft.EntityFrameworkCore;
 

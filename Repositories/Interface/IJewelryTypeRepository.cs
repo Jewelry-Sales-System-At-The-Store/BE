@@ -1,6 +1,9 @@
-﻿namespace Repositories.Interface;
+﻿using BusinessObjects.Models;
+using Repositories.Interface.GenericRepository;
 
-public class IJewelryTypeRepository
+namespace Repositories.Interface;
+
+public interface IJewelryTypeRepository : IReadRepository<JewelryType>, ICreateRepository<JewelryType>, IUpdateRepository<JewelryType>
 {
-    
+
 }

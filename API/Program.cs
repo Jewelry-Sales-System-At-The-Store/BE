@@ -21,7 +21,8 @@ builder.Services.AddScoped<IBillService, BillService>();
 builder.Services.AddScoped<IBillRepository, BillRepository>();
 builder.Services.AddScoped<IPromotionService, PromotionService>();
 builder.Services.AddScoped<IPromotionRepository, PromotionRepository>();
-
+builder.Services.AddScoped<IJewelryTypeService, JewelryTypeService>();
+builder.Services.AddScoped<IJewelryTypeRepository, JewelryTypeRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c => {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Your API", Version = "v1" });

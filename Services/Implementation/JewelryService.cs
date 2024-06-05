@@ -23,12 +23,12 @@ namespace Services.Implementation
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<JewelryResponseDTO?>?> GetJewelries()
+        public async Task<IEnumerable<Jewelry?>?> GetJewelries()
         {
             return await _jewelryRepository.GetAll();
         }
 
-        public async Task<JewelryResponseDTO?> GetJewelryById(int id)
+        public async Task<Jewelry?> GetJewelryById(int id)
         {
             return await _jewelryRepository.GetById(id);
         }
