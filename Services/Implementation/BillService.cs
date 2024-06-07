@@ -4,7 +4,7 @@ using Repositories.Interface;
 using Services.Interface;
 
 namespace Services.Implementation
-{
+{ 
     public class BillService(IBillRepository billRepository) : IBillService
     {
         private readonly IBillRepository billRepository = billRepository;

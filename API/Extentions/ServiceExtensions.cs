@@ -1,4 +1,6 @@
-﻿using Repositories.Implementation;
+﻿using Management.Implementation;
+using Management.Interface;
+using Repositories.Implementation;
 using Repositories.Interface;
 using Services.Implementation;
 using Services.Interface;
@@ -9,7 +11,7 @@ public static class ServiceExtensions
 {
     public static IServiceCollection AddScopeService(this IServiceCollection serviceCollection)
     {
-        serviceCollection.AddScoped<IUserService, UserService>();
+        serviceCollection.AddScoped<IUserManagement, UserManagement>();
         serviceCollection.AddScoped<IUserRepository, UserRepository>();
         serviceCollection.AddScoped<IJewelryService, JewelryService>();
         serviceCollection.AddScoped<IJewelryRepository, JewelryRepository>();

@@ -21,8 +21,6 @@ namespace DAO
         }
         public async Task<int> CreateBillJewelry(BillJewelry billJewelry)
         {
-            var maxBillJewelryId = await _context.BillJewelries.MaxAsync(b => b.BillJewelryId);
-            billJewelry.BillJewelryId = maxBillJewelryId + 1;
             _context.BillJewelries.Add(billJewelry);
             return await _context.SaveChangesAsync();
         }

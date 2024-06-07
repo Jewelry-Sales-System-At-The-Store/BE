@@ -42,8 +42,6 @@ namespace DAO
 
         public async Task<int> CreateBill(Bill bill)
         {
-            var maxBillId = await _context.Bills.MaxAsync(b => b.BillId);
-            bill.BillId = maxBillId + 1;
             _context.Bills.Add(bill);
             return await _context.SaveChangesAsync();
         }

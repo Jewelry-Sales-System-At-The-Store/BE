@@ -3,7 +3,7 @@ using BusinessObjects.Models;
 
 namespace Management.Interface
 {
-    public interface IUserService
+    public interface IUserManagement
     {
         public Task<User?> Login(LoginDTO loginDTO);
         public Task<IEnumerable<User?>?> GetUsers();

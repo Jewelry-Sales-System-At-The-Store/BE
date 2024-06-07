@@ -1,5 +1,4 @@
 ﻿using BusinessObjects.Context;
-using BusinessObjects.DTO;
 using BusinessObjects.Models;
 using DAO.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -57,6 +56,5 @@ namespace DAO
                 .Where(j => j.BillJewelries.Any(bj => bj.BillId == billId))
                 .ToListAsync();
         }
-
     }
 }

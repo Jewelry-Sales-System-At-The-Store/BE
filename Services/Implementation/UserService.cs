@@ -1,9 +1,9 @@
 ﻿using BusinessObjects.DTO;
 using BusinessObjects.Models;
+using Management.Interface;
 using Repositories.Interface;
-using Services.Interface;
 
-namespace Services.Implementation
+namespace Management.Implementation
 {
     public class UserService(IUserRepository userRepository) : IUserService
     {
