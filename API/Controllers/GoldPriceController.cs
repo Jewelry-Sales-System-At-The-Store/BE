@@ -44,8 +44,8 @@ namespace API.Controllers
                             goldPrices.Add(new GoldPrice
                             {
                                 City = city,
-                                BuyPrice = decimal.Parse(buyPrice),
-                                SellPrice = decimal.Parse(sellPrice),
+                                BuyPrice = float.Parse(buyPrice),
+                                SellPrice = float.Parse(sellPrice),
                                 Type = type,
                             });
                         }

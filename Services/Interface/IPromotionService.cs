@@ -10,9 +10,9 @@ namespace Services.Interface
 {
     public interface IPromotionService
     {
-        public Task<int> CreatePromotion(PromotionDTO promotion);
+        public Task<int> CreatePromotion(PromotionDto promotion);
         public Task<IEnumerable<Promotion?>?> GetPromotions();
-        public Task<int> UpdatePromotion(int id, PromotionDTO promotion);
+        public Task<int> UpdatePromotion(int id, PromotionDto promotion);
         public Task<int> DeletePromotion(int id);
     }
 }

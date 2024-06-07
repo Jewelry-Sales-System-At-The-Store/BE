@@ -1,6 +1,6 @@
 ﻿namespace BusinessObjects.DTO
 {
-    public class WarrantyDTO
+    public class WarrantyDto
     {
         public int JewelryId { get; set; }
         public string? Description { get; set; }

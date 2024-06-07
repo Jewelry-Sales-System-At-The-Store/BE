@@ -32,14 +32,14 @@ public class JewelryController : ControllerBase
         return Ok(jewelry);
     }
     [HttpPost]
-    public async Task<IActionResult> CreateJewelry(JewelryDTO jewelryDTO)
+    public async Task<IActionResult> CreateJewelry(JewelryDto jewelryDTO)
     {
         Jewelry jewelry = _mapper.Map<Jewelry>(jewelryDTO);
         var result = await _jewelryService.CreateJewelry(jewelry);
         return Ok(result);
     }
     [HttpPut]
-    public async Task<IActionResult> UpdateJewelry(int id, JewelryDTO jewelryDTO)
+    public async Task<IActionResult> UpdateJewelry(int id, JewelryDto jewelryDTO)
     {
         Jewelry jewelry = _mapper.Map<Jewelry>(jewelryDTO);
         var result = await _jewelryService.UpdateJewelry(id, jewelry);

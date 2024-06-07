@@ -3,10 +3,10 @@ using DAO.Interfaces;
 
 namespace DAO;
 
-public class BillPromotionDAO : Singleton<BillPromotionDAO>
+public class BillPromotionDao : Singleton<BillPromotionDao>
 {
     private readonly JssatsContext _context;
-    public BillPromotionDAO()
+    public BillPromotionDao()
     {
         _context = new JssatsContext();
     }

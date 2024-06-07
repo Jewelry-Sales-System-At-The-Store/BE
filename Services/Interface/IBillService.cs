@@ -5,9 +5,8 @@ namespace Services.Interface
 {
     public interface IBillService
     {
-        public Task<int> Create(BillDTO entity);
-        public Task<Bill?> FindBillByCustomerId(int customerId);
-        public Task<IEnumerable<BillResponseDTO?>?> GetAll();
-        public Task<BillResponseDTO?> GetById(int id);
+        public Task<int> Create(BillDto entity);
+        public Task<IEnumerable<Bill?>?> GetAll();
+        public Task<Bill?> GetById(int id);
     }
 }

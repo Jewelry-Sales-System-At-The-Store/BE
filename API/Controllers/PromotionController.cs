@@ -19,9 +19,9 @@ namespace API.Controllers
         }
 
         [HttpPost("AddNewPromotion")]
-        public async Task<IActionResult> AddPromotion(PromotionDTO promotionDTO)
+        public async Task<IActionResult> AddPromotion(PromotionDto promotionDto)
         {
-            var result = await PromotionService.CreatePromotion(promotionDTO);
+            var result = await PromotionService.CreatePromotion(promotionDto);
             return Ok(result);
         }
         [HttpDelete("DeletePromotion")]
@@ -32,9 +32,9 @@ namespace API.Controllers
         }
 
         [HttpPut("UpdatePromotion")]
-        public async Task<IActionResult> UpdatePromotion(int id, PromotionDTO promotionDTO)
+        public async Task<IActionResult> UpdatePromotion(int id, PromotionDto promotionDto)
         {
-            var result = await PromotionService.UpdatePromotion(id, promotionDTO);
+            var result = await PromotionService.UpdatePromotion(id, promotionDto);
             return Ok(result);
         }
     }

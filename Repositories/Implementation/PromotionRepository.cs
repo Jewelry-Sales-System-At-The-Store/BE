@@ -1,41 +1,25 @@
-﻿using Azure.Core;
-using BusinessObjects.DTO;
-using BusinessObjects.Models;
+﻿using BusinessObjects.Models;
 using DAO;
 using Repositories.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Repositories.Implementation
 {
     public class PromotionRepository : IPromotionRepository
     {
-        public async Task<int> Create(PromotionDTO promotionDTO)
+        public async Task<int> Create(Promotion promotion)
         {
-            var newPromotion = new Promotion
-            {
-                Type = promotionDTO.Type,
-                ApproveManager = promotionDTO.ApproveManager,
-                Description = promotionDTO.Description,
-                DiscountRate = promotionDTO.DiscountRate,
-                StartDate = promotionDTO.StartDate,
-                EndDate = promotionDTO.EndDate
-            };
-            var result = await PromotionDAO.Instance.CreatePromotion(newPromotion);
+            var result = await PromotionDao.Instance.CreatePromotion(promotion);
             return result;
         }
 
         public async Task<int> Delete(int id)
         {
-            return await PromotionDAO.Instance.DeletePromotion(id);
+            return await PromotionDao.Instance.DeletePromotion(id);
         }
 
         public async Task<IEnumerable<Promotion?>?> GetAll()
         {
-            return await PromotionDAO.Instance.GetPromotions();
+            return await PromotionDao.Instance.GetPromotions();
         }
 
         public Task<Promotion?> GetById(int id)
@@ -43,9 +27,9 @@ namespace Repositories.Implementation
             throw new NotImplementedException();
         }
 
-        public async Task<int> Update(int id, PromotionDTO entity)
+        public async Task<int> Update(int id, Promotion promotion)
         {
-            return await PromotionDAO.Instance.UpdatePromotion(id, entity);
+            return await PromotionDao.Instance.UpdatePromotion(id, promotion);
         }
     }
 }

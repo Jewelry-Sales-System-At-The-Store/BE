@@ -7,15 +7,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace Services.Implementation
 {
-    public class WarrantyService(IWarrantyRepository warrantyRepository) : IWarrantyService
+    public class WarrantyService(IWarrantyRepository warrantyRepository, IMapper mapper) : IWarrantyService
     {
-        public IWarrantyRepository WarrantyRepository { get; } = warrantyRepository;
+        private IWarrantyRepository WarrantyRepository { get; } = warrantyRepository;
+        private IMapper Mapper { get; } = mapper;
 
-        public Task<int> CreateWarranty(Warranty warranty)
+        public Task<int> CreateWarranty(WarrantyDto warrantyDto)
         {
+            var warranty = Mapper.Map<Warranty>(warrantyDto);
             return WarrantyRepository.Create(warranty);
         }
 
@@ -34,8 +37,9 @@ namespace Services.Implementation
             return await WarrantyRepository.GetById(id);
         }
 
-        public async Task<int> UpdateWarranty(int id,Warranty warranty)
+        public async Task<int> UpdateWarranty(int id,WarrantyDto warrantyDto)
         {
+            var warranty = Mapper.Map<Warranty>(warrantyDto);
             return await WarrantyRepository.Update(id,warranty);
         }
     }

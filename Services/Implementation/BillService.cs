@@ -10,22 +10,18 @@ namespace Services.Implementation
         private readonly IBillRepository billRepository = billRepository;
 
         public IBillRepository BillRepository => billRepository;
-        public async Task<int> Create(BillDTO entity)
+        public async Task<int> Create(BillDto entity)
         {
             return await billRepository.Create(entity);
         }
+        
 
-        public async Task<Bill?> FindBillByCustomerId(int customerId)
-        {
-            return await billRepository.FindBillByCustomerId(customerId);
-        }
-
-        public async Task<IEnumerable<BillResponseDTO?>?> GetAll()
+        public async Task<IEnumerable<Bill?>?> GetAll()
         {
             return await billRepository.GetAll();
         }
 
-        public async Task<BillResponseDTO?> GetById(int id)
+        public async Task<Bill?> GetById(int id)
         {
             return await billRepository.GetById(id);
         }

@@ -12,7 +12,7 @@ namespace Repositories.Implementation
 
         public async Task<int> Create(Warranty entity)
         {
-            return await WarrantyDAO.Instance.CreateWarranty(entity);
+            return await WarrantyDao.Instance.CreateWarranty(entity);
         }
 
         public Task<IEnumerable<Warranty>> Find(Func<Warranty, bool> predicate)
@@ -22,19 +22,19 @@ namespace Repositories.Implementation
 
         public async Task<IEnumerable<Warranty?>?> GetAll()
         {
-            var warranties =  await WarrantyDAO.Instance.GetWarranties();
+            var warranties =  await WarrantyDao.Instance.GetWarranties();
             return warranties;
         }
 
         public async Task<Warranty?> GetById(int id)
         {
-            var warranty = await WarrantyDAO.Instance.GetWarrantyById(id);
+            var warranty = await WarrantyDao.Instance.GetWarrantyById(id);
             return warranty;
         }
 
         public async Task<int> Update(int id, Warranty entity)
         {
-            return await WarrantyDAO.Instance.UpdateWarranty(id, entity);
+            return await WarrantyDao.Instance.UpdateWarranty(id, entity);
         }
     }
 }

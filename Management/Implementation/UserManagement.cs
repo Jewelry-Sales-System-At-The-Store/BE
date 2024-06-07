@@ -7,7 +7,7 @@ namespace Management.Implementation
 {
     public class UserManagement : IUserManagement
     {
-        public Task<User?> Login(LoginDTO loginDTO)
+        public Task<User?> Login(LoginDto loginDTO)
         {
             throw new NotImplementedException();
         }

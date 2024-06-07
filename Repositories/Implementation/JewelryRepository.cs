@@ -12,20 +12,20 @@ namespace Repositories.Implementation
         public async Task<int> Create(Jewelry entity)
         {
             entity.IsSold = false;
-            return await JewelryDAO.Instance.CreateJewelry(entity);
+            return await JewelryDao.Instance.CreateJewelry(entity);
         }
 
         public async Task<int> Delete(int id)
         {
-            return await JewelryDAO.Instance.DeleteJewelry(id);
+            return await JewelryDao.Instance.DeleteJewelry(id);
         }
 
         public async Task<IEnumerable<Jewelry?>?> GetAll()
         {
-            var jewelries = await JewelryDAO.Instance.GetJewelries();
+            var jewelries = await JewelryDao.Instance.GetJewelries();
             foreach (var jewelry in jewelries)
             {
-                var jewelryType = await JewelryTypeDAO.Instance.GetJewelryTypeById(jewelry.JewelryTypeId);
+                var jewelryType = await JewelryTypeDao.Instance.GetJewelryTypeById(jewelry.JewelryTypeId);
                 jewelry.JewelryType = jewelryType;
             }
             return jewelries;
@@ -33,8 +33,8 @@ namespace Repositories.Implementation
 
         public async Task<Jewelry?> GetById(int id)
         {
-            var jewelry = await JewelryDAO.Instance.GetJewelryById(id);
-            var jewelryType = await JewelryTypeDAO.Instance.GetJewelryTypeById(jewelry?.JewelryTypeId);
+            var jewelry = await JewelryDao.Instance.GetJewelryById(id);
+            var jewelryType = await JewelryTypeDao.Instance.GetJewelryTypeById(jewelry?.JewelryTypeId);
             if (jewelry == null) return null;
             jewelry.JewelryType = jewelryType;
             return jewelry;
@@ -42,7 +42,7 @@ namespace Repositories.Implementation
 
         public async Task<int> Update(int id, Jewelry entity)
         {
-            return await JewelryDAO.Instance.UpdateJewelry(id, entity);
+            return await JewelryDao.Instance.UpdateJewelry(id, entity);
         }
     }
 }

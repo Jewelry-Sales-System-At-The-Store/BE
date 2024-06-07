@@ -29,7 +29,7 @@ public class BillController(IBillService billService, IMapper mapper) : Controll
         return Ok(bill);
     }
     [HttpPost]
-    public async Task<IActionResult> Create(BillDTO billDto)
+    public async Task<IActionResult> Create(BillDto billDto)
     {
         var result = await BillService.Create(billDto);
         return Ok(result);

@@ -1,15 +1,15 @@
 ﻿using BusinessObjects.DTO;
 using BusinessObjects.Models;
-using Management.Interface;
 using Repositories.Interface;
+using Services.Interface;
 
-namespace Management.Implementation
+namespace Services.Implementation
 {
     public class UserService(IUserRepository userRepository) : IUserService
     {
         public IUserRepository UserRepository { get; } = userRepository;
 
-        public async Task<User?> Login(LoginDTO loginDTO)
+        public async Task<User?> Login(LoginDto loginDTO)
         {
             return await UserRepository.GetUser(loginDTO.Email ?? "", loginDTO.Password ?? "");
         }

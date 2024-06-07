@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace BusinessObjects.Migrations
 {
     /// <inheritdoc />
@@ -47,8 +49,8 @@ namespace BusinessObjects.Migrations
                     GoldPriceId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BuyPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    SellPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    BuyPrice = table.Column<float>(type: "real", nullable: false),
+                    SellPrice = table.Column<float>(type: "real", nullable: false),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastUpdated = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -122,8 +124,8 @@ namespace BusinessObjects.Migrations
                     StonePriceId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BuyPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    SellPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    BuyPrice = table.Column<float>(type: "real", nullable: false),
+                    SellPrice = table.Column<float>(type: "real", nullable: false),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastUpdated = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -164,7 +166,8 @@ namespace BusinessObjects.Migrations
                     CounterId = table.Column<int>(type: "int", nullable: true),
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -262,7 +265,7 @@ namespace BusinessObjects.Migrations
                     CustomerId = table.Column<int>(type: "int", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: true),
                     JewelryId = table.Column<int>(type: "int", nullable: true),
-                    PurchaseDate = table.Column<DateOnly>(type: "date", nullable: true),
+                    PurchaseDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     PurchasePrice = table.Column<double>(type: "float", nullable: true),
                     IsBuyBack = table.Column<int>(type: "int", nullable: true)
                 },
@@ -363,6 +366,166 @@ namespace BusinessObjects.Migrations
                         column: x => x.PromotionId,
                         principalTable: "Promotions",
                         principalColumn: "PromotionId");
+                });
+
+            migrationBuilder.InsertData(
+                table: "Counters",
+                columns: new[] { "CounterId", "Number" },
+                values: new object[,]
+                {
+                    { 1, 312 },
+                    { 2, 231 },
+                    { 3, 431 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Customers",
+                columns: new[] { "CustomerId", "Address", "Name", "Phone", "Point" },
+                values: new object[,]
+                {
+                    { 1, "Ha Noi", "Nguyen Van A", "0123456789", null },
+                    { 2, "Ha Noi", "Nguyen Van B", "0123456789", null },
+                    { 3, "Ha Noi", "Nguyen Van C", "0123456789", null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "GoldPrices",
+                columns: new[] { "GoldPriceId", "BuyPrice", "City", "LastUpdated", "SellPrice", "Type" },
+                values: new object[,]
+                {
+                    { 1, 1000f, "Ha Noi", new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6374), 1200f, "9999" },
+                    { 2, 1200f, "Ha Noi", new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6376), 1400f, "SCJ" },
+                    { 3, 1400f, "Ha Noi", new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6378), 1600f, "18k" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "JewelryTypes",
+                columns: new[] { "JewelryTypeId", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Vong tay" },
+                    { 2, "Nhan" },
+                    { 3, "Day chuyen" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Materials",
+                columns: new[] { "MaterialId", "Description", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Vang 18k", "Vang" },
+                    { 2, "Bac 9999", "Bac" },
+                    { 3, "Kim cuong 1 ly", "Kim cuong" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Promotions",
+                columns: new[] { "PromotionId", "ApproveManager", "Description", "DiscountRate", "EndDate", "StartDate", "Type" },
+                values: new object[,]
+                {
+                    { 1, null, "Giam gia 10%", 1.0, new DateTime(2024, 6, 17, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6237), new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6224), "Giam gia" },
+                    { 2, null, "Giam gia 20%", 2.0, new DateTime(2024, 6, 17, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6243), new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6243), "Giam gia" },
+                    { 3, null, "Giam gia 30%", 3.0, new DateTime(2024, 6, 17, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6245), new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6245), "Giam gia" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "RoleId", "RoleName" },
+                values: new object[,]
+                {
+                    { 1, "Admin" },
+                    { 2, "Manager" },
+                    { 3, "Staff" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "StonePrices",
+                columns: new[] { "StonePriceId", "BuyPrice", "City", "LastUpdated", "SellPrice", "Type" },
+                values: new object[,]
+                {
+                    { 1, 300f, "Ha Noi", new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6352), 400f, "Ruby" },
+                    { 2, 400f, "Ha Noi", new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6354), 500f, "Sapphire" },
+                    { 3, 500f, "Ha Noi", new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6355), 600f, "Emerald" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Jewelries",
+                columns: new[] { "JewelryId", "Barcode", "IsSold", "JewelryTypeId", "LaborCost", "Name" },
+                values: new object[,]
+                {
+                    { 1, "AVC131", true, 1, 312.0, "Vong tay" },
+                    { 2, "SAC132", false, 2, 231.0, "Nhan" },
+                    { 3, "SACC3", true, 3, 431.0, "Day chuyen" },
+                    { 4, "SFA131", true, 2, 552.0, "Vong tay Xanh" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "MasterPrices",
+                columns: new[] { "MasterPriceId", "Date", "GoldPriceId", "SellOutPrice", "StonePriceId" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6395), 1, 500f, 1 },
+                    { 2, new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6397), 2, 600f, 2 },
+                    { 3, new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6398), 3, 512f, 3 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "UserId", "CounterId", "Email", "Password", "RoleId", "Status", "Username" },
+                values: new object[,]
+                {
+                    { 1, 1, "nghialoe46a2gmail.com", "5678", 1, false, "admin Nghia" },
+                    { 2, 2, "JohnDoe@gmail.com", "1234", 2, false, "manager John Doe" },
+                    { 3, 3, "Chis@yahho.com", "4321", 3, false, "staff Chis Nguyen" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Bills",
+                columns: new[] { "BillId", "CustomerId", "SaleDate", "TotalAmount", "UserId" },
+                values: new object[,]
+                {
+                    { 1, 1, new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6291), 500.0, 1 },
+                    { 2, 2, new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6293), 1200.0, 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "JewelryMaterials",
+                columns: new[] { "JewelryMaterialId", "JewelryId", "MasterPriceId", "MaterialId", "Weight" },
+                values: new object[,]
+                {
+                    { 1, 1, 2, 1, 300f },
+                    { 2, 1, 2, 2, 400f },
+                    { 3, 2, 2, 1, 500f },
+                    { 4, 2, 2, 2, 500f }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Purchases",
+                columns: new[] { "PurchaseId", "CustomerId", "IsBuyBack", "JewelryId", "PurchaseDate", "PurchasePrice", "UserId" },
+                values: new object[,]
+                {
+                    { 1, 1, 0, 1, new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6418), 500.0, 1 },
+                    { 2, 2, 1, 2, new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6420), 300.0, 1 },
+                    { 3, 2, 0, 3, new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6422), 1000.0, 1 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "BillJewelries",
+                columns: new[] { "BillJewelryId", "BillId", "JewelryId" },
+                values: new object[,]
+                {
+                    { 1, 1, 1 },
+                    { 2, 1, 2 },
+                    { 3, 2, 3 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "BillPromotions",
+                columns: new[] { "BillPromotionId", "BillId", "PromotionId" },
+                values: new object[,]
+                {
+                    { 1, 1, 1 },
+                    { 2, 2, 1 }
                 });
 
             migrationBuilder.CreateIndex(

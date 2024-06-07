@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAO
 {
-    public class UserDAO : Singleton<UserDAO>
+    public class UserDao : Singleton<UserDao>
     {
         private readonly JssatsContext _context;
 
-        public UserDAO()
+        public UserDao()
         {
             _context = new JssatsContext();
         }

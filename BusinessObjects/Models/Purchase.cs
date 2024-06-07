@@ -14,7 +14,7 @@ public partial class Purchase
 
     public int? JewelryId { get; set; }
 
-    public DateOnly? PurchaseDate { get; set; }
+    public DateTime? PurchaseDate { get; set; }
 
     public double? PurchasePrice { get; set; }
 

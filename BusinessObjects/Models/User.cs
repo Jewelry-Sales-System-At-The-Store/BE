@@ -13,6 +13,8 @@ public partial class User
     public string? Email { get; set; }
 
     public string? Password { get; set; }
+    
+    public bool Status { get; set; }
 
     public virtual ICollection<Bill> Bills { get; set; } = new List<Bill>();
     public virtual Counter? Counter { get; set; }

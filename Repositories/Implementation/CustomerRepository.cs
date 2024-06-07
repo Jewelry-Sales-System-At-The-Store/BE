@@ -8,7 +8,7 @@ namespace Repositories.Implementation
     {
         public async Task<int> Create(Customer entity)
         {
-            return await CustomerDAO.Instance.CreateCustomer(entity);
+            return await CustomerDao.Instance.CreateCustomer(entity);
         }
 
         public Task<IEnumerable<Customer>> Find(Func<Customer, bool> predicate)
@@ -18,17 +18,17 @@ namespace Repositories.Implementation
 
         public async Task<IEnumerable<Customer?>?> GetAll()
         {
-            return await CustomerDAO.Instance.GetCustomers();
+            return await CustomerDao.Instance.GetCustomers();
         }
 
         public async Task<Customer?> GetById(int id)
         {
-            return await CustomerDAO.Instance.GetCustomerById(id);
+            return await CustomerDao.Instance.GetCustomerById(id);
         }
 
         public Task<int> Update(int id, Customer entity)
         {
-            return CustomerDAO.Instance.UpdateCustomer(id, entity);
+            return CustomerDao.Instance.UpdateCustomer(id, entity);
         }
     }
 }

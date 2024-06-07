@@ -49,6 +49,24 @@ namespace BusinessObjects.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Bills");
+
+                    b.HasData(
+                        new
+                        {
+                            BillId = 1,
+                            CustomerId = 1,
+                            SaleDate = new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6291),
+                            TotalAmount = 500.0,
+                            UserId = 1
+                        },
+                        new
+                        {
+                            BillId = 2,
+                            CustomerId = 2,
+                            SaleDate = new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6293),
+                            TotalAmount = 1200.0,
+                            UserId = 2
+                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.BillJewelry", b =>
@@ -72,6 +90,26 @@ namespace BusinessObjects.Migrations
                     b.HasIndex("JewelryId");
 
                     b.ToTable("BillJewelries");
+
+                    b.HasData(
+                        new
+                        {
+                            BillJewelryId = 1,
+                            BillId = 1,
+                            JewelryId = 1
+                        },
+                        new
+                        {
+                            BillJewelryId = 2,
+                            BillId = 1,
+                            JewelryId = 2
+                        },
+                        new
+                        {
+                            BillJewelryId = 3,
+                            BillId = 2,
+                            JewelryId = 3
+                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.BillPromotion", b =>
@@ -95,6 +133,20 @@ namespace BusinessObjects.Migrations
                     b.HasIndex("PromotionId");
 
                     b.ToTable("BillPromotions");
+
+                    b.HasData(
+                        new
+                        {
+                            BillPromotionId = 1,
+                            BillId = 1,
+                            PromotionId = 1
+                        },
+                        new
+                        {
+                            BillPromotionId = 2,
+                            BillId = 2,
+                            PromotionId = 1
+                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Counter", b =>
@@ -111,6 +163,23 @@ namespace BusinessObjects.Migrations
                     b.HasKey("CounterId");
 
                     b.ToTable("Counters");
+
+                    b.HasData(
+                        new
+                        {
+                            CounterId = 1,
+                            Number = 312
+                        },
+                        new
+                        {
+                            CounterId = 2,
+                            Number = 231
+                        },
+                        new
+                        {
+                            CounterId = 3,
+                            Number = 431
+                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Customer", b =>
@@ -136,6 +205,29 @@ namespace BusinessObjects.Migrations
                     b.HasKey("CustomerId");
 
                     b.ToTable("Customers");
+
+                    b.HasData(
+                        new
+                        {
+                            CustomerId = 1,
+                            Address = "Ha Noi",
+                            Name = "Nguyen Van A",
+                            Phone = "0123456789"
+                        },
+                        new
+                        {
+                            CustomerId = 2,
+                            Address = "Ha Noi",
+                            Name = "Nguyen Van B",
+                            Phone = "0123456789"
+                        },
+                        new
+                        {
+                            CustomerId = 3,
+                            Address = "Ha Noi",
+                            Name = "Nguyen Van C",
+                            Phone = "0123456789"
+                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.GoldPrice", b =>
@@ -146,8 +238,8 @@ namespace BusinessObjects.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GoldPriceId"));
 
-                    b.Property<decimal>("BuyPrice")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<float>("BuyPrice")
+                        .HasColumnType("real");
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
@@ -155,8 +247,8 @@ namespace BusinessObjects.Migrations
                     b.Property<DateTime>("LastUpdated")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("SellPrice")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<float>("SellPrice")
+                        .HasColumnType("real");
 
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
@@ -164,6 +256,35 @@ namespace BusinessObjects.Migrations
                     b.HasKey("GoldPriceId");
 
                     b.ToTable("GoldPrices");
+
+                    b.HasData(
+                        new
+                        {
+                            GoldPriceId = 1,
+                            BuyPrice = 1000f,
+                            City = "Ha Noi",
+                            LastUpdated = new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6374),
+                            SellPrice = 1200f,
+                            Type = "9999"
+                        },
+                        new
+                        {
+                            GoldPriceId = 2,
+                            BuyPrice = 1200f,
+                            City = "Ha Noi",
+                            LastUpdated = new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6376),
+                            SellPrice = 1400f,
+                            Type = "SCJ"
+                        },
+                        new
+                        {
+                            GoldPriceId = 3,
+                            BuyPrice = 1400f,
+                            City = "Ha Noi",
+                            LastUpdated = new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6378),
+                            SellPrice = 1600f,
+                            Type = "18k"
+                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Jewelry", b =>
@@ -194,6 +315,44 @@ namespace BusinessObjects.Migrations
                     b.HasIndex("JewelryTypeId");
 
                     b.ToTable("Jewelries");
+
+                    b.HasData(
+                        new
+                        {
+                            JewelryId = 1,
+                            Barcode = "AVC131",
+                            IsSold = true,
+                            JewelryTypeId = 1,
+                            LaborCost = 312.0,
+                            Name = "Vong tay"
+                        },
+                        new
+                        {
+                            JewelryId = 2,
+                            Barcode = "SAC132",
+                            IsSold = false,
+                            JewelryTypeId = 2,
+                            LaborCost = 231.0,
+                            Name = "Nhan"
+                        },
+                        new
+                        {
+                            JewelryId = 3,
+                            Barcode = "SACC3",
+                            IsSold = true,
+                            JewelryTypeId = 3,
+                            LaborCost = 431.0,
+                            Name = "Day chuyen"
+                        },
+                        new
+                        {
+                            JewelryId = 4,
+                            Barcode = "SFA131",
+                            IsSold = true,
+                            JewelryTypeId = 2,
+                            LaborCost = 552.0,
+                            Name = "Vong tay Xanh"
+                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.JewelryMaterial", b =>
@@ -225,6 +384,40 @@ namespace BusinessObjects.Migrations
                     b.HasIndex("MaterialId");
 
                     b.ToTable("JewelryMaterials");
+
+                    b.HasData(
+                        new
+                        {
+                            JewelryMaterialId = 1,
+                            JewelryId = 1,
+                            MasterPriceId = 2,
+                            MaterialId = 1,
+                            Weight = 300f
+                        },
+                        new
+                        {
+                            JewelryMaterialId = 2,
+                            JewelryId = 1,
+                            MasterPriceId = 2,
+                            MaterialId = 2,
+                            Weight = 400f
+                        },
+                        new
+                        {
+                            JewelryMaterialId = 3,
+                            JewelryId = 2,
+                            MasterPriceId = 2,
+                            MaterialId = 1,
+                            Weight = 500f
+                        },
+                        new
+                        {
+                            JewelryMaterialId = 4,
+                            JewelryId = 2,
+                            MasterPriceId = 2,
+                            MaterialId = 2,
+                            Weight = 500f
+                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.JewelryType", b =>
@@ -241,6 +434,23 @@ namespace BusinessObjects.Migrations
                     b.HasKey("JewelryTypeId");
 
                     b.ToTable("JewelryTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            JewelryTypeId = 1,
+                            Name = "Vong tay"
+                        },
+                        new
+                        {
+                            JewelryTypeId = 2,
+                            Name = "Nhan"
+                        },
+                        new
+                        {
+                            JewelryTypeId = 3,
+                            Name = "Day chuyen"
+                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.MasterPrice", b =>
@@ -270,6 +480,32 @@ namespace BusinessObjects.Migrations
                     b.HasIndex("StonePriceId");
 
                     b.ToTable("MasterPrices");
+
+                    b.HasData(
+                        new
+                        {
+                            MasterPriceId = 1,
+                            Date = new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6395),
+                            GoldPriceId = 1,
+                            SellOutPrice = 500f,
+                            StonePriceId = 1
+                        },
+                        new
+                        {
+                            MasterPriceId = 2,
+                            Date = new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6397),
+                            GoldPriceId = 2,
+                            SellOutPrice = 600f,
+                            StonePriceId = 2
+                        },
+                        new
+                        {
+                            MasterPriceId = 3,
+                            Date = new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6398),
+                            GoldPriceId = 3,
+                            SellOutPrice = 512f,
+                            StonePriceId = 3
+                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Material", b =>
@@ -289,6 +525,26 @@ namespace BusinessObjects.Migrations
                     b.HasKey("MaterialId");
 
                     b.ToTable("Materials");
+
+                    b.HasData(
+                        new
+                        {
+                            MaterialId = 1,
+                            Description = "Vang 18k",
+                            Name = "Vang"
+                        },
+                        new
+                        {
+                            MaterialId = 2,
+                            Description = "Bac 9999",
+                            Name = "Bac"
+                        },
+                        new
+                        {
+                            MaterialId = 3,
+                            Description = "Kim cuong 1 ly",
+                            Name = "Kim cuong"
+                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Promotion", b =>
@@ -320,6 +576,35 @@ namespace BusinessObjects.Migrations
                     b.HasKey("PromotionId");
 
                     b.ToTable("Promotions");
+
+                    b.HasData(
+                        new
+                        {
+                            PromotionId = 1,
+                            Description = "Giam gia 10%",
+                            DiscountRate = 1.0,
+                            EndDate = new DateTime(2024, 6, 17, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6237),
+                            StartDate = new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6224),
+                            Type = "Giam gia"
+                        },
+                        new
+                        {
+                            PromotionId = 2,
+                            Description = "Giam gia 20%",
+                            DiscountRate = 2.0,
+                            EndDate = new DateTime(2024, 6, 17, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6243),
+                            StartDate = new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6243),
+                            Type = "Giam gia"
+                        },
+                        new
+                        {
+                            PromotionId = 3,
+                            Description = "Giam gia 30%",
+                            DiscountRate = 3.0,
+                            EndDate = new DateTime(2024, 6, 17, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6245),
+                            StartDate = new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6245),
+                            Type = "Giam gia"
+                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Purchase", b =>
@@ -339,8 +624,8 @@ namespace BusinessObjects.Migrations
                     b.Property<int?>("JewelryId")
                         .HasColumnType("int");
 
-                    b.Property<DateOnly?>("PurchaseDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime?>("PurchaseDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<double?>("PurchasePrice")
                         .HasColumnType("float");
@@ -357,6 +642,38 @@ namespace BusinessObjects.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Purchases");
+
+                    b.HasData(
+                        new
+                        {
+                            PurchaseId = 1,
+                            CustomerId = 1,
+                            IsBuyBack = 0,
+                            JewelryId = 1,
+                            PurchaseDate = new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6418),
+                            PurchasePrice = 500.0,
+                            UserId = 1
+                        },
+                        new
+                        {
+                            PurchaseId = 2,
+                            CustomerId = 2,
+                            IsBuyBack = 1,
+                            JewelryId = 2,
+                            PurchaseDate = new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6420),
+                            PurchasePrice = 300.0,
+                            UserId = 1
+                        },
+                        new
+                        {
+                            PurchaseId = 3,
+                            CustomerId = 2,
+                            IsBuyBack = 0,
+                            JewelryId = 3,
+                            PurchaseDate = new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6422),
+                            PurchasePrice = 1000.0,
+                            UserId = 1
+                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Role", b =>
@@ -373,6 +690,23 @@ namespace BusinessObjects.Migrations
                     b.HasKey("RoleId");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            RoleId = 1,
+                            RoleName = "Admin"
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            RoleName = "Manager"
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            RoleName = "Staff"
+                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.StonePrice", b =>
@@ -383,8 +717,8 @@ namespace BusinessObjects.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StonePriceId"));
 
-                    b.Property<decimal>("BuyPrice")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<float>("BuyPrice")
+                        .HasColumnType("real");
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
@@ -392,8 +726,8 @@ namespace BusinessObjects.Migrations
                     b.Property<DateTime>("LastUpdated")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("SellPrice")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<float>("SellPrice")
+                        .HasColumnType("real");
 
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
@@ -401,6 +735,35 @@ namespace BusinessObjects.Migrations
                     b.HasKey("StonePriceId");
 
                     b.ToTable("StonePrices");
+
+                    b.HasData(
+                        new
+                        {
+                            StonePriceId = 1,
+                            BuyPrice = 300f,
+                            City = "Ha Noi",
+                            LastUpdated = new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6352),
+                            SellPrice = 400f,
+                            Type = "Ruby"
+                        },
+                        new
+                        {
+                            StonePriceId = 2,
+                            BuyPrice = 400f,
+                            City = "Ha Noi",
+                            LastUpdated = new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6354),
+                            SellPrice = 500f,
+                            Type = "Sapphire"
+                        },
+                        new
+                        {
+                            StonePriceId = 3,
+                            BuyPrice = 500f,
+                            City = "Ha Noi",
+                            LastUpdated = new DateTime(2024, 6, 7, 22, 15, 47, 340, DateTimeKind.Local).AddTicks(6355),
+                            SellPrice = 600f,
+                            Type = "Emerald"
+                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.User", b =>
@@ -423,6 +786,9 @@ namespace BusinessObjects.Migrations
                     b.Property<int?>("RoleId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 
@@ -433,6 +799,38 @@ namespace BusinessObjects.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            CounterId = 1,
+                            Email = "nghialoe46a2gmail.com",
+                            Password = "5678",
+                            RoleId = 1,
+                            Status = false,
+                            Username = "admin Nghia"
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            CounterId = 2,
+                            Email = "JohnDoe@gmail.com",
+                            Password = "1234",
+                            RoleId = 2,
+                            Status = false,
+                            Username = "manager John Doe"
+                        },
+                        new
+                        {
+                            UserId = 3,
+                            CounterId = 3,
+                            Email = "Chis@yahho.com",
+                            Password = "4321",
+                            RoleId = 3,
+                            Status = false,
+                            Username = "staff Chis Nguyen"
+                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Warranty", b =>

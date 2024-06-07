@@ -3,10 +3,10 @@ using DAO.Interfaces;
 
 namespace DAO;
 
-public class GoldPriceDAO : Singleton<GoldPriceDAO>
+public class GoldPriceDao : Singleton<GoldPriceDao>
 {
     private readonly JssatsContext _context;
-    public GoldPriceDAO()
+    public GoldPriceDao()
     {
         _context = new JssatsContext();
     }

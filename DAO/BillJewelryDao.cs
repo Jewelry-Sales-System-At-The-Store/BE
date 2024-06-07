@@ -4,10 +4,10 @@ using DAO.Interfaces;
 using Microsoft.EntityFrameworkCore;
 namespace DAO
 {
-    public class BillJewelryDAO : Singleton<BillJewelryDAO>
+    public class BillJewelryDao : Singleton<BillJewelryDao>
     {
         private readonly JssatsContext _context;
-        public BillJewelryDAO()
+        public BillJewelryDao()
         {
             _context = new JssatsContext();
         }

@@ -25,13 +25,13 @@ public class JewelryTypeController(IJewelryTypeService service, IMapper mapper) 
         return Ok(jewelryType);
     }
     [HttpPost]
-    public async Task<IActionResult> CreateJewelryType(JewelryTypeDTO jewelryType)
+    public async Task<IActionResult> CreateJewelryType(JewelryTypeDto jewelryType)
     {
         var result = await Service.CreateJewelry(Mapper.Map<JewelryType>(jewelryType));
         return Ok(result);
     }
     [HttpPut]
-    public async Task<IActionResult> UpdateJewelryType(int id, JewelryTypeDTO jewelryType)
+    public async Task<IActionResult> UpdateJewelryType(int id, JewelryTypeDto jewelryType)
     {
         var result = await Service.UpdateJewelry(id, Mapper.Map<JewelryType>(jewelryType));
         return Ok(result);

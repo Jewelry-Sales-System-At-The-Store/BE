@@ -8,12 +8,11 @@ namespace API.Extentions
     {
         public MappingProfile()
         {
-            CreateMap<Jewelry, JewelryDTO>().ReverseMap();
-            CreateMap<Warranty, WarrantyDTO>().ReverseMap();
-            CreateMap<Bill, BillResponseDTO>()
-            .ForMember(destination => destination.CustomerName, opt => opt.MapFrom(src => src.Customer.Name))
-            .ForMember(destination => destination.Jewelries, opt => opt.MapFrom(src => src.BillJewelries.Select(bj => bj.Jewelry)));
-            CreateMap<JewelryType, JewelryTypeDTO>().ReverseMap();
+            CreateMap<Jewelry, JewelryDto>().ReverseMap();
+            CreateMap<Warranty, WarrantyDto>().ReverseMap();
+            CreateMap<JewelryType, JewelryTypeDto>().ReverseMap();
+            CreateMap<Promotion, PromotionDto>().ReverseMap();
+            CreateMap<Bill, BillDto>().ReverseMap();
         }
     }
 }

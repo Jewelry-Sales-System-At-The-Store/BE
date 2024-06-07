@@ -10,10 +10,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAO
 {
-    public class JewelryTypeDAO : Singleton<JewelryTypeDAO>
+    public class JewelryTypeDao : Singleton<JewelryTypeDao>
     {
         private readonly JssatsContext _context;
-        public JewelryTypeDAO()
+        public JewelryTypeDao()
         {
             _context = new JssatsContext();
         }

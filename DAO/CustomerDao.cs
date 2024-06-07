@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAO
 {
-    public class CustomerDAO : Singleton<CustomerDAO>
+    public class CustomerDao : Singleton<CustomerDao>
     {
         public readonly JssatsContext _context;
-        public CustomerDAO()
+        public CustomerDao()
         {
             _context = new JssatsContext();
         }

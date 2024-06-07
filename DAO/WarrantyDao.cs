@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAO
 {
-    public class WarrantyDAO : Singleton<WarrantyDAO>
+    public class WarrantyDao : Singleton<WarrantyDao>
     {
         private readonly JssatsContext _context;
 
-        public WarrantyDAO()
+        public WarrantyDao()
         {
             _context = new JssatsContext();
         }

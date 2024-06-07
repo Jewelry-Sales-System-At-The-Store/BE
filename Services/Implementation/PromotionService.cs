@@ -2,20 +2,18 @@
 using BusinessObjects.Models;
 using Repositories.Interface;
 using Services.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using AutoMapper;
 
 namespace Services.Implementation
 {
-    public class PromotionService(IPromotionRepository promotionRepository) : IPromotionService
+    public class PromotionService(IPromotionRepository promotionRepository, IMapper mapper) : IPromotionService
     {
         public IPromotionRepository PromotionRepository { get; } = promotionRepository;
-        public async Task<int> CreatePromotion(PromotionDTO promotion)
+        public IMapper Mapper { get; } = mapper;
+
+        public async Task<int> CreatePromotion(PromotionDto promotionDto)
         {
-            return await PromotionRepository.Create(promotion);
+            return await PromotionRepository.Create(Mapper.Map<Promotion>(promotionDto));
         }
 
         public async Task<int> DeletePromotion(int id)
@@ -28,9 +26,9 @@ namespace Services.Implementation
             return await PromotionRepository.GetAll();
         }
 
-        public async Task<int> UpdatePromotion(int id, PromotionDTO promotion)
+        public async Task<int> UpdatePromotion(int id, PromotionDto promotionDto)
         {
-            return await PromotionRepository.Update(id, promotion);
+            return await PromotionRepository.Update(id, Mapper.Map<Promotion>(promotionDto));
         }
     }
 }

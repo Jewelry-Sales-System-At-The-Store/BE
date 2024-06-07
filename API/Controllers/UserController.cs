@@ -18,7 +18,7 @@ public class UserController(IUserManagement userManagement) : ControllerBase
         return Ok(users);
     }
     [HttpPost("Login")]
-    public async Task<IActionResult> Login(LoginDTO loginDTO)
+    public async Task<IActionResult> Login(LoginDto loginDTO)
     {
         var user = await UserManagement.Login(loginDTO);
         return Ok(user!=null);

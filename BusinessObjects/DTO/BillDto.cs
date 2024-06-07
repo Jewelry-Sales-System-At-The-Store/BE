@@ -1,6 +1,6 @@
 ﻿namespace BusinessObjects.DTO
 {
-    public class BillDTO
+    public class BillDto
     {
         public int? CustomerId { get; set; }
 

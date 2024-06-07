@@ -15,12 +15,12 @@ namespace Repositories.Implementation
 
         public async Task<User?> GetUser(string email, string password)
         {
-            return await UserDAO.Instance.GetUser(email, password);
+            return await UserDao.Instance.GetUser(email, password);
         }
 
         public async Task<User?> GetById(int id)
         {
-            return await UserDAO.Instance.GetUserById(id);
+            return await UserDao.Instance.GetUserById(id);
         }
 
         public Task<int> Update(int id, User entity)
@@ -30,7 +30,7 @@ namespace Repositories.Implementation
 
         public async Task<IEnumerable<User?>?> GetAll()
         {
-            return await UserDAO.Instance.GetUsers();
+            return await UserDao.Instance.GetUsers();
         }
 
         public Task<int> Create(User entity)
