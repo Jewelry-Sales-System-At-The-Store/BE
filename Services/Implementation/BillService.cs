@@ -1,4 +1,4 @@
-﻿using BusinessObjects.DTO;
+﻿using BusinessObjects.Dto.Bill;
 using BusinessObjects.Models;
 using Repositories.Interface;
 using Services.Interface;
@@ -7,23 +7,21 @@ namespace Services.Implementation
 { 
     public class BillService(IBillRepository billRepository) : IBillService
     {
-        private readonly IBillRepository billRepository = billRepository;
+        private IBillRepository BillRepository { get; } = billRepository;
 
-        public IBillRepository BillRepository => billRepository;
-        public async Task<int> Create(BillDto entity)
+        public async Task<BillResponseDto> Create(BillRequestDto billRequestDto)
         {
-            return await billRepository.Create(entity);
+            return await BillRepository.CreateBill(billRequestDto);
         }
         
-
-        public async Task<IEnumerable<Bill?>?> GetAll()
+        public async Task<IEnumerable<Bill?>?> GetBills()
         {
-            return await billRepository.GetAll();
+            return await BillRepository.Gets();
         }
 
         public async Task<Bill?> GetById(int id)
         {
-            return await billRepository.GetById(id);
+            return await BillRepository.GetById(id);
         }
     }
 }

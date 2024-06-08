@@ -1,37 +1,31 @@
-﻿using AutoMapper;
-using BusinessObjects.DTO;
+﻿using BusinessObjects.Dto.Bill;
+using Management.Interface;
 using Microsoft.AspNetCore.Mvc;
-using Services.Interface;
 
 namespace API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class BillController(IBillService billService, IMapper mapper) : ControllerBase
+public class BillController(IUserManagement userManagement) : ControllerBase
 {
-    public IBillService BillService { get; } = billService;
-    public IMapper Mapper { get; } = mapper;
+    private IUserManagement UserManagement { get; } = userManagement;
 
-    [HttpGet]
+    [HttpGet("GetBills")]
     public async Task<IActionResult> Get()
     {
-        var bills = await BillService.GetAll();
+        var bills = await UserManagement.GetBills();
         return Ok(bills);
     }
-    [HttpGet("{id}")]
+    [HttpGet("GetBillById/{id:int}")]
     public async Task<IActionResult> Get(int id)
     {
-        var bill = await BillService.GetById(id);
-        if (bill == null)
-        {
-            return NotFound();
-        }
+        var bill = await UserManagement.GetBillById(id);
+        if (bill == null) return NotFound();
         return Ok(bill);
     }
-    [HttpPost]
-    public async Task<IActionResult> Create(BillDto billDto)
+    [HttpPost("CreateBill")]
+    public async Task<IActionResult> Create(BillRequestDto billRequestDto)
     {
-        var result = await BillService.Create(billDto);
-        return Ok(result);
+        return Ok(await UserManagement.CreateBill(billRequestDto));
     }
 }

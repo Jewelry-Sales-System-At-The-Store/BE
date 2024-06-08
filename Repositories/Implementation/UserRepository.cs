@@ -28,7 +28,7 @@ namespace Repositories.Implementation
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<User?>?> GetAll()
+        public async Task<IEnumerable<User?>?> Gets()
         {
             return await UserDao.Instance.GetUsers();
         }

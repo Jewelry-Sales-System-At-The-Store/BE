@@ -6,7 +6,7 @@ namespace Repositories.Implementation;
 
 public class JewelryTypeRepository : IJewelryTypeRepository
 {
-    public async Task<IEnumerable<JewelryType?>?> GetAll()
+    public async Task<IEnumerable<JewelryType?>?> Gets()
     {
         return await JewelryTypeDao.Instance.GetJewelryTypes();
     }

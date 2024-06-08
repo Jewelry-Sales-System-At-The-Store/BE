@@ -1,5 +1,4 @@
-﻿using BusinessObjects.DTO;
-using BusinessObjects.Models;
+﻿using BusinessObjects.Models;
 using Repositories.Interface.GenericRepository;
 namespace Repositories.Interface;
 

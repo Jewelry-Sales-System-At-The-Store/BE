@@ -1,6 +1,6 @@
 ﻿
 using AutoMapper;
-using BusinessObjects.DTO;
+using BusinessObjects.Dto;
 using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
 using Services;
@@ -10,45 +10,41 @@ namespace API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class JewelryController : ControllerBase
+public class JewelryController(IJewelryService jewelryService, IMapper mapper) : ControllerBase
 {
-    private readonly IJewelryService _jewelryService;
-    private readonly IMapper _mapper;
-    public JewelryController(IJewelryService jewelryService, IMapper mapper)
-    {
-        _jewelryService = jewelryService;
-        _mapper = mapper;
-    }
-    [HttpGet]
+    private IJewelryService JewelryService { get; } = jewelryService;
+    private IMapper Mapper { get; } = mapper;
+
+    [HttpGet("GetJewelries")]
     public async Task<IActionResult> GetJewelries()
     {
-        var jewelries = await _jewelryService.GetJewelries();
+        var jewelries = await JewelryService.GetJewelries();
         return Ok(jewelries);
     }
-    [HttpGet("{id}")]
+    [HttpGet("GetJewelryById/{id}")]
     public async Task<IActionResult> GetJewelryById(int id)
     {
-        var jewelry = await _jewelryService.GetJewelryById(id);
+        var jewelry = await JewelryService.GetJewelryById(id);
         return Ok(jewelry);
     }
-    [HttpPost]
-    public async Task<IActionResult> CreateJewelry(JewelryDto jewelryDTO)
+    [HttpPost("CreateJewelry")]
+    public async Task<IActionResult> CreateJewelry(JewelryDto jewelryDto)
     {
-        Jewelry jewelry = _mapper.Map<Jewelry>(jewelryDTO);
-        var result = await _jewelryService.CreateJewelry(jewelry);
+        var jewelry = Mapper.Map<Jewelry>(jewelryDto);
+        var result = await JewelryService.CreateJewelry(jewelry);
         return Ok(result);
     }
-    [HttpPut]
+    [HttpPut("UpdateJewelry/{id}")]
     public async Task<IActionResult> UpdateJewelry(int id, JewelryDto jewelryDTO)
     {
-        Jewelry jewelry = _mapper.Map<Jewelry>(jewelryDTO);
-        var result = await _jewelryService.UpdateJewelry(id, jewelry);
+        var jewelry = Mapper.Map<Jewelry>(jewelryDTO);
+        var result = await JewelryService.UpdateJewelry(id, jewelry);
         return Ok(result);
     }
-    [HttpDelete("{id}")]
+    [HttpDelete("DeleteJewelry/{id}")]
     public async Task<IActionResult> DeleteJewelry(int id)
     {
-        var result = await _jewelryService.DeleteJewelry(id);
+        var result = await JewelryService.DeleteJewelry(id);
         return Ok(result);
     }
 }

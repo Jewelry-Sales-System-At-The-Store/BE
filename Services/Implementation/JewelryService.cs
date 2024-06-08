@@ -1,5 +1,4 @@
-﻿using BusinessObjects.DTO;
-using BusinessObjects.Models;
+﻿using BusinessObjects.Models;
 using Repositories.Interface;
 using Services.Interface;
 
@@ -25,7 +24,7 @@ namespace Services.Implementation
 
         public async Task<IEnumerable<Jewelry?>?> GetJewelries()
         {
-            return await _jewelryRepository.GetAll();
+            return await _jewelryRepository.Gets();
         }
 
         public async Task<Jewelry?> GetJewelryById(int id)

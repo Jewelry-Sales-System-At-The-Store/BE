@@ -1,7 +1,10 @@
-﻿using BusinessObjects.DTO;
+﻿using BusinessObjects.Dto.Bill;
 using BusinessObjects.Models;
 using Repositories.Interface.GenericRepository;
 
 namespace Repositories.Interface;
-public interface IBillRepository : IReadRepository<Bill>, ICreateRepository<BillDto>
-{ }
+
+public interface IBillRepository : IReadRepository<Bill>
+{
+    public Task<BillResponseDto> CreateBill(BillRequestDto billRequestDto);
+}

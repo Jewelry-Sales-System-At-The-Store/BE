@@ -1,8 +1,6 @@
-﻿
-using BusinessObjects.DTO;
+﻿using BusinessObjects.Dto;
 using Management.Interface;
 using Microsoft.AspNetCore.Mvc;
-using Services.Interface;
 
 namespace API.Controllers;
 
@@ -10,17 +8,18 @@ namespace API.Controllers;
 [ApiController]
 public class UserController(IUserManagement userManagement) : ControllerBase
 {
-    public IUserManagement UserManagement { get; } = userManagement;
-    [HttpGet]
+    private IUserManagement UserManagement { get; } = userManagement;
+    [HttpGet("GetUsers")]
     public async Task<IActionResult> Get()
     {
         var users = await UserManagement.GetUsers();
         return Ok(users);
     }
     [HttpPost("Login")]
-    public async Task<IActionResult> Login(LoginDto loginDTO)
+    public async Task<IActionResult> Login(LoginDto loginDto)
     {
-        var user = await UserManagement.Login(loginDTO);
-        return Ok(user!=null);
+        var user = await UserManagement.Login(loginDto);
+        if (user != null) return Ok(user);
+        return NotFound(new { message = "Login fail" });
     }
 }

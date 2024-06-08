@@ -16,7 +16,7 @@ namespace Repositories.Implementation
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Customer?>?> GetAll()
+        public async Task<IEnumerable<Customer?>?> Gets()
         {
             return await CustomerDao.Instance.GetCustomers();
         }

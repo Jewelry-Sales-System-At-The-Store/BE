@@ -15,8 +15,7 @@ namespace DAO
         }
         public async Task<IEnumerable<Warranty>?> GetWarranties()
         {
-            return await _context.Warranties
-                                 .ToListAsync();
+            return await _context.Warranties.ToListAsync();
         }
         public async Task<Warranty?> GetWarrantyById(int? id)
         {

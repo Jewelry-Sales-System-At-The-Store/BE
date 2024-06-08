@@ -20,7 +20,7 @@ namespace DAO
         }
         public async Task<IEnumerable<User?>?> GetUsers()
         {
-            return await _context.Users.Include(u=>u.Role).Include(u=>u.Purchases).ToListAsync();
+            return await _context.Users.ToListAsync();
         }
         public async Task<User?> GetUserById(int id)
         {

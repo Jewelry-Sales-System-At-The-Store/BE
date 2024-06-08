@@ -10,7 +10,7 @@ public class JewelryTypeService(IJewelryTypeRepository repository) : IJewelryTyp
 
     public async Task<IEnumerable<JewelryType?>?> GetJewelry()
     {
-        return await Repository.GetAll();
+        return await Repository.Gets();
     }
 
     public async Task<JewelryType?> GetJewelryById(int id)

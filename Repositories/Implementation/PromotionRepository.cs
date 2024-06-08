@@ -17,7 +17,7 @@ namespace Repositories.Implementation
             return await PromotionDao.Instance.DeletePromotion(id);
         }
 
-        public async Task<IEnumerable<Promotion?>?> GetAll()
+        public async Task<IEnumerable<Promotion?>?> Gets()
         {
             return await PromotionDao.Instance.GetPromotions();
         }

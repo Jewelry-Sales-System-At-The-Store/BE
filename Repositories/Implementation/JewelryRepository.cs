@@ -20,7 +20,7 @@ namespace Repositories.Implementation
             return await JewelryDao.Instance.DeleteJewelry(id);
         }
 
-        public async Task<IEnumerable<Jewelry?>?> GetAll()
+        public async Task<IEnumerable<Jewelry?>?> Gets()
         {
             var jewelries = await JewelryDao.Instance.GetJewelries();
             foreach (var jewelry in jewelries)

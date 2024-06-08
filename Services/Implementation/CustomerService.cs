@@ -25,7 +25,7 @@ namespace Services.Implementation
 
         public async Task<IEnumerable<Customer?>?> GetCustomers()
         {
-            return await CustomerRepository.GetAll();
+            return await CustomerRepository.Gets();
         }
 
         public async Task<int> UpdateCustomer(int id, Customer customer)

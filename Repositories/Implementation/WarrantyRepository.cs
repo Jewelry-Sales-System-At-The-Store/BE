@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using BusinessObjects.DTO;
 using BusinessObjects.Models;
 using DAO;
 using Repositories.Interface;
@@ -20,7 +19,7 @@ namespace Repositories.Implementation
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Warranty?>?> GetAll()
+        public async Task<IEnumerable<Warranty?>?> Gets()
         {
             var warranties =  await WarrantyDao.Instance.GetWarranties();
             return warranties;

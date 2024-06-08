@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using BusinessObjects.DTO;
+using BusinessObjects.Dto;
 using BusinessObjects.Models;
 
-namespace API.Extentions
+namespace API.Extensions
 {
     public class MappingProfile : Profile
     {
@@ -12,7 +12,6 @@ namespace API.Extentions
             CreateMap<Warranty, WarrantyDto>().ReverseMap();
             CreateMap<JewelryType, JewelryTypeDto>().ReverseMap();
             CreateMap<Promotion, PromotionDto>().ReverseMap();
-            CreateMap<Bill, BillDto>().ReverseMap();
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using BusinessObjects.DTO;
-using BusinessObjects.Models;
+﻿using BusinessObjects.Models;
 using Repositories.Interface;
 using Services.Interface;
 using System;
@@ -8,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using BusinessObjects.Dto;
 
 namespace Services.Implementation
 {
@@ -29,7 +29,7 @@ namespace Services.Implementation
 
         public async Task<IEnumerable<Warranty?>?> GetWarranties()
         {
-            return await WarrantyRepository.GetAll();
+            return await WarrantyRepository.Gets();
         }
 
         public async Task<Warranty?> GetWarrantyById(int id)
