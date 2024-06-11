@@ -36,11 +36,16 @@ public class UserController(IUserManagement userManagement) : ControllerBase
         if (result > 0) return Ok(new { message = "Add user success" });
         return BadRequest(new { message = "Add user fail" });
     }
+    [HttpPut("UpdateUser/{id}")]
+    public async Task<IActionResult> UpdateUser(string id, UserDto userDto)
+    {
+        var result = await UserManagement.UpdateUser(id, userDto);
+        if (result > 0) return Ok(new { message = "Update user success" });
+        return BadRequest(new { message = "Update user fail" });
+    }
     [HttpDelete("DeleteUser/{id}")]
     public async Task<IActionResult> DeleteUser(string id)
     {
-        var user = await UserManagement.GetUserById(id);
-        if (user == null) return NotFound(new { message = "User not found" });
         var result = await UserManagement.DeleteUser(id);
         if (result > 0) return Ok(new { message = "Delete user success" });
         return BadRequest(new { message = "Delete user fail" });
