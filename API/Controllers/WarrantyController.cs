@@ -32,7 +32,7 @@ public class WarrantyController(IWarrantyService warrantyService, IMapper mapper
         return Ok(result);
     }
     [HttpPut("Update Warranty/{id}")]
-    public async Task<IActionResult> UpdateWarranty([FromQuery]string id,WarrantyDto warrantyDto)
+    public async Task<IActionResult> UpdateWarranty(string id,WarrantyDto warrantyDto)
     {
         var result = await WarrantyService.UpdateWarranty(id ,warrantyDto);
         return Ok(result);

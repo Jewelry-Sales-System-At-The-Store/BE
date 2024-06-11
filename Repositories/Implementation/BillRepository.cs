@@ -6,16 +6,20 @@ using Tools;
 
 namespace Repositories.Implementation
 {
-    public class BillRepository : IBillRepository
+    public class BillRepository(BillDao billDao, BillJewelryDao billJewelryDao, BillPromotionDao billPromotionDao) : IBillRepository
     {
+        public BillDao BillDao { get; } = billDao;
+        public BillJewelryDao BillJewelryDao { get; } = billJewelryDao;
+        public BillPromotionDao BillPromotionDao { get; } = billPromotionDao;
+
         public async Task<IEnumerable<Bill?>?> Gets()
         {
-            return await BillDao.Instance.GetBills();
+            return await BillDao.GetBills();
         }
 
         public async Task<Bill?> GetById(string id)
         {
-            return await BillDao.Instance.GetBillById(id);
+            return await BillDao.GetBillById(id);
         }
         
         public async Task<BillResponseDto> CreateBill(BillRequestDto billRequestDto)
@@ -33,7 +37,7 @@ namespace Repositories.Implementation
                 SaleDate = DateTime.Now,
                 TotalAmount = totalAmount,
             };
-            var billId = await BillDao.Instance.CreateBill(bill);
+            var billId = await BillDao.CreateBill(bill);
             // Check if bill is created
             if (billId == null)
             {
@@ -48,7 +52,7 @@ namespace Repositories.Implementation
                     BillId = billId,
                     JewelryId = item.JewelryId,
                 };
-                await BillJewelryDao.Instance.CreateBillJewelry(billJewelry);
+                await BillJewelryDao.CreateBillJewelry(billJewelry);
             }
             // Add bill promotions
             foreach (var promotion in billRequestDto.Promotions)
@@ -59,7 +63,7 @@ namespace Repositories.Implementation
                     BillId = billId,
                     PromotionId = promotion.PromotionId,
                 };
-                await BillPromotionDao.Instance.CreateBillPromotion(billPromotion);
+                await BillPromotionDao.CreateBillPromotion(billPromotion);
             }
             // Generate response
             var billResponseDto = new BillResponseDto

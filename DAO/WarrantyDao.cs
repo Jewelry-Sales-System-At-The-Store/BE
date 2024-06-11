@@ -36,7 +36,6 @@ namespace DAO
             if (existingWarranty == null) return 0;
             _context.Entry(existingWarranty).CurrentValues.SetValues(warranty);
             _context.Entry(existingWarranty).State = EntityState.Modified;
-
             return await _context.SaveChangesAsync();
         }
         public async Task<int> DeleteWarranty(string id)

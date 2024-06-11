@@ -6,17 +6,16 @@ using Tools;
 
 namespace DAO;
 
-public class RoleDao : Singleton<RoleDao>
+public class RoleDao
 {
     private readonly JssatsContext _context;
-
     public RoleDao()
     {
         _context = new JssatsContext();
     }
     public async Task<Role?> GetRoleById(string id)
     {
-        return await _context.Roles.FindAsync(id);
+        return await _context.Roles.FirstOrDefaultAsync(r=>r.RoleId == id);
     }
     public async Task<IEnumerable<Role?>?> GetRoles()
     {

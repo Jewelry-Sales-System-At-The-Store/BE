@@ -4,11 +4,13 @@ using Repositories.Interface;
 
 namespace Repositories.Implementation
 {
-    public class CustomerRepository : ICustomerRepository
+    public class CustomerRepository(CustomerDao customerDao) : ICustomerRepository
     {
+        public CustomerDao CustomerDao { get; } = customerDao;
+
         public async Task<int> Create(Customer entity)
         {
-            return await CustomerDao.Instance.CreateCustomer(entity);
+            return await CustomerDao.CreateCustomer(entity);
         }
 
         public Task<IEnumerable<Customer>> Find(Func<Customer, bool> predicate)
@@ -18,17 +20,17 @@ namespace Repositories.Implementation
 
         public async Task<IEnumerable<Customer?>?> Gets()
         {
-            return await CustomerDao.Instance.GetCustomers();
+            return await CustomerDao.GetCustomers();
         }
 
         public async Task<Customer?> GetById(string id)
         {
-            return await CustomerDao.Instance.GetCustomerById(id);
+            return await CustomerDao.GetCustomerById(id);
         }
 
         public Task<int> Update(string id, Customer entity)
         {
-            return CustomerDao.Instance.UpdateCustomer(id, entity);
+            return CustomerDao.UpdateCustomer(id, entity);
         }
     }
 }

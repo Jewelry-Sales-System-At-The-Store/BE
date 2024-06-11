@@ -6,7 +6,7 @@ using Tools;
 
 namespace DAO
 {
-    public class UserDao : Singleton<UserDao>
+    public class UserDao
     {
         private readonly JssatsContext _context;
 
@@ -14,7 +14,6 @@ namespace DAO
         {
             _context = new JssatsContext();
         }
-
         public async Task<User?> GetUser(string email, string password)
         {
             return await _context.Users.FirstOrDefaultAsync(p => p.Email == email && p.Password == password);
@@ -38,11 +37,9 @@ namespace DAO
         {
            var existUser = await _context.Users.FirstOrDefaultAsync(x => x.UserId == id);
            if (existUser == null) return 0;
-           existUser.Email = user.Email;
-           existUser.Password = user.Password;
-           existUser.CounterId = user.CounterId;
-           existUser.RoleId = user.RoleId;
-           existUser.Status = user.Status;
+           user.UserId = id;
+           _context.Entry(existUser).CurrentValues.SetValues(user);
+           _context.Entry(existUser).State = EntityState.Modified;
            return await _context.SaveChangesAsync();
         }
         public async Task<User?> GetUserById(string id)

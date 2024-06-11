@@ -5,9 +5,9 @@ using Repositories.Interface;
 
 namespace Repositories.Implementation
 {
-    public class JewelryRepository(IMapper mapper) : IJewelryRepository
+    public class JewelryRepository(JewelryDao jewelryDao) : IJewelryRepository
     {
-        public IMapper Mapper { get; } = mapper;
+        public JewelryDao JewelryDao { get; } = jewelryDao;
 
         public async Task<int> Create(Jewelry entity)
         {

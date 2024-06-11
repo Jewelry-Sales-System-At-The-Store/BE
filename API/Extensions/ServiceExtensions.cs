@@ -1,4 +1,5 @@
-﻿using Management.Implementation;
+﻿using DAO;
+using Management.Implementation;
 using Management.Interface;
 using Repositories.Implementation;
 using Repositories.Interface;
@@ -29,6 +30,20 @@ public static class ServiceExtensions
         serviceCollection.AddScoped<IBillService, BillService>();
         serviceCollection.AddScoped<IPromotionService, PromotionService>();
         serviceCollection.AddScoped<IJewelryTypeService, JewelryTypeService>();
+        //DAO
+        serviceCollection.AddScoped<BillDao>();
+        serviceCollection.AddScoped<BillJewelryDao>();
+        serviceCollection.AddScoped<BillPromotionDao>();
+        serviceCollection.AddScoped<CustomerDao>();
+        serviceCollection.AddScoped<GoldPriceDao>();
+        serviceCollection.AddScoped<JewelryDao>();
+        serviceCollection.AddScoped<JewelryTypeDao>(); 
+        serviceCollection.AddScoped<PromotionDao>();
+        serviceCollection.AddScoped<PurchaseDao>();
+        serviceCollection.AddScoped<RoleDao>();
+        serviceCollection.AddScoped<StonePriceDao>();
+        serviceCollection.AddScoped<UserDao>();
+        serviceCollection.AddScoped<WarrantyDao>();
         
         return serviceCollection;
     }

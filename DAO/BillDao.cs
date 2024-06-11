@@ -6,7 +6,7 @@ using Tools;
 
 namespace DAO
 {
-    public class BillDao : Singleton<BillDao>
+    public class BillDao
     {
         private readonly JssatsContext _context = new();
         public async Task<IEnumerable<Bill>> GetBills()
