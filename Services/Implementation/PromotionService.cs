@@ -16,7 +16,7 @@ namespace Services.Implementation
             return await PromotionRepository.Create(Mapper.Map<Promotion>(promotionDto));
         }
 
-        public async Task<int> DeletePromotion(int id)
+        public async Task<int> DeletePromotion(string id)
         {
             return await PromotionRepository.Delete(id);
         }
@@ -26,7 +26,12 @@ namespace Services.Implementation
             return await PromotionRepository.Gets();
         }
 
-        public async Task<int> UpdatePromotion(int id, PromotionDto promotionDto)
+        public Task<Promotion?> GetPromotionById(string id)
+        {
+            return PromotionRepository.GetById(id);
+        }
+
+        public async Task<int> UpdatePromotion(string id, PromotionDto promotionDto)
         {
             return await PromotionRepository.Update(id, Mapper.Map<Promotion>(promotionDto));
         }

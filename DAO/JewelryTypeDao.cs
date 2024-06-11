@@ -1,12 +1,8 @@
 ﻿using BusinessObjects.Models;
 using DAO.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BusinessObjects.Context;
 using Microsoft.EntityFrameworkCore;
+using Tools;
 
 namespace DAO
 {
@@ -17,7 +13,7 @@ namespace DAO
         {
             _context = new JssatsContext();
         }
-        public async Task<JewelryType?> GetJewelryTypeById(int? id)
+        public async Task<JewelryType?> GetJewelryTypeById(string id)
         {
             return await _context.JewelryTypes.FindAsync(id);
         }
@@ -27,10 +23,11 @@ namespace DAO
         }
         public async Task<int> CreateJewelryType(JewelryType jewelryType)
         {
+            jewelryType.JewelryTypeId = IdGenerator.GenerateId();
             _context.JewelryTypes.Add(jewelryType);
             return await _context.SaveChangesAsync();
         }
-        public async Task<int> UpdateJewelryType(int id, JewelryType jewelryType)
+        public async Task<int> UpdateJewelryType(string id, JewelryType jewelryType)
         {
             var existingJewelryType = await _context.JewelryTypes
                 .FirstOrDefaultAsync(w => w.JewelryTypeId == id);

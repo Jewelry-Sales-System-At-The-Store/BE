@@ -12,7 +12,7 @@ namespace Repositories.Implementation
             return result;
         }
 
-        public async Task<int> Delete(int id)
+        public async Task<int> Delete(string id)
         {
             return await PromotionDao.Instance.DeletePromotion(id);
         }
@@ -22,12 +22,12 @@ namespace Repositories.Implementation
             return await PromotionDao.Instance.GetPromotions();
         }
 
-        public Task<Promotion?> GetById(int id)
+        public Task<Promotion?> GetById(string id)
         {
-            throw new NotImplementedException();
+            return PromotionDao.Instance.GetPromotionById(id);
         }
 
-        public async Task<int> Update(int id, Promotion promotion)
+        public async Task<int> Update(string id, Promotion promotion)
         {
             return await PromotionDao.Instance.UpdatePromotion(id, promotion);
         }

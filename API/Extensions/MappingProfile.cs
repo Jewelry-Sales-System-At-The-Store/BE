@@ -12,6 +12,7 @@ namespace API.Extensions
             CreateMap<Warranty, WarrantyDto>().ReverseMap();
             CreateMap<JewelryType, JewelryTypeDto>().ReverseMap();
             CreateMap<Promotion, PromotionDto>().ReverseMap();
+            CreateMap<User, UserDto>().ReverseMap();
         }
     }
 }

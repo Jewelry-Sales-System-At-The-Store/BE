@@ -2,7 +2,7 @@
 {
     public class BillResponseDto
     {
-        public int BillId { get; set; }
+        public string? BillId { get; set; }
         public double TotalAmount { get; set; }
         public DateTime? SaleDate { get; set; }
         public required List<BillItemResponse?> Items { get; set; }

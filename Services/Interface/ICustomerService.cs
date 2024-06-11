@@ -10,9 +10,9 @@ namespace Services.Interface
     public interface ICustomerService
     {
         public Task<IEnumerable<Customer?>?> GetCustomers();
-        public Task<Customer?> GetCustomerById(int id);
+        public Task<Customer?> GetCustomerById(string id);
         public Task<int> CreateCustomer(Customer customer);
-        public Task<int> UpdateCustomer(int id,Customer customer);
-        public Task<int> DeleteCustomer(int id);
+        public Task<int> UpdateCustomer(string id,Customer customer);
+        public Task<int> DeleteCustomer(string id);
     }
 }

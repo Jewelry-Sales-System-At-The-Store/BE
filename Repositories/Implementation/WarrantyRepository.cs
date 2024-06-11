@@ -25,13 +25,13 @@ namespace Repositories.Implementation
             return warranties;
         }
 
-        public async Task<Warranty?> GetById(int id)
+        public async Task<Warranty?> GetById(string id)
         {
             var warranty = await WarrantyDao.Instance.GetWarrantyById(id);
             return warranty;
         }
 
-        public async Task<int> Update(int id, Warranty entity)
+        public async Task<int> Update(string id, Warranty entity)
         {
             return await WarrantyDao.Instance.UpdateWarranty(id, entity);
         }

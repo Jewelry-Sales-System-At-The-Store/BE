@@ -2,6 +2,6 @@
 
 public class BillItemResponse
 {
-    public int JewelryId { get; set; }
+    public string? JewelryId { get; set; }
     public decimal Price { get; set; }
 }

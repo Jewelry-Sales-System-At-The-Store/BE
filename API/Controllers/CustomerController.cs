@@ -14,8 +14,8 @@ public class CustomerController(ICustomerService customerService) : ControllerBa
     {
         return await CustomerService.GetCustomers();
     }
-    [HttpGet("GetCustomerById/{id:int}")]
-    public async Task<Customer?> GetCustomerById(int id)
+    [HttpGet("GetCustomerById/{id}")]
+    public async Task<Customer?> GetCustomerById(string id)
     {
         return await CustomerService.GetCustomerById(id);
     }
@@ -25,14 +25,14 @@ public class CustomerController(ICustomerService customerService) : ControllerBa
         var result = await CustomerService.CreateCustomer(customer);
         return Ok(result);
     }
-    [HttpPut("UpdateCustomer/{id:int}")]
-    public async Task<IActionResult> UpdateCustomer(int id, Customer customer)
+    [HttpPut("UpdateCustomer/{id}")]
+    public async Task<IActionResult> UpdateCustomer(string id, Customer customer)
     {
         var result = await CustomerService.UpdateCustomer(id ,customer);
         return Ok(result);
     }
-    [HttpDelete("DeleteCustomer/{id:int}")]
-    public async Task<IActionResult> DeleteCustomer(int id)
+    [HttpDelete("DeleteCustomer/{id}")]
+    public async Task<IActionResult> DeleteCustomer(string id)
     {
         var result = await CustomerService.DeleteCustomer(id);
         return Ok(result);

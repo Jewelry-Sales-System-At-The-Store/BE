@@ -2,6 +2,7 @@
 using BusinessObjects.Models;
 using DAO.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Tools;
 
 namespace DAO;
 
@@ -22,6 +23,7 @@ public class BillPromotionDao : Singleton<BillPromotionDao>
     }
     public async Task<int> CreateBillPromotion(BillPromotion billPromotion)
     {
+        billPromotion.BillPromotionId = IdGenerator.GenerateId();
         _context.BillPromotions.Add(billPromotion);
         return await _context.SaveChangesAsync();
     }

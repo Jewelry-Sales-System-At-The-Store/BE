@@ -1,9 +1,4 @@
 ﻿using BusinessObjects.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BusinessObjects.Dto;
 
 namespace Services.Interface
@@ -12,7 +7,8 @@ namespace Services.Interface
     {
         public Task<int> CreatePromotion(PromotionDto promotion);
         public Task<IEnumerable<Promotion?>?> GetPromotions();
-        public Task<int> UpdatePromotion(int id, PromotionDto promotion);
-        public Task<int> DeletePromotion(int id);
+        public Task<Promotion?> GetPromotionById(string id);
+        public Task<int> UpdatePromotion(string id, PromotionDto promotion);
+        public Task<int> DeletePromotion(string id);
     }
 }

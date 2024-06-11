@@ -2,11 +2,11 @@
 
 public partial class User
 {
-    public int UserId { get; set; }
+    public required string UserId { get; set; }
 
-    public int? RoleId { get; set; }
+    public string? RoleId { get; set; }
 
-    public int? CounterId { get; set; }
+    public string? CounterId { get; set; }
 
     public string? Username { get; set; }
 

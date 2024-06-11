@@ -5,7 +5,7 @@ namespace BusinessObjects.Models;
 
 public partial class Promotion
 {
-    public int PromotionId { get; set; }
+    public required string PromotionId { get; set; }
 
     public string? Type { get; set; }
 

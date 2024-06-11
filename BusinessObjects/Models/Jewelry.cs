@@ -6,8 +6,8 @@ namespace BusinessObjects.Models;
 
 public partial class Jewelry
 {
-    public int JewelryId { get; set; }
-    public int JewelryTypeId { get; set; }
+    public required string JewelryId { get; set; }
+    public string? JewelryTypeId { get; set; }
     
     public string? Name { get; set; }
 

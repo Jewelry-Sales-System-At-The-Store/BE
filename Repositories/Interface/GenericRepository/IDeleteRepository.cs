@@ -2,6 +2,6 @@
 {
     public interface IDeleteRepository<T>
     {
-        Task<int> Delete(int id);
+        Task<int> Delete(string id);
     }
 }

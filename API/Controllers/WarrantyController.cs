@@ -13,14 +13,14 @@ public class WarrantyController(IWarrantyService warrantyService, IMapper mapper
     private IWarrantyService WarrantyService { get; } = warrantyService;
     public IMapper Mapper { get; } = mapper;
 
-    [HttpGet("Get Warranties")]
+    [HttpGet("GetWarranties")]
     public async Task<IActionResult> Get()
     {
         var warranties = await WarrantyService.GetWarranties();
         return Ok(warranties);
     }
     [HttpGet("GetWarrantyById/{id}")]
-    public async Task<IActionResult> Get(int id)
+    public async Task<IActionResult> Get(string id)
     {
         var warranty = await WarrantyService.GetWarrantyById(id);
         return Ok(warranty);
@@ -32,7 +32,7 @@ public class WarrantyController(IWarrantyService warrantyService, IMapper mapper
         return Ok(result);
     }
     [HttpPut("Update Warranty/{id}")]
-    public async Task<IActionResult> UpdateWarranty([FromQuery]int id,WarrantyDto warrantyDto)
+    public async Task<IActionResult> UpdateWarranty([FromQuery]string id,WarrantyDto warrantyDto)
     {
         var result = await WarrantyService.UpdateWarranty(id ,warrantyDto);
         return Ok(result);

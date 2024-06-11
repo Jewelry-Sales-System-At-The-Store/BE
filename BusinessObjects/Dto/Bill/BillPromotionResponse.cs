@@ -2,6 +2,6 @@
 
 public class BillPromotionResponse
 {
-    public int PromotionId { get; set; }
+    public string? PromotionId { get; set; }
     public decimal Discount { get; set; }
 }

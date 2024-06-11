@@ -15,7 +15,7 @@ namespace Repositories.Implementation
             return await JewelryDao.Instance.CreateJewelry(entity);
         }
 
-        public async Task<int> Delete(int id)
+        public async Task<int> Delete(string id)
         {
             return await JewelryDao.Instance.DeleteJewelry(id);
         }
@@ -31,7 +31,7 @@ namespace Repositories.Implementation
             return jewelries;
         }
 
-        public async Task<Jewelry?> GetById(int id)
+        public async Task<Jewelry?> GetById(string id)
         {
             var jewelry = await JewelryDao.Instance.GetJewelryById(id);
             var jewelryType = await JewelryTypeDao.Instance.GetJewelryTypeById(jewelry?.JewelryTypeId);
@@ -40,7 +40,7 @@ namespace Repositories.Implementation
             return jewelry;
         }
 
-        public async Task<int> Update(int id, Jewelry entity)
+        public async Task<int> Update(string id, Jewelry entity)
         {
             return await JewelryDao.Instance.UpdateJewelry(id, entity);
         }

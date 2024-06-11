@@ -3,6 +3,6 @@
     public interface IReadRepository<T>
     {
         Task<IEnumerable<T?>?> Gets();
-        Task<T?> GetById(int id);
+        Task<T?> GetById(string id);
     }
 }

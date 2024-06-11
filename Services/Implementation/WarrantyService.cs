@@ -22,7 +22,7 @@ namespace Services.Implementation
             return WarrantyRepository.Create(warranty);
         }
 
-        public Task<int> DeleteWarranty(int id)
+        public Task<int> DeleteWarranty(string id)
         {
             throw new NotImplementedException();
         }
@@ -32,12 +32,12 @@ namespace Services.Implementation
             return await WarrantyRepository.Gets();
         }
 
-        public async Task<Warranty?> GetWarrantyById(int id)
+        public async Task<Warranty?> GetWarrantyById(string id)
         {
             return await WarrantyRepository.GetById(id);
         }
 
-        public async Task<int> UpdateWarranty(int id,WarrantyDto warrantyDto)
+        public async Task<int> UpdateWarranty(string id,WarrantyDto warrantyDto)
         {
             var warranty = Mapper.Map<Warranty>(warrantyDto);
             return await WarrantyRepository.Update(id,warranty);

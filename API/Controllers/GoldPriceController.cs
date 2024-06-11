@@ -1,6 +1,8 @@
 ﻿using BusinessObjects.Models;
 using HtmlAgilityPack;
 using Microsoft.AspNetCore.Mvc;
+using Tools;
+
 namespace API.Controllers
 {
     [Route("api/[controller]")]
@@ -43,6 +45,7 @@ namespace API.Controllers
 
                             goldPrices.Add(new GoldPrice
                             {
+                                GoldPriceId = IdGenerator.GenerateId(),
                                 City = city,
                                 BuyPrice = float.Parse(buyPrice),
                                 SellPrice = float.Parse(sellPrice),

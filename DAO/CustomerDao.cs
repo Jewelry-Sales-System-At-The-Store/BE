@@ -2,6 +2,7 @@
 using BusinessObjects.Models;
 using DAO.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Tools;
 
 namespace DAO
 {
@@ -16,18 +17,17 @@ namespace DAO
         {
             return await _context.Customers.ToListAsync();
         }
-        public async Task<Customer?> GetCustomerById(int id)
+        public async Task<Customer?> GetCustomerById(string id)
         {
             return await _context.Customers.FindAsync(id);
         }
         public async Task<int> CreateCustomer(Customer customer)
         {
-            var maxCustomerId = await _context.Customers.MaxAsync(c => c.CustomerId);
-            customer.CustomerId = maxCustomerId + 1;
+            customer.CustomerId = IdGenerator.GenerateId();
             _context.Customers.Add(customer);
             return await _context.SaveChangesAsync();
         }
-        public async Task<int> UpdateCustomer(int id,Customer customer)
+        public async Task<int> UpdateCustomer(string id,Customer customer)
         {
             // Find the existing customer based on the provided ID
             var existingCustomer = await _context.Customers

@@ -2,5 +2,5 @@
 
 public class BillItemRequestDto
 {
-    public int JewelryId { get; set; }
+    public string? JewelryId { get; set; }
 }

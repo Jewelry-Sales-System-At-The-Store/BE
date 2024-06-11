@@ -17,7 +17,7 @@ namespace Services.Implementation
             return await _jewelryRepository.Create(jewelry);
         }
 
-        public Task<int> DeleteJewelry(int id)
+        public Task<int> DeleteJewelry(string id)
         {
             throw new NotImplementedException();
         }
@@ -27,11 +27,11 @@ namespace Services.Implementation
             return await _jewelryRepository.Gets();
         }
 
-        public async Task<Jewelry?> GetJewelryById(int id)
+        public async Task<Jewelry?> GetJewelryById(string id)
         {
             return await _jewelryRepository.GetById(id);
         }
-        public async Task<int> UpdateJewelry(int id, Jewelry jewelry)
+        public async Task<int> UpdateJewelry(string id, Jewelry jewelry)
         {
             return await _jewelryRepository.Update(id, jewelry);
         }

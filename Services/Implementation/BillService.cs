@@ -19,7 +19,7 @@ namespace Services.Implementation
             return await BillRepository.Gets();
         }
 
-        public async Task<Bill?> GetById(int id)
+        public async Task<Bill?> GetById(string id)
         {
             return await BillRepository.GetById(id);
         }

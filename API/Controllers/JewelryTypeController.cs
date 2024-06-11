@@ -19,7 +19,7 @@ public class JewelryTypeController(IJewelryTypeService service, IMapper mapper) 
         return Ok(jewelryTypes);
     }
     [HttpGet("GetJewelryById/{id}")]
-    public async Task<IActionResult> Get(int id)
+    public async Task<IActionResult> Get(string id)
     {
         var jewelryType = await Service.GetJewelryById(id);
         return Ok(jewelryType);
@@ -31,7 +31,7 @@ public class JewelryTypeController(IJewelryTypeService service, IMapper mapper) 
         return Ok(result);
     }
     [HttpPut("UpdateJewelryType/{id}")]
-    public async Task<IActionResult> UpdateJewelryType(int id, JewelryTypeDto jewelryType)
+    public async Task<IActionResult> UpdateJewelryType(string id, JewelryTypeDto jewelryType)
     {
         var result = await Service.UpdateJewelry(id, Mapper.Map<JewelryType>(jewelryType));
         return Ok(result);

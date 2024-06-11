@@ -7,6 +7,6 @@ namespace Services.Interface
     {
         public Task<BillResponseDto> Create(BillRequestDto entity);
         public Task<IEnumerable<Bill?>?> GetBills();
-        public Task<Bill?> GetById(int id);
+        public Task<Bill?> GetById(string id);
     }
 }

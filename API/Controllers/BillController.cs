@@ -16,8 +16,8 @@ public class BillController(IUserManagement userManagement) : ControllerBase
         var bills = await UserManagement.GetBills();
         return Ok(bills);
     }
-    [HttpGet("GetBillById/{id:int}")]
-    public async Task<IActionResult> Get(int id)
+    [HttpGet("GetBillById/{id}")]
+    public async Task<IActionResult> Get(string id)
     {
         var bill = await UserManagement.GetBillById(id);
         if (bill == null) return NotFound();

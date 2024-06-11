@@ -18,24 +18,36 @@ namespace Repositories.Implementation
             return await UserDao.Instance.GetUser(email, password);
         }
 
-        public async Task<User?> GetById(int id)
+        public async Task<User?> GetById(string id)
         {
-            return await UserDao.Instance.GetUserById(id);
+            var user = await UserDao.Instance.GetUserById(id);
+            user.Role = await RoleDao.Instance.GetRoleById(user.RoleId);
+            return user;
         }
 
-        public Task<int> Update(int id, User entity)
+        public async Task<int> Update(string id, User entity)
         {
-            throw new NotImplementedException();
+           return await UserDao.Instance.UpdateUser(id, entity);
         }
 
         public async Task<IEnumerable<User?>?> Gets()
         {
-            return await UserDao.Instance.GetUsers();
+            var users = await UserDao.Instance.GetUsers();
+            foreach (var user in users)
+            {
+                var userRole = await RoleDao.Instance.GetRoleById(user.RoleId);
+                user.Role = userRole;
+            }
+            return users;
         }
 
-        public Task<int> Create(User entity)
+        public async Task<int> Create(User entity)
         {
-            throw new NotImplementedException();
+            return await UserDao.Instance.CreateUser(entity);
+        }
+        public async Task<int> Delete(string id)
+        {
+            return await UserDao.Instance.DeleteUser(id);
         }
     }
 }

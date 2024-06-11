@@ -1,47 +1,19 @@
-﻿using AutoMapper;
-using BusinessObjects.Dto.Bill;
+﻿using BusinessObjects.Dto.Bill;
 using BusinessObjects.Models;
 using DAO;
 using Repositories.Interface;
+using Tools;
 
 namespace Repositories.Implementation
 {
     public class BillRepository : IBillRepository
     {
-
-        // public async Task<int> Create(BillDto entity)
-        // {
-        //     if(entity.JewelryIds == null) return 0;
-        //     var bill = new Bill
-        //     {
-        //         CustomerId = entity.CustomerId,
-        //         UserId = entity.UserId,
-        //         SaleDate = entity.SaleDate,
-        //     };
-        //     var result = await BillDao.Instance.CreateBill(bill);
-        //     if (result <= 0) return result;
-        //     foreach (var jewelryId in entity.JewelryIds)
-        //     {
-        //         var isSold = await JewelryDao.Instance.IsSold(jewelryId);
-        //         if (isSold)
-        //         {
-        //             return 0;
-        //         }
-        //         var billJewelry = new BillJewelry
-        //         {
-        //             BillId = bill.BillId,
-        //             JewelryId = jewelryId
-        //         };
-        //         result = await BillJewelryDao.Instance.CreateBillJewelry(billJewelry);
-        //     }
-        //     return result;
-        // }
         public async Task<IEnumerable<Bill?>?> Gets()
         {
             return await BillDao.Instance.GetBills();
         }
 
-        public async Task<Bill?> GetById(int id)
+        public async Task<Bill?> GetById(string id)
         {
             return await BillDao.Instance.GetBillById(id);
         }
@@ -55,6 +27,7 @@ namespace Repositories.Implementation
             // Create bill
             var bill = new Bill
             {
+                BillId = IdGenerator.GenerateId(),
                 CustomerId = billRequestDto.CustomerId,
                 UserId = billRequestDto.UserId,
                 SaleDate = DateTime.Now,
@@ -62,7 +35,7 @@ namespace Repositories.Implementation
             };
             var billId = await BillDao.Instance.CreateBill(bill);
             // Check if bill is created
-            if (billId <= 0)
+            if (billId == null)
             {
                 throw new InvalidOperationException("Failed to create the bill.");
             }
@@ -71,6 +44,7 @@ namespace Repositories.Implementation
             {
                 var billJewelry = new BillJewelry
                 {
+                    BillJewelryId = IdGenerator.GenerateId(),
                     BillId = billId,
                     JewelryId = item.JewelryId,
                 };
@@ -81,6 +55,7 @@ namespace Repositories.Implementation
             {
                 var billPromotion = new BillPromotion
                 {
+                    BillPromotionId = IdGenerator.GenerateId(),
                     BillId = billId,
                     PromotionId = promotion.PromotionId,
                 };

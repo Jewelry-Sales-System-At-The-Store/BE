@@ -21,12 +21,12 @@ namespace Repositories.Implementation
             return await CustomerDao.Instance.GetCustomers();
         }
 
-        public async Task<Customer?> GetById(int id)
+        public async Task<Customer?> GetById(string id)
         {
             return await CustomerDao.Instance.GetCustomerById(id);
         }
 
-        public Task<int> Update(int id, Customer entity)
+        public Task<int> Update(string id, Customer entity)
         {
             return CustomerDao.Instance.UpdateCustomer(id, entity);
         }
