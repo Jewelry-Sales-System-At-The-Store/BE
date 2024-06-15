@@ -1,10 +1,10 @@
-﻿namespace BusinessObjects.Dto.Bill
+﻿namespace BusinessObjects.DTO.Bill
 {
     public class BillResponseDto
     {
         public string? BillId { get; set; }
         public double TotalAmount { get; set; }
-        public DateTime? SaleDate { get; set; }
+        public DateTimeOffset? SaleDate { get; set; }
         public required List<BillItemResponse?> Items { get; set; }
         public required List<BillPromotionResponse?> Promotions { get; set; }
         public double AdditionalDiscount { get; set; }

@@ -1,6 +1,6 @@
 ﻿
 using AutoMapper;
-using BusinessObjects.Dto;
+using BusinessObjects.DTO;
 using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
 using Services;

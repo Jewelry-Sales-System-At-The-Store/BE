@@ -22,7 +22,11 @@ public static class ServiceExtensions
         serviceCollection.AddScoped<IPromotionRepository, PromotionRepository>();
         serviceCollection.AddScoped<IBillRepository, BillRepository>();
         serviceCollection.AddScoped<IJewelryTypeRepository, JewelryTypeRepository>();
+        serviceCollection.AddScoped<IRoleRepository, RoleRepository>();
+        serviceCollection.AddScoped<IGoldPriceRepository, GoldPriceRepository>();
         //Services
+        serviceCollection.AddScoped<IGoldPriceService, GoldPriceService>();
+        serviceCollection.AddScoped<IRoleService, RoleService>();
         serviceCollection.AddScoped<IUserService, UserService>();
         serviceCollection.AddScoped<IJewelryService, JewelryService>();
         serviceCollection.AddScoped<IWarrantyService, WarrantyService>();

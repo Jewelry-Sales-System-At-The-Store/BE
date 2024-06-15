@@ -1,5 +1,5 @@
-﻿using BusinessObjects.Dto;
-using BusinessObjects.Dto.Bill;
+﻿using BusinessObjects.DTO;
+using BusinessObjects.DTO.Bill;
 using BusinessObjects.Models;
 using Management.Interface;
 using Services.Interface;

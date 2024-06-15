@@ -1,4 +1,4 @@
-﻿using BusinessObjects.Dto.Bill;
+﻿using BusinessObjects.DTO.Bill;
 using Management.Interface;
 using Microsoft.AspNetCore.Mvc;
 

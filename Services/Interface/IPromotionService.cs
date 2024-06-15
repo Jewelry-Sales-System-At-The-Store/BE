@@ -1,5 +1,5 @@
-﻿using BusinessObjects.Models;
-using BusinessObjects.Dto;
+﻿using BusinessObjects.DTO;
+using BusinessObjects.Models;
 
 namespace Services.Interface
 {

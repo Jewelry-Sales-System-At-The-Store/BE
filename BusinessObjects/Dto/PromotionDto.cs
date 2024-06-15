@@ -1,4 +1,4 @@
-﻿namespace BusinessObjects.Dto;
+﻿namespace BusinessObjects.DTO;
 public class PromotionDto
 {
     public string? Type { get; set; }

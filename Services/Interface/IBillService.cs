@@ -1,4 +1,4 @@
-﻿using BusinessObjects.Dto.Bill;
+﻿using BusinessObjects.DTO.Bill;
 using BusinessObjects.Models;
 
 namespace Services.Interface

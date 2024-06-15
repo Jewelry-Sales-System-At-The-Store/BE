@@ -8,6 +8,6 @@ public partial class Warranty
 
     public string? Description { get; set; }
 
-    public DateTime? EndDate { get; set; }
+    public DateTimeOffset? EndDate { get; set; }
     public Jewelry? Jewelry { get; set; }
 }

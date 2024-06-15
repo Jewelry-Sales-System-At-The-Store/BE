@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BusinessObjects.Dto;
+using BusinessObjects.DTO;
 using BusinessObjects.Models;
 using Repositories.Interface;
 using Services.Interface;

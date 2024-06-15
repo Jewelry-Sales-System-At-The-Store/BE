@@ -1,4 +1,4 @@
-﻿namespace BusinessObjects.Dto.Bill;
+﻿namespace BusinessObjects.DTO.Bill;
 
 public class BillItemRequestDto
 {

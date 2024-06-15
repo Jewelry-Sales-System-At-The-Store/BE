@@ -66,49 +66,49 @@ namespace BusinessObjects.Context
 
             modelBuilder.Entity<Bill>()
                 .Property(b => b.BillId)
-                .HasColumnType("NVARCHAR(20)");
+                .HasColumnType("varchar(20)");
 
             modelBuilder.Entity<BillJewelry>()
                 .HasKey(bj => bj.BillJewelryId);
 
             modelBuilder.Entity<BillJewelry>()
                 .Property(bj => bj.BillJewelryId)
-                .HasColumnType("NVARCHAR(20)");
+                .HasColumnType("varchar(20)");
 
             modelBuilder.Entity<BillPromotion>()
                 .HasKey(bp => bp.BillPromotionId);
 
             modelBuilder.Entity<BillPromotion>()
                 .Property(bp => bp.BillPromotionId)
-                .HasColumnType("NVARCHAR(20)");
+                .HasColumnType("varchar(20)");
 
             modelBuilder.Entity<Counter>()
                 .HasKey(c => c.CounterId);
 
             modelBuilder.Entity<Counter>()
                 .Property(c => c.CounterId)
-                .HasColumnType("NVARCHAR(20)");
+                .HasColumnType("varchar(20)");
 
             modelBuilder.Entity<Customer>()
                 .HasKey(cu => cu.CustomerId);
 
             modelBuilder.Entity<Customer>()
                 .Property(cu => cu.CustomerId)
-                .HasColumnType("NVARCHAR(20)");
+                .HasColumnType("varchar(20)");
 
             modelBuilder.Entity<GoldPrice>()
                 .HasKey(gp => gp.GoldPriceId);
 
             modelBuilder.Entity<GoldPrice>()
                 .Property(gp => gp.GoldPriceId)
-                .HasColumnType("NVARCHAR(20)");
+                .HasColumnType("varchar(20)");
 
             modelBuilder.Entity<Jewelry>()
                 .HasKey(j => j.JewelryId);
 
             modelBuilder.Entity<Jewelry>()
                 .Property(j => j.JewelryId)
-                .HasColumnType("NVARCHAR(20)");
+                .HasColumnType("varchar(20)");
             ;
 
             modelBuilder.Entity<JewelryType>()
@@ -116,49 +116,49 @@ namespace BusinessObjects.Context
 
             modelBuilder.Entity<JewelryType>()
                 .Property(jt => jt.JewelryTypeId)
-                .HasColumnType("NVARCHAR(20)");
+                .HasColumnType("varchar(20)");
 
             modelBuilder.Entity<Promotion>()
                 .HasKey(p => p.PromotionId);
 
             modelBuilder.Entity<Promotion>()
                 .Property(p => p.PromotionId)
-                .HasColumnType("NVARCHAR(20)");
+                .HasColumnType("varchar(20)");
 
             modelBuilder.Entity<Purchase>()
                 .HasKey(p => p.PurchaseId);
 
             modelBuilder.Entity<Purchase>()
                 .Property(p => p.PurchaseId)
-                .HasColumnType("NVARCHAR(20)");
+                .HasColumnType("varchar(20)");
 
             modelBuilder.Entity<Role>()
                 .HasKey(r => r.RoleId);
 
             modelBuilder.Entity<Role>()
                 .Property(r => r.RoleId)
-                .HasColumnType("NVARCHAR(20)");
+                .HasColumnType("varchar(20)");
 
             modelBuilder.Entity<User>()
                 .HasKey(u => u.UserId);
 
             modelBuilder.Entity<User>()
                 .Property(u => u.UserId)
-                .HasColumnType("NVARCHAR(20)");
+                .HasColumnType("varchar(20)");
 
             modelBuilder.Entity<Warranty>()
                 .HasKey(w => w.WarrantyId);
 
             modelBuilder.Entity<Warranty>()
                 .Property(w => w.WarrantyId)
-                .HasColumnType("NVARCHAR(20)");
+                .HasColumnType("varchar(20)");
 
             modelBuilder.Entity<MasterPrice>()
                 .HasKey(mp => mp.MasterPriceId);
 
             modelBuilder.Entity<MasterPrice>()
                 .Property(mp => mp.MasterPriceId)
-                .HasColumnType("NVARCHAR(20)");
+                .HasColumnType("varchar(20)");
 
 
             modelBuilder.Entity<StonePrice>()
@@ -166,7 +166,7 @@ namespace BusinessObjects.Context
 
             modelBuilder.Entity<StonePrice>()
                 .Property(sp => sp.StonePriceId)
-                .HasColumnType("NVARCHAR(20)");
+                .HasColumnType("varchar(20)");
             // Relationships
             modelBuilder.Entity<MasterPrice>()
                 .HasOne(mp => mp.GoldPrice)

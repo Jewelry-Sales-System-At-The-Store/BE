@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using BusinessObjects.Dto;
+using BusinessObjects.DTO;
 
 namespace Services.Implementation
 {
