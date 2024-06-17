@@ -7,11 +7,12 @@ using Services.Interface;
 
 namespace Management.Implementation
 {
-    public class UserManagement(IUserService userService, IBillService billService, ITokenService tokenService) : IUserManagement
+    public class UserManagement(IJewelryService jewelryService,IUserService userService, IBillService billService, ITokenService tokenService) : IUserManagement
     {
+        public IJewelryService JewelryService { get; } = jewelryService;
         private IUserService UserService { get; } = userService;
         private IBillService BillService { get; } = billService;
-        public ITokenService TokenService { get; } = tokenService;
+        private ITokenService TokenService { get; } = tokenService;
 
         public async Task<TokenResponseDto?> Login(LoginDto loginDto)
         {
@@ -35,7 +36,7 @@ namespace Management.Implementation
         {
             return await BillService.GetById(id);
         }
-
+        
         public async Task<BillResponseDto> CreateBill(BillRequestDto billRequestDto)
         {
             return await BillService.Create(billRequestDto);

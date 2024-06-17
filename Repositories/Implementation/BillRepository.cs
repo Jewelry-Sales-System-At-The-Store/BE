@@ -74,7 +74,7 @@ namespace Repositories.Implementation
                 Items = billRequestDto.Jewelries.Select(i => new BillItemResponse
                 {
                     JewelryId = i.JewelryId,
-                    Price = 0 // Calculate price
+                    TotalPrice = 0 // Calculate price
                 }).ToList(),
                 Promotions = billRequestDto.Promotions.Select(p => new BillPromotionResponse
                 {
@@ -86,6 +86,19 @@ namespace Repositories.Implementation
                 FinalAmount = 0 // Calculate final amount
             };
             return billResponseDto;
+        }
+        public Task<int> Create(Bill entity)
+        {
+            throw new NotImplementedException();
+        }
+        public async Task<string> CreateBill(Bill entity)
+        {
+            return await BillDao.CreateBill(entity);
+        }
+
+        public async Task<int> UpdateBill(Bill entity)
+        {
+            return await BillDao.UpdateBill(entity);
         }
     }
 }

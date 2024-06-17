@@ -3,5 +3,5 @@
 public class BillPromotionResponse
 {
     public string? PromotionId { get; set; }
-    public decimal Discount { get; set; }
+    public float Discount { get; set; }
 }

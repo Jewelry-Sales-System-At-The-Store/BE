@@ -7,7 +7,6 @@ public class Gem
     public string? City { get; set; }
     public float BuyPrice { get; set; }
     public float SellPrice { get; set; }
-    
     public DateTimeOffset LastUpdated { get; set; }
     
     public virtual ICollection<JewelryMaterial> JewelryMaterials { get; set; } = new List<JewelryMaterial>();

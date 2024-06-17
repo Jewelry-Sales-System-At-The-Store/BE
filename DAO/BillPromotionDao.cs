@@ -17,7 +17,7 @@ public class BillPromotionDao : Singleton<BillPromotionDao>
     {
         return await _context.BillPromotions.ToListAsync();
     }
-    public async Task<BillPromotion?> GetBillPromotionById(int id)
+    public async Task<BillPromotion?> GetBillPromotionById(string id)
     {
         return await _context.BillPromotions.FindAsync(id);
     }

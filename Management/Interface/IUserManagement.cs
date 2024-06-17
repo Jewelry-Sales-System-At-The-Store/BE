@@ -13,8 +13,8 @@ namespace Management.Interface
         public Task<Bill?> GetBillById(string id);
         public Task<BillResponseDto> CreateBill(BillRequestDto billRequestDto);
         
-        public Task<User> GetUserById(string id);
-        public Task<int> AddUser(UserDto? userDto);
+        public Task<User?> GetUserById(string id);
+        public Task<int> AddUser(UserDto userDto);
         public Task<int> UpdateUser(string id, UserDto userDto);
         
         public Task<int> DeleteUser(string id);

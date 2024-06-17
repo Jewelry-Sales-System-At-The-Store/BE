@@ -26,5 +26,10 @@ namespace DAO
             await _context.SaveChangesAsync();
             return bill.BillId;
         }
+        public async Task<int> UpdateBill(Bill bill)
+        {
+            _context.Bills.Update(bill);
+            return await _context.SaveChangesAsync();
+        }
     }
 }

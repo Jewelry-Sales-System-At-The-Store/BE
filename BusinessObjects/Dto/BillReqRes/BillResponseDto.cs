@@ -4,6 +4,7 @@
     {
         public string? BillId { get; set; }
         public double TotalAmount { get; set; }
+        public double TotalDiscount { get; set; }
         public DateTimeOffset? SaleDate { get; set; }
         public required List<BillItemResponse?> Items { get; set; }
         public required List<BillPromotionResponse?> Promotions { get; set; }
