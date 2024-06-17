@@ -3,7 +3,7 @@ using Repositories.Interface.GenericRepository;
 
 namespace Repositories.Interface;
 
-public interface IGoldPriceRepository : IReadRepository<GoldPrice> , ICreateRepository<GoldPrice>
+public interface IGoldPriceRepository : IReadRepository<Gold> , ICreateRepository<Gold>
 {
-    Task<int> Update(GoldPrice entity);
+    Task<int> Update(Gold entity);
 }

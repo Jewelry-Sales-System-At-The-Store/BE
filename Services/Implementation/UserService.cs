@@ -13,7 +13,8 @@ namespace Services.Implementation
 
         public async Task<User?> Login(LoginDto loginDto)
         {
-            return await UserRepository.GetUser(loginDto.Email ?? "", loginDto.Password ?? "");
+            var user = await UserRepository.GetUser(loginDto.Email ?? "", loginDto.Password ?? "");
+            return user ?? null;
         }
 
         public async Task<IEnumerable<User?>?> GetUsers()
@@ -21,9 +22,9 @@ namespace Services.Implementation
             return await UserRepository.Gets();
         }
 
-        public async Task<bool> IsUser(string email, string password)
+        public async Task<bool> IsUser(LoginDto loginDto)
         {
-            var users = await UserRepository.Find(a => a.Email == email && a.Password == password);
+            var users = await UserRepository.Find(a => a.Email == loginDto.Email && a.Password == loginDto.Password);
             return users.Any();
         }
         

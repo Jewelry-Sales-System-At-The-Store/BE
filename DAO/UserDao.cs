@@ -51,7 +51,15 @@ namespace DAO
             var user = await _context.Users.FindAsync(id);
             if (user == null) return 0;
             _context.Users.Remove(user);
-            return await _context.SaveChangesAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                return 0;
+            }
+            return 1;
         }
     }
 }

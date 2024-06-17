@@ -6,7 +6,7 @@ using Tools;
 
 namespace DAO
 {
-    public class JewelryDao : Singleton<JewelryDao>
+    public class JewelryDao
     {
         private readonly JssatsContext _context;
         public JewelryDao()
@@ -20,7 +20,8 @@ namespace DAO
 
         public async Task<Jewelry?> GetJewelryById(string id)
         {
-            return await _context.Jewelries.FirstOrDefaultAsync(p => p.JewelryId == id);
+           var jewelry = await _context.Jewelries.FirstOrDefaultAsync(p => p.JewelryId == id);
+           return jewelry;
         }
 
         public async Task<int> CreateJewelry(Jewelry jewelry)

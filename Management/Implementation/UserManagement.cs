@@ -1,19 +1,24 @@
 ﻿using BusinessObjects.DTO;
 using BusinessObjects.DTO.Bill;
+using BusinessObjects.DTO.ResponseDto;
 using BusinessObjects.Models;
 using Management.Interface;
 using Services.Interface;
 
 namespace Management.Implementation
 {
-    public class UserManagement(IUserService userService, IBillService billService) : IUserManagement
+    public class UserManagement(IUserService userService, IBillService billService, ITokenService tokenService) : IUserManagement
     {
         private IUserService UserService { get; } = userService;
         private IBillService BillService { get; } = billService;
+        public ITokenService TokenService { get; } = tokenService;
 
-        public async Task<User?> Login(LoginDto loginDto)
+        public async Task<TokenResponseDto?> Login(LoginDto loginDto)
         {
-            return await UserService.Login(loginDto);
+            var user = await UserService.Login(loginDto);
+            if (user == null) return null;
+            var token = await TokenService.CreateToken(user);
+            return token;
         }
 
         public async Task<IEnumerable<User?>?> GetUsers()

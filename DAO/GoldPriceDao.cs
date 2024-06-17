@@ -1,29 +1,32 @@
 ﻿using BusinessObjects.Context;
 using BusinessObjects.Models;
-using DAO.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAO;
 
-public class GoldPriceDao : Singleton<GoldPriceDao>
+public class GoldPriceDao
 {
     private readonly JssatsContext _context;
     public GoldPriceDao()
     {
         _context = new JssatsContext();
     }
-    public async Task<IEnumerable<GoldPrice>> GetGoldPrices()
+    public async Task<IEnumerable<Gold>?> GetGoldPrices()
     {
-        return await _context.GoldPrices.ToListAsync();
+        return await _context.Golds.ToListAsync();
     }
-    public async Task<int> Create(GoldPrice goldPrice)
+    public async Task<Gold?> GetGoldPriceById(string id)
     {
-        _context.GoldPrices.Add(goldPrice);
+        return await _context.Golds.FindAsync(id);
+    }
+    public async Task<int> Create(Gold gold)
+    {
+        _context.Golds.Add(gold);
         return await _context.SaveChangesAsync();
     }
-    public async Task<int> Update(GoldPrice goldPrice)
+    public async Task<int> Update(Gold gold)
     {
-        _context.GoldPrices.Update(goldPrice);
+        _context.Golds.Update(gold);
         return await _context.SaveChangesAsync();
     }
 }

@@ -16,7 +16,8 @@ namespace API.Extensions
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<Role, RoleDto>().ReverseMap();
             // ResponseDto Mapping
-            CreateMap<GoldPrice, GoldPriceResponseDto>().ReverseMap();
+            CreateMap<Gold, GoldPriceResponseDto>().ReverseMap();
+            CreateMap<Gem, GemPriceResponseDto>().ReverseMap();
         }
     }
 }

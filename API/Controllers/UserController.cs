@@ -1,5 +1,7 @@
 ﻿using BusinessObjects.DTO;
+using BusinessObjects.Models;
 using Management.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -22,13 +24,15 @@ public class UserController(IUserManagement userManagement) : ControllerBase
         if (user != null) return Ok(user);
         return NotFound(new { message = "User not found" });
     }
+    [AllowAnonymous]
     [HttpPost("Login")]
     public async Task<IActionResult> Login(LoginDto loginDto)
     {
-        var user = await UserManagement.Login(loginDto);
-        if (user != null) return Ok(user);
+        var token = await UserManagement.Login(loginDto);
+        if (token != null) return Ok(token);
         return NotFound(new { message = "Login fail" });
     }
+    [Authorize(Roles = "Manager")]
     [HttpPost("AddUser")]
     public async Task<IActionResult> AddUser(UserDto userDto)
     {

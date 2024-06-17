@@ -16,7 +16,11 @@ namespace Repositories.Implementation
 
         public async Task<User?> GetUser(string email, string password)
         {
-            return await UserDao.GetUser(email, password);
+            var user = await UserDao.GetUser(email, password);
+            if (user == null) return null;
+            var role = await RoleDao.GetRoleById(user.RoleId);
+            user.Role = role;
+            return user;
         }
 
         public async Task<User?> GetById(string id)

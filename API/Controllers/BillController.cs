@@ -1,5 +1,6 @@
 ﻿using BusinessObjects.DTO.Bill;
 using Management.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -9,7 +10,7 @@ namespace API.Controllers;
 public class BillController(IUserManagement userManagement) : ControllerBase
 {
     private IUserManagement UserManagement { get; } = userManagement;
-
+    
     [HttpGet("GetBills")]
     public async Task<IActionResult> Get()
     {

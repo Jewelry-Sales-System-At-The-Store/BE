@@ -13,8 +13,8 @@ public class JewelryMaterial
     
     public float StoneQuantity { get; set; }
     
-    public virtual StonePrice? StonePrice { get; set; }
+    public virtual Gem? StonePrice { get; set; }
     
-    public virtual GoldPrice? GoldPrice { get; set; }
+    public virtual Gold? GoldPrice { get; set; }
     public virtual Jewelry? Jewelry { get; set; }
 }

@@ -2,6 +2,6 @@
 using Repositories.Interface.GenericRepository;
 namespace Repositories.Interface;
 
-public interface IJewelryRepository : IReadRepository<Jewelry>, ICreateRepository<Jewelry>, IUpdateRepository<Jewelry>, IDeleteRepository<Jewelry>
+public interface IJewelryRepository : IReadRepository<(Jewelry? Jewelry, float TotalPrice)>, ICreateRepository<Jewelry>, IUpdateRepository<Jewelry>, IDeleteRepository<Jewelry>
 {
 }

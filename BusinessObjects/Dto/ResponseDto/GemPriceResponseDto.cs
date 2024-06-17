@@ -1,8 +1,8 @@
 ﻿namespace BusinessObjects.DTO.ResponseDto;
 
-public class GoldPriceResponseDto
+public class GemPriceResponseDto
 {
-    public required string GoldId { get; set; }
+    public required string GemId { get; set; }
     public string? Type { get; set; }
     public string? City { get; set; }
     public float BuyPrice { get; set; }

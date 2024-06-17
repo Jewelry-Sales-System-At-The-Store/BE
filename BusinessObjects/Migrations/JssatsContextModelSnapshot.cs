@@ -57,7 +57,7 @@ namespace BusinessObjects.Migrations
                         {
                             BillId = "1",
                             CustomerId = "1",
-                            SaleDate = new DateTimeOffset(new DateTime(2024, 6, 14, 18, 46, 39, 881, DateTimeKind.Unspecified).AddTicks(7568), new TimeSpan(0, 7, 0, 0, 0)),
+                            SaleDate = new DateTimeOffset(new DateTime(2024, 6, 17, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6220), new TimeSpan(0, 7, 0, 0, 0)),
                             TotalAmount = 500.0,
                             UserId = "1"
                         },
@@ -65,7 +65,7 @@ namespace BusinessObjects.Migrations
                         {
                             BillId = "2",
                             CustomerId = "2",
-                            SaleDate = new DateTimeOffset(new DateTime(2024, 6, 14, 18, 46, 39, 881, DateTimeKind.Unspecified).AddTicks(7571), new TimeSpan(0, 7, 0, 0, 0)),
+                            SaleDate = new DateTimeOffset(new DateTime(2024, 6, 17, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6223), new TimeSpan(0, 7, 0, 0, 0)),
                             TotalAmount = 1200.0,
                             UserId = "2"
                         });
@@ -102,12 +102,6 @@ namespace BusinessObjects.Migrations
                             BillJewelryId = "2",
                             BillId = "1",
                             JewelryId = "2"
-                        },
-                        new
-                        {
-                            BillJewelryId = "3",
-                            BillId = "2",
-                            JewelryId = "3"
                         });
                 });
 
@@ -220,9 +214,9 @@ namespace BusinessObjects.Migrations
                         });
                 });
 
-            modelBuilder.Entity("BusinessObjects.Models.GoldPrice", b =>
+            modelBuilder.Entity("BusinessObjects.Models.Gem", b =>
                 {
-                    b.Property<string>("GoldPriceId")
+                    b.Property<string>("GemId")
                         .HasColumnType("varchar(20)");
 
                     b.Property<float>("BuyPrice")
@@ -240,35 +234,89 @@ namespace BusinessObjects.Migrations
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("GoldPriceId");
+                    b.HasKey("GemId");
 
-                    b.ToTable("GoldPrices");
+                    b.ToTable("Gems");
 
                     b.HasData(
                         new
                         {
-                            GoldPriceId = "1",
+                            GemId = "1",
+                            BuyPrice = 300f,
+                            City = "Ha Noi",
+                            LastUpdated = new DateTimeOffset(new DateTime(2024, 6, 17, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6287), new TimeSpan(0, 7, 0, 0, 0)),
+                            SellPrice = 400f,
+                            Type = "Ruby"
+                        },
+                        new
+                        {
+                            GemId = "2",
+                            BuyPrice = 400f,
+                            City = "Ha Noi",
+                            LastUpdated = new DateTimeOffset(new DateTime(2024, 6, 17, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6289), new TimeSpan(0, 7, 0, 0, 0)),
+                            SellPrice = 500f,
+                            Type = "Sapphire"
+                        },
+                        new
+                        {
+                            GemId = "3",
+                            BuyPrice = 500f,
+                            City = "Ha Noi",
+                            LastUpdated = new DateTimeOffset(new DateTime(2024, 6, 17, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6291), new TimeSpan(0, 7, 0, 0, 0)),
+                            SellPrice = 600f,
+                            Type = "Emerald"
+                        });
+                });
+
+            modelBuilder.Entity("BusinessObjects.Models.Gold", b =>
+                {
+                    b.Property<string>("GoldId")
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<float>("BuyPrice")
+                        .HasColumnType("real");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset?>("LastUpdated")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<float>("SellPrice")
+                        .HasColumnType("real");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("GoldId");
+
+                    b.ToTable("Golds");
+
+                    b.HasData(
+                        new
+                        {
+                            GoldId = "1",
                             BuyPrice = 1000f,
                             City = "Ha Noi",
-                            LastUpdated = new DateTimeOffset(new DateTime(2024, 6, 14, 18, 46, 39, 881, DateTimeKind.Unspecified).AddTicks(7662), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdated = new DateTimeOffset(new DateTime(2024, 6, 17, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6313), new TimeSpan(0, 7, 0, 0, 0)),
                             SellPrice = 1200f,
                             Type = "9999"
                         },
                         new
                         {
-                            GoldPriceId = "2",
+                            GoldId = "2",
                             BuyPrice = 1200f,
                             City = "Ha Noi",
-                            LastUpdated = new DateTimeOffset(new DateTime(2024, 6, 14, 18, 46, 39, 881, DateTimeKind.Unspecified).AddTicks(7664), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdated = new DateTimeOffset(new DateTime(2024, 6, 17, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6315), new TimeSpan(0, 7, 0, 0, 0)),
                             SellPrice = 1400f,
                             Type = "SCJ"
                         },
                         new
                         {
-                            GoldPriceId = "3",
+                            GoldId = "3",
                             BuyPrice = 1400f,
                             City = "Ha Noi",
-                            LastUpdated = new DateTimeOffset(new DateTime(2024, 6, 14, 18, 46, 39, 881, DateTimeKind.Unspecified).AddTicks(7666), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdated = new DateTimeOffset(new DateTime(2024, 6, 17, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6317), new TimeSpan(0, 7, 0, 0, 0)),
                             SellPrice = 1600f,
                             Type = "18k"
                         });
@@ -318,24 +366,6 @@ namespace BusinessObjects.Migrations
                             JewelryTypeId = "2",
                             LaborCost = 231.0,
                             Name = "Nhan"
-                        },
-                        new
-                        {
-                            JewelryId = "3",
-                            Barcode = "SACC3",
-                            IsSold = true,
-                            JewelryTypeId = "3",
-                            LaborCost = 431.0,
-                            Name = "Day chuyen"
-                        },
-                        new
-                        {
-                            JewelryId = "4",
-                            Barcode = "SFA131",
-                            IsSold = true,
-                            JewelryTypeId = "2",
-                            LaborCost = 552.0,
-                            Name = "Vong tay Xanh"
                         });
                 });
 
@@ -368,6 +398,26 @@ namespace BusinessObjects.Migrations
                     b.HasIndex("StonePriceId");
 
                     b.ToTable("JewelryMaterials");
+
+                    b.HasData(
+                        new
+                        {
+                            JewelryMaterialId = "1",
+                            GoldPriceId = "1",
+                            GoldQuantity = 30f,
+                            JewelryId = "1",
+                            StonePriceId = "1",
+                            StoneQuantity = 1f
+                        },
+                        new
+                        {
+                            JewelryMaterialId = "2",
+                            GoldPriceId = "2",
+                            GoldQuantity = 20f,
+                            JewelryId = "2",
+                            StonePriceId = "2",
+                            StoneQuantity = 1f
+                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.JewelryType", b =>
@@ -398,32 +448,6 @@ namespace BusinessObjects.Migrations
                             JewelryTypeId = "3",
                             Name = "Day chuyen"
                         });
-                });
-
-            modelBuilder.Entity("BusinessObjects.Models.MasterPrice", b =>
-                {
-                    b.Property<string>("MasterPriceId")
-                        .HasColumnType("varchar(20)");
-
-                    b.Property<string>("GoldPriceId")
-                        .HasColumnType("varchar(20)");
-
-                    b.Property<float>("GoldStorePrice")
-                        .HasColumnType("real");
-
-                    b.Property<string>("StonePriceId")
-                        .HasColumnType("varchar(20)");
-
-                    b.Property<float>("StoneStorePrice")
-                        .HasColumnType("real");
-
-                    b.HasKey("MasterPriceId");
-
-                    b.HasIndex("GoldPriceId");
-
-                    b.HasIndex("StonePriceId");
-
-                    b.ToTable("MasterPrices");
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Promotion", b =>
@@ -459,8 +483,8 @@ namespace BusinessObjects.Migrations
                             PromotionId = "1",
                             Description = "Giam gia 10%",
                             DiscountRate = 1.0,
-                            EndDate = new DateTimeOffset(new DateTime(2024, 6, 24, 18, 46, 39, 881, DateTimeKind.Unspecified).AddTicks(7535), new TimeSpan(0, 7, 0, 0, 0)),
-                            StartDate = new DateTimeOffset(new DateTime(2024, 6, 14, 18, 46, 39, 881, DateTimeKind.Unspecified).AddTicks(7507), new TimeSpan(0, 7, 0, 0, 0)),
+                            EndDate = new DateTimeOffset(new DateTime(2024, 6, 27, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6189), new TimeSpan(0, 7, 0, 0, 0)),
+                            StartDate = new DateTimeOffset(new DateTime(2024, 6, 17, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6164), new TimeSpan(0, 7, 0, 0, 0)),
                             Type = "Giam gia"
                         },
                         new
@@ -468,8 +492,8 @@ namespace BusinessObjects.Migrations
                             PromotionId = "2",
                             Description = "Giam gia 20%",
                             DiscountRate = 2.0,
-                            EndDate = new DateTimeOffset(new DateTime(2024, 6, 24, 18, 46, 39, 881, DateTimeKind.Unspecified).AddTicks(7541), new TimeSpan(0, 7, 0, 0, 0)),
-                            StartDate = new DateTimeOffset(new DateTime(2024, 6, 14, 18, 46, 39, 881, DateTimeKind.Unspecified).AddTicks(7540), new TimeSpan(0, 7, 0, 0, 0)),
+                            EndDate = new DateTimeOffset(new DateTime(2024, 6, 27, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6195), new TimeSpan(0, 7, 0, 0, 0)),
+                            StartDate = new DateTimeOffset(new DateTime(2024, 6, 17, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6194), new TimeSpan(0, 7, 0, 0, 0)),
                             Type = "Giam gia"
                         },
                         new
@@ -477,8 +501,8 @@ namespace BusinessObjects.Migrations
                             PromotionId = "3",
                             Description = "Giam gia 30%",
                             DiscountRate = 3.0,
-                            EndDate = new DateTimeOffset(new DateTime(2024, 6, 24, 18, 46, 39, 881, DateTimeKind.Unspecified).AddTicks(7544), new TimeSpan(0, 7, 0, 0, 0)),
-                            StartDate = new DateTimeOffset(new DateTime(2024, 6, 14, 18, 46, 39, 881, DateTimeKind.Unspecified).AddTicks(7543), new TimeSpan(0, 7, 0, 0, 0)),
+                            EndDate = new DateTimeOffset(new DateTime(2024, 6, 27, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6198), new TimeSpan(0, 7, 0, 0, 0)),
+                            StartDate = new DateTimeOffset(new DateTime(2024, 6, 17, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6197), new TimeSpan(0, 7, 0, 0, 0)),
                             Type = "Giam gia"
                         });
                 });
@@ -523,7 +547,7 @@ namespace BusinessObjects.Migrations
                             CustomerId = "1",
                             IsBuyBack = 0,
                             JewelryId = "1",
-                            PurchaseDate = new DateTimeOffset(new DateTime(2024, 6, 14, 18, 46, 39, 881, DateTimeKind.Unspecified).AddTicks(7686), new TimeSpan(0, 7, 0, 0, 0)),
+                            PurchaseDate = new DateTimeOffset(new DateTime(2024, 6, 17, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6337), new TimeSpan(0, 7, 0, 0, 0)),
                             PurchasePrice = 500.0,
                             UserId = "1"
                         },
@@ -533,18 +557,8 @@ namespace BusinessObjects.Migrations
                             CustomerId = "2",
                             IsBuyBack = 1,
                             JewelryId = "2",
-                            PurchaseDate = new DateTimeOffset(new DateTime(2024, 6, 14, 18, 46, 39, 881, DateTimeKind.Unspecified).AddTicks(7688), new TimeSpan(0, 7, 0, 0, 0)),
+                            PurchaseDate = new DateTimeOffset(new DateTime(2024, 6, 17, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6340), new TimeSpan(0, 7, 0, 0, 0)),
                             PurchasePrice = 300.0,
-                            UserId = "1"
-                        },
-                        new
-                        {
-                            PurchaseId = "3",
-                            CustomerId = "2",
-                            IsBuyBack = 0,
-                            JewelryId = "3",
-                            PurchaseDate = new DateTimeOffset(new DateTime(2024, 6, 14, 18, 46, 39, 881, DateTimeKind.Unspecified).AddTicks(7690), new TimeSpan(0, 7, 0, 0, 0)),
-                            PurchasePrice = 1000.0,
                             UserId = "1"
                         });
                 });
@@ -576,60 +590,6 @@ namespace BusinessObjects.Migrations
                         {
                             RoleId = "3",
                             RoleName = "Staff"
-                        });
-                });
-
-            modelBuilder.Entity("BusinessObjects.Models.StonePrice", b =>
-                {
-                    b.Property<string>("StonePriceId")
-                        .HasColumnType("varchar(20)");
-
-                    b.Property<float>("BuyPrice")
-                        .HasColumnType("real");
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset>("LastUpdated")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<float>("SellPrice")
-                        .HasColumnType("real");
-
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("StonePriceId");
-
-                    b.ToTable("StonePrices");
-
-                    b.HasData(
-                        new
-                        {
-                            StonePriceId = "1",
-                            BuyPrice = 300f,
-                            City = "Ha Noi",
-                            LastUpdated = new DateTimeOffset(new DateTime(2024, 6, 14, 18, 46, 39, 881, DateTimeKind.Unspecified).AddTicks(7637), new TimeSpan(0, 7, 0, 0, 0)),
-                            SellPrice = 400f,
-                            Type = "Ruby"
-                        },
-                        new
-                        {
-                            StonePriceId = "2",
-                            BuyPrice = 400f,
-                            City = "Ha Noi",
-                            LastUpdated = new DateTimeOffset(new DateTime(2024, 6, 14, 18, 46, 39, 881, DateTimeKind.Unspecified).AddTicks(7639), new TimeSpan(0, 7, 0, 0, 0)),
-                            SellPrice = 500f,
-                            Type = "Sapphire"
-                        },
-                        new
-                        {
-                            StonePriceId = "3",
-                            BuyPrice = 500f,
-                            City = "Ha Noi",
-                            LastUpdated = new DateTimeOffset(new DateTime(2024, 6, 14, 18, 46, 39, 881, DateTimeKind.Unspecified).AddTicks(7641), new TimeSpan(0, 7, 0, 0, 0)),
-                            SellPrice = 600f,
-                            Type = "Emerald"
                         });
                 });
 
@@ -790,7 +750,7 @@ namespace BusinessObjects.Migrations
 
             modelBuilder.Entity("BusinessObjects.Models.JewelryMaterial", b =>
                 {
-                    b.HasOne("BusinessObjects.Models.GoldPrice", "GoldPrice")
+                    b.HasOne("BusinessObjects.Models.Gold", "GoldPrice")
                         .WithMany("JewelryMaterials")
                         .HasForeignKey("GoldPriceId");
 
@@ -799,30 +759,13 @@ namespace BusinessObjects.Migrations
                         .HasForeignKey("JewelryId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("BusinessObjects.Models.StonePrice", "StonePrice")
+                    b.HasOne("BusinessObjects.Models.Gem", "StonePrice")
                         .WithMany("JewelryMaterials")
                         .HasForeignKey("StonePriceId");
 
                     b.Navigation("GoldPrice");
 
                     b.Navigation("Jewelry");
-
-                    b.Navigation("StonePrice");
-                });
-
-            modelBuilder.Entity("BusinessObjects.Models.MasterPrice", b =>
-                {
-                    b.HasOne("BusinessObjects.Models.GoldPrice", "GoldPrice")
-                        .WithMany("MasterPrices")
-                        .HasForeignKey("GoldPriceId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.HasOne("BusinessObjects.Models.StonePrice", "StonePrice")
-                        .WithMany("MasterPrices")
-                        .HasForeignKey("StonePriceId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("GoldPrice");
 
                     b.Navigation("StonePrice");
                 });
@@ -899,11 +842,14 @@ namespace BusinessObjects.Migrations
                     b.Navigation("Purchases");
                 });
 
-            modelBuilder.Entity("BusinessObjects.Models.GoldPrice", b =>
+            modelBuilder.Entity("BusinessObjects.Models.Gem", b =>
                 {
                     b.Navigation("JewelryMaterials");
+                });
 
-                    b.Navigation("MasterPrices");
+            modelBuilder.Entity("BusinessObjects.Models.Gold", b =>
+                {
+                    b.Navigation("JewelryMaterials");
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Jewelry", b =>
@@ -930,13 +876,6 @@ namespace BusinessObjects.Migrations
             modelBuilder.Entity("BusinessObjects.Models.Role", b =>
                 {
                     b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("BusinessObjects.Models.StonePrice", b =>
-                {
-                    b.Navigation("JewelryMaterials");
-
-                    b.Navigation("MasterPrices");
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.User", b =>

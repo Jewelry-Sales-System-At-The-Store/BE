@@ -1,6 +1,7 @@
 ﻿
 using AutoMapper;
 using BusinessObjects.DTO;
+using BusinessObjects.DTO.ResponseDto;
 using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
 using Services;
@@ -25,6 +26,7 @@ public class JewelryController(IJewelryService jewelryService, IMapper mapper) :
     public async Task<IActionResult> GetJewelryById(string id)
     {
         var jewelry = await JewelryService.GetJewelryById(id);
+        if (jewelry == null) return NotFound();
         return Ok(jewelry);
     }
     [HttpPost("CreateJewelry")]
