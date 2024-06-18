@@ -12,9 +12,10 @@ public partial class Jewelry
     public string? Name { get; set; }
 
     public string? Barcode { get; set; }
-    
     public double? LaborCost { get; set; }
     public bool? IsSold { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
+    public DateTimeOffset UpdatedAt { get; set; }
     public virtual ICollection<BillJewelry> BillJewelries { get; set; } = new List<BillJewelry>();
     public virtual JewelryType? JewelryType { get; set; }
     public virtual Warranty? Warranty { get; set; }

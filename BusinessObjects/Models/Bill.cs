@@ -17,6 +17,9 @@ public partial class Bill
     public double? TotalAmount { get; set; }
 
     public DateTimeOffset? SaleDate { get; set; }
+    
+    public DateTimeOffset CreatedAt { get; set; }
+    public DateTimeOffset UpdatedAt { get; set; }
     public virtual ICollection<BillJewelry> BillJewelries { get; set; } = new List<BillJewelry>();
     public virtual ICollection<BillPromotion> BillPromotions { get; set; } = new List<BillPromotion>();
 

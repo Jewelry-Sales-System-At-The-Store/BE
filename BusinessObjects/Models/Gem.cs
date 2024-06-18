@@ -9,5 +9,6 @@ public class Gem
     public float SellPrice { get; set; }
     public DateTimeOffset LastUpdated { get; set; }
     
+    
     public virtual ICollection<JewelryMaterial> JewelryMaterials { get; set; } = new List<JewelryMaterial>();
 }

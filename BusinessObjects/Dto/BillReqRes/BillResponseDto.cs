@@ -1,8 +1,12 @@
-﻿namespace BusinessObjects.DTO.Bill
+﻿using BusinessObjects.DTO.Bill;
+
+namespace BusinessObjects.DTO.BillReqRes
 {
     public class BillResponseDto
     {
         public string? BillId { get; set; }
+        public string? CustomerName { get; set; }
+        public string? StaffName { get; set; }
         public double TotalAmount { get; set; }
         public double TotalDiscount { get; set; }
         public DateTimeOffset? SaleDate { get; set; }

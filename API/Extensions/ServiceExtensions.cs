@@ -1,6 +1,7 @@
 ﻿using DAO;
 using Management.Implementation;
 using Management.Interface;
+using MongoDB.Driver;
 using Repositories.Implementation;
 using Repositories.Interface;
 using Services.Implementation;
@@ -27,6 +28,8 @@ public static class ServiceExtensions
         serviceCollection.AddScoped<IGemPriceRepository, GemPriceRepository>();
         serviceCollection.AddScoped<IBillPromotionRepository, BillPromotionRepository>();
         serviceCollection.AddScoped<IBillJewelryRepository, BillJewelryRepository>();
+        serviceCollection.AddScoped<IBillDetailRepository, BillDetailRepository>();
+        serviceCollection.AddScoped<IJewelryMaterialRepository, JewelryMaterialRepository>();
         //Services
         serviceCollection.AddScoped<IGemPriceService, GemPriceService>();
         serviceCollection.AddScoped<IGoldPriceService, GoldPriceService>();
@@ -54,6 +57,13 @@ public static class ServiceExtensions
         serviceCollection.AddScoped<UserDao>();
         serviceCollection.AddScoped<WarrantyDao>();
         serviceCollection.AddScoped<JewelryMaterialDao>();
+        //Other
+        serviceCollection.AddSingleton<IMongoClient, MongoClient>(s =>
+        {
+            var uri = s.GetRequiredService<IConfiguration>()["MongoDb:CloudConnectionString"];
+            return new MongoClient(uri);
+        });
+
         return serviceCollection;
     }
 }

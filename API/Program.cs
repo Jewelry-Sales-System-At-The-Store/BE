@@ -1,5 +1,6 @@
 using System.Text;
 using API.Extensions;
+using API.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -86,8 +87,8 @@ if (app.Environment.IsDevelopment())
 }
 # endregion
 # region Middleware
-
 app.UseMiddleware<AuthMiddleware>();
+app.UseMiddleware<ErrorHandlingMiddleware>();
 # endregion
 app.UseCors();
 app.UseAuthentication();

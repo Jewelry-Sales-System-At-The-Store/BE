@@ -1,5 +1,8 @@
-﻿using BusinessObjects.DTO.Bill;
+﻿using AutoMapper;
+using BusinessObjects.DTO.Bill;
+using BusinessObjects.DTO.BillReqRes;
 using BusinessObjects.Models;
+using Repositories.Implementation;
 using Repositories.Interface;
 using Repositories.Interface.GenericRepository;
 using Services.Interface;
@@ -8,16 +11,24 @@ using Tools;
 namespace Services.Implementation
 {
     public class BillService(
+        IMapper mapper,
         IBillRepository billRepository,
         IBillPromotionRepository billPromotionRepository,
         IBillJewelryRepository billJewelryRepository,
         IPromotionRepository promotionRepository,
+        IBillDetailRepository billDetailRepository,
+        ICustomerRepository customerRepository,
+        IUserRepository userRepository,
         IJewelryRepository jewelryRepository) : IBillService
     {
+        public IMapper Mapper { get; } = mapper;
         private IBillRepository BillRepository { get; } = billRepository;
         public IBillPromotionRepository BillPromotionRepository { get; } = billPromotionRepository;
         public IBillJewelryRepository BillJewelryRepository { get; } = billJewelryRepository;
         public IPromotionRepository PromotionRepository { get; } = promotionRepository;
+        public IBillDetailRepository BillDetailRepository { get; } = billDetailRepository;
+        public ICustomerRepository CustomerRepository { get; } = customerRepository;
+        public IUserRepository UserRepository { get; } = userRepository;
         public IJewelryRepository JewelryRepository { get; } = jewelryRepository;
 
         public async Task<BillResponseDto> Create(BillRequestDto billRequestDto)
@@ -105,13 +116,15 @@ namespace Services.Implementation
                 var promotionDiscount = await PromotionRepository.GetById(promotion.PromotionId);
                 totalDiscountRate += (double)promotionDiscount.DiscountRate;
             }
-            
+
             bill.TotalAmount = CalculateFinalAmount(totalAmount, totalDiscountRate);
             await BillRepository.UpdateBill(bill);
-            
+
             var billResponseDto = new BillResponseDto
             {
                 BillId = billId,
+                CustomerName = CustomerRepository.GetById(billRequestDto.CustomerId).Result?.Name,
+                StaffName = UserRepository.GetById(billRequestDto.UserId).Result?.Username,
                 TotalAmount = totalAmount,
                 TotalDiscount = totalDiscountRate,
                 SaleDate = bill.SaleDate,
@@ -122,23 +135,24 @@ namespace Services.Implementation
                 FinalAmount = CalculateFinalAmount(totalAmount, (float)totalDiscountRate)
             };
 
+            await BillDetailRepository.AddBillDetail(Mapper.Map<BillDetailDto>(billResponseDto));
             return billResponseDto;
         }
 
 
-        public async Task<IEnumerable<Bill?>?> GetBills()
+        public async Task<IEnumerable<BillDetailDto?>?> GetBills()
         {
-            return await BillRepository.Gets();
+            return await BillDetailRepository.GetBillDetails();
         }
 
-        public async Task<Bill?> GetById(string id)
+        public async Task<BillDetailDto?> GetById(string id)
         {
-            return await BillRepository.GetById(id);
+            return await BillDetailRepository.GetBillDetail(id);
         }
-        
+
         private static double CalculateFinalAmount(double totalAmount, double discountRate)
         {
-            return totalAmount - (totalAmount * (discountRate/100));
+            return totalAmount - (totalAmount * (discountRate / 100));
         }
     }
 }
