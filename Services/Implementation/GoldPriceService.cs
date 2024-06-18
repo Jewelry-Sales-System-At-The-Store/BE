@@ -52,7 +52,7 @@ public class GoldPriceService(IGoldPriceRepository goldPriceRepository,IMapper m
                     // Update existing gold price
                     existingGoldPrice.BuyPrice = float.Parse(buyPrice);
                     existingGoldPrice.SellPrice = float.Parse(sellPrice);
-                    existingGoldPrice.LastUpdated = ParseUpdateTime(updateTime);
+                    existingGoldPrice.LastUpdated = ParseAndUpdateTime(updateTime) ?? DateTime.UtcNow;
                     await GoldPriceRepository.Update(existingGoldPrice);
                 }
                 else
@@ -65,7 +65,7 @@ public class GoldPriceService(IGoldPriceRepository goldPriceRepository,IMapper m
                         BuyPrice = float.Parse(buyPrice),
                         SellPrice = float.Parse(sellPrice),
                         Type = type,
-                        LastUpdated = ParseUpdateTime(updateTime)
+                        LastUpdated = ParseAndUpdateTime(updateTime) ?? DateTime.UtcNow
                     };
                     await GoldPriceRepository.Create(newGoldPrice);
                 }
@@ -74,10 +74,22 @@ public class GoldPriceService(IGoldPriceRepository goldPriceRepository,IMapper m
         var finalGoldPrices = await GoldPriceRepository.Gets();
         return Mapper.Map<IEnumerable<GoldPriceResponseDto>>(finalGoldPrices);
     }
-    private DateTimeOffset? ParseUpdateTime(string? updateTimeString)
+    private DateTime? ParseAndUpdateTime(string updateTimeString)
     {
-        if (string.IsNullOrEmpty(updateTimeString)) return null;
+        if (string.IsNullOrEmpty(updateTimeString))
+            return null;
+
         const string format = "hh:mm:ss tt dd/MM/yyyy";
-        return DateTimeOffset.TryParseExact(updateTimeString, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out var parsedUpdateTime) ? parsedUpdateTime : new DateTimeOffset();
+        if (DateTime.TryParseExact(updateTimeString, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out var parsedUpdateTime))
+        {
+            // Convert parsedUpdateTime to UTC if it's not already in UTC
+            if (parsedUpdateTime.Kind != DateTimeKind.Utc)
+            {
+                parsedUpdateTime = parsedUpdateTime.ToUniversalTime();
+            }
+            return parsedUpdateTime;
+        }
+        return null;
     }
+
 }

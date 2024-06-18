@@ -12,16 +12,20 @@ namespace API.Extensions
     {
         public MappingProfile()
         {
+            // RequestDto Mapping
             CreateMap<Jewelry, JewelryRequestDto>().ReverseMap();
+            // Dto Mapping
             CreateMap<Warranty, WarrantyDto>().ReverseMap();
             CreateMap<JewelryType, JewelryTypeDto>().ReverseMap();
             CreateMap<Promotion, PromotionDto>().ReverseMap();
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<Role, RoleDto>().ReverseMap();
+            CreateMap<Customer, CustomerDto>().ReverseMap();
             // ResponseDto Mapping
             CreateMap<Gold, GoldPriceResponseDto>().ReverseMap();
             CreateMap<Gem, GemPriceResponseDto>().ReverseMap();
-            //MongoMap
+            CreateMap<Customer, CustomerResponseDto>();
+            // MongoDB Mapping
             CreateMap<BillResponseDto, BillDetailDto>().ReverseMap();
         }
     }

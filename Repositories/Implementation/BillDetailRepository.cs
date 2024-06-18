@@ -1,5 +1,4 @@
-﻿using BusinessObjects.DTO.Bill;
-using BusinessObjects.DTO.BillReqRes;
+﻿using BusinessObjects.DTO.BillReqRes;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using Tools;

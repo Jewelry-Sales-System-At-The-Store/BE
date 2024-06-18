@@ -43,7 +43,7 @@ namespace Services.Implementation
                 BillId = IdGenerator.GenerateId(),
                 CustomerId = billRequestDto.CustomerId,
                 UserId = billRequestDto.UserId,
-                SaleDate = DateTime.Now,
+                SaleDate = DateTime.Now.ToUniversalTime(),
             };
 
             var billId = await BillRepository.CreateBill(bill);

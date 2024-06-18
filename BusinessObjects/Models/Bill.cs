@@ -16,7 +16,7 @@ public partial class Bill
 
     public double? TotalAmount { get; set; }
 
-    public DateTimeOffset? SaleDate { get; set; }
+    public DateTimeOffset SaleDate { get; set; }
     
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }

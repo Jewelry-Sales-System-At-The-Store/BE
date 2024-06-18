@@ -35,7 +35,7 @@ namespace Repositories.Implementation
                 BillId = IdGenerator.GenerateId(),
                 CustomerId = billRequestDto.CustomerId,
                 UserId = billRequestDto.UserId,
-                SaleDate = DateTime.Now,
+                SaleDate = DateTime.Now.ToUniversalTime(),
                 TotalAmount = totalAmount,
             };
             var billId = await BillDao.CreateBill(bill);

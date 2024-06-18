@@ -16,6 +16,7 @@ public partial class Customer
     public int? Point { get; set; }
 
     public DateTimeOffset CreatedAt { get; set; }
+    
     public DateTimeOffset UpdatedAt { get; set; }
     
     public virtual ICollection<Bill> Bills { get; set; } = new List<Bill>();

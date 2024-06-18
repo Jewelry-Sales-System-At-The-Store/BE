@@ -6,7 +6,7 @@ using Tools;
 
 namespace DAO;
 
-public class BillPromotionDao : Singleton<BillPromotionDao>
+public class BillPromotionDao
 {
     private readonly JssatsContext _context;
     public BillPromotionDao()

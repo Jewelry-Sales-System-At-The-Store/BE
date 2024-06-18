@@ -29,15 +29,15 @@ namespace DAO
         }
         public async Task<int> UpdateCustomer(string id,Customer customer)
         {
-            // Find the existing customer based on the provided ID
             var existingCustomer = await _context.Customers
                 .FirstOrDefaultAsync(c => c.CustomerId == id);
             if (existingCustomer == null) return 0;
+            customer.CustomerId = id;
             _context.Entry(existingCustomer).CurrentValues.SetValues(customer);
             _context.Entry(existingCustomer).State = EntityState.Modified;
             return await _context.SaveChangesAsync();
         }
-        public async Task<int> DeleteCustomer(int id)
+        public async Task<int> DeleteCustomer(string id)
         {
             var customer = await _context.Customers.FindAsync(id);
             if (customer == null)
@@ -53,6 +53,5 @@ namespace DAO
             if (bill == null) return null;
             return await _context.Customers.FindAsync(bill.CustomerId);
         }
-
     }
 }

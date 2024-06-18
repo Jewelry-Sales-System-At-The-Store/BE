@@ -18,20 +18,24 @@ namespace BusinessObjects.Context
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //optionsBuilder.UseSqlServer(GetConnectionString());
-                optionsBuilder.UseSqlServer(
-                    "Server=(local);Uid=sa;Pwd=Abcd1234;Database=JSSATS;TrustServerCertificate=True");
+                optionsBuilder.UseSqlServer(GetConnectionString());
+                //optionsBuilder.UseNpgsql(GetConnectionString());
+                //optionsBuilder.UseSqlServer("Server=(local);Uid=sa;Pwd=Abcd1234;Database=JSSATS;TrustServerCertificate=True");
+                //optionsBuilder.UseNpgsql("Host=aws-0-ap-southeast-1.pooler.supabase.com; Database=postgres; Username=postgres.gfjsnspjzlcfdrzxxksm; Password=Akaka0406+++");
+
             }
         }
 
         private static string GetConnectionString()
         {
-            IConfigurationRoot config = new ConfigurationBuilder()
+            var config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", true, true)
                 .Build();
 
-            var strConn = config["ConnectionStrings:JSSATS"];
+            var strConn = config["ConnectionStrings:JSSATS-Local"];
+            //var strConn = config["ConnectionStrings:JSSATS-Cloud"];
+
             if (string.IsNullOrEmpty(strConn))
             {
                 throw new InvalidOperationException("Connection string 'JSSATS' not found.");

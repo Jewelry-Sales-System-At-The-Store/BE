@@ -25,13 +25,13 @@ public class WarrantyController(IWarrantyService warrantyService, IMapper mapper
         var warranty = await WarrantyService.GetWarrantyById(id);
         return Ok(warranty);
     }
-    [HttpPost("Create Warranty")]
+    [HttpPost("CreateWarranty")]
     public async Task<IActionResult> CreateWarranty(WarrantyDto warrantyDto)
     {
         var result = await WarrantyService.CreateWarranty(warrantyDto);
         return Ok(result);
     }
-    [HttpPut("Update Warranty/{id}")]
+    [HttpPut("UpdateWarranty/{id}")]
     public async Task<IActionResult> UpdateWarranty(string id,WarrantyDto warrantyDto)
     {
         var result = await WarrantyService.UpdateWarranty(id ,warrantyDto);
