@@ -1,4 +1,5 @@
-﻿using BusinessObjects.Models;
+﻿using BusinessObjects.DTO.Other;
+using BusinessObjects.Models;
 using DAO;
 using Repositories.Interface;
 
@@ -12,6 +13,12 @@ namespace Repositories.Implementation
         {
             entity.Point = 0;
             return await CustomerDao.CreateCustomer(entity);
+        }
+
+        public async Task<(int,int,IEnumerable<Customer>)> GetsPaging(int pageNumber, int pageSize)
+        {
+            var (totalRecord, totalPage, customers) = await CustomerDao.GetCustomersPaging(pageNumber, pageSize);
+            return (totalRecord, totalPage, customers);
         }
 
         public async Task<IEnumerable<Customer>?> Gets()

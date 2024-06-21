@@ -1,6 +1,10 @@
 ﻿using BusinessObjects.DTO.Bill;
+using BusinessObjects.DTO.BillReqRes;
+using BusinessObjects.Models;
 using Management.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
 
 namespace API.Controllers;
 
@@ -9,10 +13,11 @@ namespace API.Controllers;
 public class BillController(IUserManagement userManagement) : ControllerBase
 {
     private IUserManagement UserManagement { get; } = userManagement;
+    
     [HttpGet("GetBills")]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> Get(int pageNumber, int pageSize)
     {
-        var bills = await UserManagement.GetBills();
+        var bills = await UserManagement.GetBills(pageNumber, pageSize);
         return Ok(bills);
     }
     [HttpGet("GetBillById/{id}")]

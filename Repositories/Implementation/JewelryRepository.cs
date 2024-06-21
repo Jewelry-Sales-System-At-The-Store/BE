@@ -12,11 +12,11 @@ namespace Repositories.Implementation
         GemPriceDao gemPriceDao,
         JewelryMaterialDao jewelryMaterialDao) : IJewelryRepository
     {
-        public JewelryDao JewelryDao { get; } = jewelryDao;
-        public JewelryTypeDao JewelryTypeDao { get; } = jewelryTypeDao;
-        public GoldPriceDao GoldPriceDao { get; } = goldPriceDao;
-        public GemPriceDao GemPriceDao { get; } = gemPriceDao;
-        public JewelryMaterialDao JewelryMaterialDao { get; } = jewelryMaterialDao;
+        private JewelryDao JewelryDao { get; } = jewelryDao;
+        private JewelryTypeDao JewelryTypeDao { get; } = jewelryTypeDao;
+        private GoldPriceDao GoldPriceDao { get; } = goldPriceDao;
+        private GemPriceDao GemPriceDao { get; } = gemPriceDao;
+        private JewelryMaterialDao JewelryMaterialDao { get; } = jewelryMaterialDao;
 
         public async Task<int> Create(Jewelry entity)
         {
@@ -29,17 +29,17 @@ namespace Repositories.Implementation
             return await JewelryDao.DeleteJewelry(id);
         }
 
-        public async Task<IEnumerable<JewelryResponseDto>?> Gets()
+        public async Task<(int, int, IEnumerable<JewelryResponseDto>)> GetsJewelryPaging(int pageNumber, int pageSize)
         {
-            var jewelries = await JewelryDao.GetJewelries();
-            if (jewelries == null || !jewelries.Any())
+            var jewelries = await JewelryDao.GetJewelries(pageNumber, pageSize);
+            if (jewelries.Item3 == null || !jewelries.Item3.Any())
             {
-                return null;
+                return default;
             }
 
             var jewelryResponseDtos = new List<JewelryResponseDto>();
 
-            foreach (var jewelry in jewelries)
+            foreach (var jewelry in jewelries.Item3)
             {
                 var jewelryType = await JewelryTypeDao.GetJewelryTypeById(jewelry.JewelryTypeId);
                 var jewelryMaterials = await JewelryMaterialDao.GetJewelryMaterialByJewelry(jewelry.JewelryId);
@@ -86,9 +86,14 @@ namespace Repositories.Implementation
                 jewelryResponseDtos.Add(jewelryResponseDto);
             }
 
-            return jewelryResponseDtos;
+            return (jewelries.Item1, jewelries.Item2, jewelryResponseDtos);
         }
-        
+
+        public Task<IEnumerable<JewelryResponseDto>?> Gets()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<JewelryResponseDto> GetById(string id)
         {
             var jewelry = await JewelryDao.GetJewelryById(id);

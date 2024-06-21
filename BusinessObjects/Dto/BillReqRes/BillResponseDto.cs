@@ -5,6 +5,8 @@ namespace BusinessObjects.DTO.BillReqRes
     public class BillResponseDto
     {
         public string? BillId { get; set; }
+        
+        public string? CounterId { get; set; }
         public string? CustomerName { get; set; }
         public string? StaffName { get; set; }
         public double TotalAmount { get; set; }

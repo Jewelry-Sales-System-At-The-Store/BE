@@ -1,8 +1,13 @@
 using System.Text;
 using API.Extensions;
 using API.Middleware;
+using BusinessObjects.DTO.BillReqRes;
+using BusinessObjects.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.OData;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OData.Edm;
+using Microsoft.OData.ModelBuilder;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -63,6 +68,8 @@ builder.Services.AddAuthentication(options =>
     };
 });
 #endregion
+
+#region CORS
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>
@@ -72,6 +79,10 @@ builder.Services.AddCors(options =>
                .AllowAnyHeader();
     });
 });
+#endregion
+
+
+
 var app = builder.Build();
 
 # region Swagger
@@ -96,3 +107,4 @@ app.UseAuthorization();
 app.UseStaticFiles();
 app.MapControllers();
 app.Run();
+

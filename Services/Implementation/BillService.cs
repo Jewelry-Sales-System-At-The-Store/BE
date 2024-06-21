@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using BusinessObjects.DTO.Bill;
 using BusinessObjects.DTO.BillReqRes;
+using BusinessObjects.DTO.Other;
 using BusinessObjects.Models;
 using Repositories.Implementation;
 using Repositories.Interface;
-using Repositories.Interface.GenericRepository;
 using Services.Interface;
 using Tools;
 
@@ -42,8 +42,10 @@ namespace Services.Implementation
             {
                 BillId = IdGenerator.GenerateId(),
                 CustomerId = billRequestDto.CustomerId,
+                CounterId = billRequestDto.CounterId,
                 UserId = billRequestDto.UserId,
                 SaleDate = DateTime.Now.ToUniversalTime(),
+                CreatedAt = DateTime.UtcNow,
             };
 
             var billId = await BillRepository.CreateBill(bill);
@@ -123,7 +125,8 @@ namespace Services.Implementation
             var billResponseDto = new BillResponseDto
             {
                 BillId = billId,
-                CustomerName = CustomerRepository.GetById(billRequestDto.CustomerId).Result?.Name,
+                CustomerName = CustomerRepository.GetById(billRequestDto.CustomerId).Result?.FullName,
+                CounterId = billRequestDto.CounterId,
                 StaffName = UserRepository.GetById(billRequestDto.UserId).Result?.Username,
                 TotalAmount = totalAmount,
                 TotalDiscount = totalDiscountRate,
@@ -140,9 +143,9 @@ namespace Services.Implementation
         }
 
 
-        public async Task<IEnumerable<BillDetailDto?>?> GetBills()
+        public async Task<PagingResponse> GetBills(int pageNumber, int pageSize)
         {
-            return await BillDetailRepository.GetBillDetails();
+            return await BillDetailRepository.GetBillDetails(pageNumber, pageSize);
         }
 
         public async Task<BillDetailDto?> GetById(string id)

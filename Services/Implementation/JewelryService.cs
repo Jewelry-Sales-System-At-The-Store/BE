@@ -1,7 +1,7 @@
 ﻿using BusinessObjects.DTO.Jewelry;
+using BusinessObjects.DTO.Other;
 using BusinessObjects.DTO.ResponseDto;
 using BusinessObjects.Models;
-using Repositories.Implementation;
 using Repositories.Interface;
 using Services.Interface;
 using Tools;
@@ -13,12 +13,20 @@ namespace Services.Implementation
         IJewelryMaterialRepository jewelryMaterialRepository) : IJewelryService
     {
         private IJewelryRepository JewelryRepository { get; } = jewelryRepository;
-        public IJewelryMaterialRepository JewelryMaterialRepository { get; } = jewelryMaterialRepository;
+        private IJewelryMaterialRepository JewelryMaterialRepository { get; } = jewelryMaterialRepository;
 
-        public async Task<IEnumerable<JewelryResponseDto?>?> GetJewelries()
+        public async Task<PagingResponse> GetJewelries(int pageNumber, int pageSize)
         {
-            var jewelries = await JewelryRepository.Gets();
-            return jewelries;
+            var jewelries = await JewelryRepository.GetsJewelryPaging(pageNumber, pageSize);
+            var jewelryPaging = new PagingResponse
+            {
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalRecord = jewelries.Item1,
+                TotalPage = jewelries.Item2,
+                Data = jewelries.Item3
+            };
+            return jewelryPaging;
         }
 
         public async Task<JewelryResponseDto?> GetJewelryById(string id)

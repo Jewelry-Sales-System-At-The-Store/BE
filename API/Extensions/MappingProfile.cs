@@ -3,6 +3,7 @@ using BusinessObjects.DTO;
 using BusinessObjects.DTO.Bill;
 using BusinessObjects.DTO.BillReqRes;
 using BusinessObjects.DTO.Jewelry;
+using BusinessObjects.DTO.Other;
 using BusinessObjects.DTO.ResponseDto;
 using BusinessObjects.Models;
 
@@ -27,6 +28,7 @@ namespace API.Extensions
             CreateMap<Customer, CustomerResponseDto>();
             // MongoDB Mapping
             CreateMap<BillResponseDto, BillDetailDto>().ReverseMap();
+            // Paging Mapping
         }
     }
 }

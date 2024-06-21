@@ -13,10 +13,17 @@ namespace DAO
         {
             _context = new JssatsContext();
         }
-        public async Task<IEnumerable<Jewelry>> GetJewelries()
+        public async Task<(int,int,IEnumerable<Jewelry>)> GetJewelries(int pageNumber, int pageSize)
         {
-            return await _context.Jewelries.ToListAsync();
+            var totalRecord = await _context.Jewelries.CountAsync();
+            var totalPage = (int)Math.Ceiling((double)totalRecord / pageSize);
+            var jewelries = await _context.Jewelries
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+            return (totalRecord,totalPage, jewelries);
         }
+
 
         public async Task<Jewelry?> GetJewelryById(string id)
         {

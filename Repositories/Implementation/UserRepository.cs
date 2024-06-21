@@ -36,7 +36,7 @@ namespace Repositories.Implementation
            return await UserDao.UpdateUser(id, entity);
         }
 
-        public async Task<IEnumerable<User?>?> Gets()
+        public async Task<IEnumerable<User>?> Gets()
         {
             var users = await UserDao.GetUsers();
             foreach (var user in users)

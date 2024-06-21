@@ -18,11 +18,12 @@ public class JewelryController(IJewelryService jewelryService, IMapper mapper) :
     private IMapper Mapper { get; } = mapper;
 
     [HttpGet("GetJewelries")]
-    public async Task<IActionResult> GetJewelries()
+    public async Task<IActionResult> GetJewelries(int pageNumber, int pageSize)
     {
-        var jewelries = await JewelryService.GetJewelries();
+        var jewelries = await JewelryService.GetJewelries(pageNumber, pageSize);
         return Ok(jewelries);
     }
+
     [HttpGet("GetJewelryById/{id}")]
     public async Task<IActionResult> GetJewelryById(string id)
     {

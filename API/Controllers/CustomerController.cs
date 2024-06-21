@@ -10,10 +10,10 @@ namespace API.Controllers;
 public class CustomerController(ICustomerService customerService) : ControllerBase
 {
     private ICustomerService CustomerService { get; } = customerService;
-    [HttpGet]
-    public async Task<IActionResult> GetCustomers()
+    [HttpGet("GetCustomers")]
+    public async Task<IActionResult> GetCustomersPaging(int pageNumber, int pageSize)
     {
-        return Ok(await CustomerService.GetCustomers());
+        return Ok(await CustomerService.GetCustomersPaging(pageNumber, pageSize));
     }
     [HttpGet("GetCustomerById/{id}")]
     public async Task<IActionResult> GetCustomerById(string id)

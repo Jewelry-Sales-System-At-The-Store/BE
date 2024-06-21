@@ -1,6 +1,7 @@
 ﻿using BusinessObjects.DTO;
 using BusinessObjects.DTO.Bill;
 using BusinessObjects.DTO.BillReqRes;
+using BusinessObjects.DTO.Other;
 using BusinessObjects.DTO.ResponseDto;
 using BusinessObjects.Models;
 using Management.Interface;
@@ -28,9 +29,9 @@ namespace Management.Implementation
             return await UserService.GetUsers();
         }
 
-        public async Task<IEnumerable<BillDetailDto?>?> GetBills()
+        public async Task<PagingResponse> GetBills(int pageNumber, int pageSize)
         {
-            return await BillService.GetBills();
+            return await BillService.GetBills(pageNumber, pageSize);
         }
 
         public async Task<BillDetailDto?> GetBillById(string id)

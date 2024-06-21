@@ -8,7 +8,7 @@ namespace API.Controllers
     public class PriceController(IGoldPriceService goldPriceService, IGemPriceService gemPriceService) : ControllerBase
     {
         private IGoldPriceService GoldPriceService { get; } = goldPriceService;
-        public IGemPriceService GemPriceService { get; } = gemPriceService;
+        private IGemPriceService GemPriceService { get; } = gemPriceService;
 
         [HttpGet("GetGoldPrices")]
         public async Task<IActionResult> GetGoldPrices()

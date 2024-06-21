@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BusinessObjects.DTO;
+using BusinessObjects.DTO.Other;
 using BusinessObjects.DTO.ResponseDto;
 using BusinessObjects.Models;
 using Repositories.Interface;
@@ -21,6 +22,21 @@ namespace Services.Implementation
         public async Task<int> DeleteCustomer(string id)
         {
             return await CustomerRepository.Delete(id);
+        }
+
+
+        public async Task<PagingResponse> GetCustomersPaging(int pageNumber, int pageSize)
+        {
+            var customers = await CustomerRepository.GetsPaging(pageNumber, pageSize);
+            var pagingResponse = new PagingResponse
+            {
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalRecord = customers.Item1,
+                TotalPage = customers.Item2,
+                Data = Mapper.Map<IEnumerable<CustomerResponseDto>>(customers.Item3)
+            };
+            return pagingResponse;
         }
 
         public async Task<CustomerResponseDto?> GetCustomerById(string id)
