@@ -63,6 +63,7 @@ namespace Repositories.Implementation
                     JewelryId = jewelry.JewelryId,
                     Name = jewelry.Name,
                     Type = jewelryType.Name,
+                    ImageUrl = jewelry.ImageUrl,
                     Barcode = jewelry.Barcode,
                     LaborCost = jewelry.LaborCost,
                     Materials = jewelry.JewelryMaterials.Select(jm => new Materials
@@ -113,6 +114,7 @@ namespace Repositories.Implementation
             {
                 JewelryId = jewelry.JewelryId,
                 Name = jewelry.Name,
+                ImageUrl = jewelry.ImageUrl,
                 Type = jewelryType.Name,
                 Barcode = jewelry.Barcode,
                 JewelryPrice = CalculateJewelryPrice(jewelryMaterial),

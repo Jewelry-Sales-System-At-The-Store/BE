@@ -86,16 +86,15 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 # region Swagger
-if (app.Environment.IsDevelopment())
-{
+
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "JSSATS-API-V1");
         c.InjectStylesheet("/swagger-ui/SwaggerDark.css");
-        c.RoutePrefix = "swagger";
+        c.RoutePrefix = "";
     });
-}
+
 # endregion
 # region Middleware
 app.UseMiddleware<AuthMiddleware>();

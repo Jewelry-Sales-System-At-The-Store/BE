@@ -8,10 +8,9 @@ public partial class Jewelry
 {
     public required string JewelryId { get; set; }
     public string? JewelryTypeId { get; set; }
-    
     public string? Name { get; set; }
-
     public string? Barcode { get; set; }
+    public string? ImageUrl { get; set; }
     public double? LaborCost { get; set; }
     public bool? IsSold { get; set; }
     public DateTimeOffset CreatedAt { get; set; }

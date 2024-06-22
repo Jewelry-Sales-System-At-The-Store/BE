@@ -10,6 +10,8 @@ public class JewelryResponseDto
     public string? Barcode { get; set; }
     public double? LaborCost { get; set; }
     public float JewelryPrice { get; set; }
+    
+    public string? ImageUrl { get; set; }
     public IList<Materials>? Materials { get; set; }
     public float TotalPrice { get; set; }
 }

@@ -19,9 +19,9 @@ namespace BusinessObjects.Context
             if (!optionsBuilder.IsConfigured)
             {
                 //optionsBuilder.UseSqlServer(GetConnectionString());
-                //optionsBuilder.UseNpgsql(GetConnectionString());
+                optionsBuilder.UseNpgsql(GetConnectionString());
                 //optionsBuilder.UseSqlServer("Server=(local);Uid=sa;Pwd=Abcd1234;Database=JSSATS;TrustServerCertificate=True");
-                optionsBuilder.UseNpgsql("Host=aws-0-ap-southeast-1.pooler.supabase.com; Database=postgres; Username=postgres.gfjsnspjzlcfdrzxxksm; Password=Akaka0406+++");
+                //optionsBuilder.UseNpgsql("Host=aws-0-ap-southeast-1.pooler.supabase.com; Database=postgres; Username=postgres.gfjsnspjzlcfdrzxxksm; Password=Akaka0406+++");
             }
         }
 
@@ -32,7 +32,7 @@ namespace BusinessObjects.Context
                 .AddJsonFile("appsettings.json", true, true)
                 .Build();
 
-            var strConn = config["ConnectionStrings:JSSATS-Local"];
+            var strConn = config["ConnectionStrings:JSSATS-Cloud"];
             //var strConn = config["ConnectionStrings:JSSATS-Cloud"];
 
             if (string.IsNullOrEmpty(strConn))
