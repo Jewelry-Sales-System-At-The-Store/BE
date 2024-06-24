@@ -121,7 +121,8 @@ namespace Services.Implementation
                 PointsUsed = 0, // Calculate points used
                 FinalAmount = CalculateFinalAmount(totalAmount, (float)totalDiscountRate)
             };
-
+            // cho xuong mongodb
+            //search theo user, customer, date,...
             return billResponseDto;
         }
 
