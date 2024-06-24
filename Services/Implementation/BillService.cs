@@ -71,6 +71,7 @@ namespace Services.Implementation
             // Add bill promotions
             foreach (var promotion in billRequestDto.Promotions)
             {
+                if (promotion.PromotionId == null) continue;
                 var billPromotion = new BillPromotion
                 {
                     BillPromotionId = Generator.GenerateId(),
