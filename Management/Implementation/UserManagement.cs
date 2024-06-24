@@ -24,7 +24,7 @@ namespace Management.Implementation
             return token;
         }
 
-        public async Task<IEnumerable<User?>?> GetUsers()
+        public async Task<IEnumerable<UserResponseDto?>?> GetUsers()
         {
             return await UserService.GetUsers();
         }
@@ -44,7 +44,7 @@ namespace Management.Implementation
             return await BillService.Create(billRequestDto);
         }
 
-        public async Task<User?> GetUserById(string id)
+        public async Task<UserResponseDto?> GetUserById(string id)
         {
             return await UserService.GetUserById(id);
         }

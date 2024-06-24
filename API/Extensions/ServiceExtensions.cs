@@ -41,7 +41,7 @@ public static class ServiceExtensions
         serviceCollection.AddScoped<IBillJewelryRepository, BillJewelryRepository>();
         serviceCollection.AddScoped<IBillDetailRepository, BillDetailRepository>();
         serviceCollection.AddScoped<IJewelryMaterialRepository, JewelryMaterialRepository>();
-
+        serviceCollection.AddScoped<ICounterRepository, CounterRepository>();
         #endregion
         
         #region Service
@@ -61,7 +61,7 @@ public static class ServiceExtensions
         #endregion
         
         #region Dao
-
+        serviceCollection.AddScoped<CounterDao>();
         serviceCollection.AddScoped<BillDao>();
         serviceCollection.AddScoped<BillJewelryDao>();
         serviceCollection.AddScoped<BillPromotionDao>();

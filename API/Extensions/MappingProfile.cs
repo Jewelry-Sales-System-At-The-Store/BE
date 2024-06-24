@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using BusinessObjects.DTO;
-using BusinessObjects.DTO.Bill;
 using BusinessObjects.DTO.BillReqRes;
 using BusinessObjects.DTO.Jewelry;
-using BusinessObjects.DTO.Other;
 using BusinessObjects.DTO.ResponseDto;
 using BusinessObjects.Models;
 
@@ -26,6 +24,7 @@ namespace API.Extensions
             CreateMap<Gold, GoldPriceResponseDto>().ReverseMap();
             CreateMap<Gem, GemPriceResponseDto>().ReverseMap();
             CreateMap<Customer, CustomerResponseDto>();
+            CreateMap<User, UserResponseDto>();
             // MongoDB Mapping
             CreateMap<BillResponseDto, BillDetailDto>().ReverseMap();
             // Paging Mapping
