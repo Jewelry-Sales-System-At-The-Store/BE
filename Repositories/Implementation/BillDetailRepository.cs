@@ -22,7 +22,7 @@ public class BillDetailRepository : IBillDetailRepository
 
     public async Task AddBillDetail(BillDetailDto billDetail)
     {
-        billDetail.Id = IdGenerator.GenerateId();
+        billDetail.Id = Generator.GenerateId();
         await _collection.InsertOneAsync(billDetail);
     }
     

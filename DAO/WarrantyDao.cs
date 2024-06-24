@@ -24,7 +24,7 @@ namespace DAO
         }
         public async Task<int> CreateWarranty(Warranty warranty)
         {
-            warranty.WarrantyId = IdGenerator.GenerateId();
+            warranty.WarrantyId = Generator.GenerateId();
             _context.Warranties.Add(warranty);
             return await _context.SaveChangesAsync();
         }

@@ -23,7 +23,7 @@ public class BillPromotionDao
     }
     public async Task<int> CreateBillPromotion(BillPromotion billPromotion)
     {
-        billPromotion.BillPromotionId = IdGenerator.GenerateId();
+        billPromotion.BillPromotionId = Generator.GenerateId();
         _context.BillPromotions.Add(billPromotion);
         return await _context.SaveChangesAsync();
     }

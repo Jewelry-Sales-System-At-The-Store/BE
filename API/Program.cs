@@ -92,7 +92,7 @@ var app = builder.Build();
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "JSSATS-API-V1");
         c.InjectStylesheet("/swagger-ui/SwaggerDark.css");
-        c.RoutePrefix = "";
+        c.RoutePrefix = "swagger";
     });
 
 # endregion

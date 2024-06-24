@@ -26,6 +26,7 @@ namespace Repositories.Implementation
         public async Task<User?> GetById(string id)
         {
             var user = await UserDao.GetUserById(id);
+            if (user == null) return null;
             var role = await RoleDao.GetRoleById(user.RoleId);
             user.Role = role;
             return user;
@@ -39,6 +40,7 @@ namespace Repositories.Implementation
         public async Task<IEnumerable<User>?> Gets()
         {
             var users = await UserDao.GetUsers();
+            if (users == null) return null;
             foreach (var user in users)
             {
                 var userRole = await RoleDao.GetRoleById(user.RoleId);

@@ -32,7 +32,7 @@ namespace Repositories.Implementation
             // Create bill
             var bill = new Bill
             {
-                BillId = IdGenerator.GenerateId(),
+                BillId = Generator.GenerateId(),
                 CustomerId = billRequestDto.CustomerId,
                 UserId = billRequestDto.UserId,
                 SaleDate = DateTime.Now.ToUniversalTime(),
@@ -49,7 +49,7 @@ namespace Repositories.Implementation
             {
                 var billJewelry = new BillJewelry
                 {
-                    BillJewelryId = IdGenerator.GenerateId(),
+                    BillJewelryId = Generator.GenerateId(),
                     BillId = billId,
                     JewelryId = item.JewelryId,
                 };
@@ -60,7 +60,7 @@ namespace Repositories.Implementation
             {
                 var billPromotion = new BillPromotion
                 {
-                    BillPromotionId = IdGenerator.GenerateId(),
+                    BillPromotionId = Generator.GenerateId(),
                     BillId = billId,
                     PromotionId = promotion.PromotionId,
                 };

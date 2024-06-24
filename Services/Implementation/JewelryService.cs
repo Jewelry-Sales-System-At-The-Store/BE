@@ -41,7 +41,7 @@ namespace Services.Implementation
             // Create Jewelry first before creating JewelryMaterial
             var jewelry = new Jewelry
             {
-                JewelryId = IdGenerator.GenerateId(),
+                JewelryId = Generator.GenerateId(),
                 JewelryTypeId = jewelryRequestDto.JewelryTypeId,
                 Name = jewelryRequestDto.Name,
                 Barcode = jewelryRequestDto.Barcode,
@@ -59,7 +59,7 @@ namespace Services.Implementation
             // Create JewelryMaterial
             var jewelryMaterial = new JewelryMaterial
             {
-                JewelryMaterialId = IdGenerator.GenerateId(),
+                JewelryMaterialId = Generator.GenerateId(),
                 JewelryId = jewelry.JewelryId,
                 GoldPriceId = jewelryRequestDto.JewelryMaterial.GoldId,
                 StonePriceId = jewelryRequestDto.JewelryMaterial.GemId,

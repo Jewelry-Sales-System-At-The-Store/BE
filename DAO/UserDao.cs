@@ -29,7 +29,7 @@ public class UserDao
     }
     public async Task<int> CreateUser(User user)
     {
-        user.UserId = IdGenerator.GenerateId();
+        user.UserId = Generator.GenerateId();
         await _context.Users.AddAsync(user);
         return await _context.SaveChangesAsync();
     }

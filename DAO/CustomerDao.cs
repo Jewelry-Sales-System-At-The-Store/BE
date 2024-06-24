@@ -34,7 +34,7 @@ namespace DAO
         }
         public async Task<int> CreateCustomer(Customer customer)
         {
-            customer.CustomerId = IdGenerator.GenerateId();
+            customer.CustomerId = Generator.GenerateId();
             _context.Customers.Add(customer);
             return await _context.SaveChangesAsync();
         }

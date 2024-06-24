@@ -33,7 +33,7 @@ namespace DAO
 
         public async Task<int> CreateJewelry(Jewelry jewelry)
         {
-            jewelry.JewelryId = IdGenerator.GenerateId();
+            jewelry.JewelryId = Generator.GenerateId();
             _context.Jewelries.Add(jewelry);
             return await _context.SaveChangesAsync();
         }

@@ -23,7 +23,7 @@ public class RoleDao
     }
     public async Task<int> CreateRole(Role role)
     {
-        role.RoleId = IdGenerator.GenerateId();
+        role.RoleId = Generator.GenerateId();
         _context.Roles.Add(role);
         return await _context.SaveChangesAsync();
     }

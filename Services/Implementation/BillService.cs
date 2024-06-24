@@ -40,7 +40,7 @@ namespace Services.Implementation
             // Create bill
             var bill = new Bill
             {
-                BillId = IdGenerator.GenerateId(),
+                BillId = Generator.GenerateId(),
                 CustomerId = billRequestDto.CustomerId,
                 CounterId = billRequestDto.CounterId,
                 UserId = billRequestDto.UserId,
@@ -61,7 +61,7 @@ namespace Services.Implementation
             {
                 var billJewelry = new BillJewelry
                 {
-                    BillJewelryId = IdGenerator.GenerateId(),
+                    BillJewelryId = Generator.GenerateId(),
                     BillId = billId,
                     JewelryId = item.JewelryId,
                 };
@@ -73,7 +73,7 @@ namespace Services.Implementation
             {
                 var billPromotion = new BillPromotion
                 {
-                    BillPromotionId = IdGenerator.GenerateId(),
+                    BillPromotionId = Generator.GenerateId(),
                     BillId = billId,
                     PromotionId = promotion.PromotionId,
                 };

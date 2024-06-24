@@ -25,7 +25,7 @@ namespace DAO
         }
         public async Task<int> CreatePromotion(Promotion promotion)
         {
-            promotion.PromotionId = IdGenerator.GenerateId();
+            promotion.PromotionId = Generator.GenerateId();
             await _context.Promotions.AddAsync(promotion);
             return await _context.SaveChangesAsync();
         }
