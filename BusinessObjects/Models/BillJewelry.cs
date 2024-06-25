@@ -11,6 +11,9 @@ public partial class BillJewelry
     public string? BillId { get; set; }
 
     public string? JewelryId { get; set; }
+    
+    public DateTimeOffset CreatedAt { get; set; }
+    public DateTimeOffset UpdatedAt { get; set; }
 
     public virtual Bill? Bill { get; set; }
 

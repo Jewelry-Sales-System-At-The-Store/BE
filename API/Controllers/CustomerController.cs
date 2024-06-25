@@ -1,4 +1,5 @@
-﻿using BusinessObjects.Models;
+﻿using BusinessObjects.DTO;
+using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interface;
 
@@ -9,24 +10,24 @@ namespace API.Controllers;
 public class CustomerController(ICustomerService customerService) : ControllerBase
 {
     private ICustomerService CustomerService { get; } = customerService;
-    [HttpGet]
-    public async Task<IEnumerable<Customer?>?> GetCustomers()
+    [HttpGet("GetCustomers")]
+    public async Task<IActionResult> GetCustomersPaging(int pageNumber, int pageSize)
     {
-        return await CustomerService.GetCustomers();
+        return Ok(await CustomerService.GetCustomersPaging(pageNumber, pageSize));
     }
     [HttpGet("GetCustomerById/{id}")]
-    public async Task<Customer?> GetCustomerById(string id)
+    public async Task<IActionResult> GetCustomerById(string id)
     {
-        return await CustomerService.GetCustomerById(id);
+        return Ok(await CustomerService.GetCustomerById(id));
     }
     [HttpPost("CreateCustomer")]
-    public async Task<IActionResult> CreateCustomer(Customer customer)
+    public async Task<IActionResult> CreateCustomer(CustomerDto customer)
     {
         var result = await CustomerService.CreateCustomer(customer);
         return Ok(result);
     }
     [HttpPut("UpdateCustomer/{id}")]
-    public async Task<IActionResult> UpdateCustomer(string id, Customer customer)
+    public async Task<IActionResult> UpdateCustomer(string id, CustomerDto customer)
     {
         var result = await CustomerService.UpdateCustomer(id ,customer);
         return Ok(result);

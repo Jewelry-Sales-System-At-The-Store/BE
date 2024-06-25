@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BusinessObjects.DTO;
+using BusinessObjects.DTO.ResponseDto;
 using BusinessObjects.Models;
 using Repositories.Interface;
 using Services.Interface;
@@ -8,8 +9,8 @@ namespace Services.Implementation
 {
     public class UserService(IUserRepository userRepository, IMapper mapper) : IUserService
     {
-        public IUserRepository UserRepository { get; } = userRepository;
-        public IMapper Mapper { get; } = mapper;
+        private IUserRepository UserRepository { get; } = userRepository;
+        private IMapper Mapper { get; } = mapper;
 
         public async Task<User?> Login(LoginDto loginDto)
         {
@@ -17,9 +18,15 @@ namespace Services.Implementation
             return user ?? null;
         }
 
-        public async Task<IEnumerable<User?>?> GetUsers()
+        public async Task<IEnumerable<UserResponseDto?>?> GetUsers()
         {
-            return await UserRepository.Gets();
+            var users = await UserRepository.Gets();
+            var userResponseDtos = Mapper.Map<IEnumerable<UserResponseDto>>(users);
+            foreach (var userResponseDto in userResponseDtos)
+            {
+                userResponseDto.RoleName = users.FirstOrDefault(a => a.UserId == userResponseDto.UserId)?.Role.RoleName;
+            }
+            return userResponseDtos;
         }
 
         public async Task<bool> IsUser(LoginDto loginDto)
@@ -40,9 +47,13 @@ namespace Services.Implementation
             return await UserRepository.Create(user);
         }
 
-        public Task<User?> GetUserById(string id)
+        public async Task<UserResponseDto?> GetUserById(string id)
         {
-            return UserRepository.GetById(id);
+            var user = await UserRepository.GetById(id);
+            var userResponseDto = Mapper.Map<UserResponseDto>(user);
+            userResponseDto.CounterNumber = user?.Counter?.Number;
+            userResponseDto.RoleName = user.Role.RoleName;
+            return userResponseDto;
         }
 
         public Task<int> DeleteUser(string id)

@@ -1,14 +1,16 @@
-﻿using BusinessObjects.DTO.ResponseDto;
+﻿using BusinessObjects.DTO.Jewelry;
+using BusinessObjects.DTO.Other;
+using BusinessObjects.DTO.ResponseDto;
 using BusinessObjects.Models;
 
 namespace Services.Interface
 {
     public interface IJewelryService
     {
-        public Task<IEnumerable<JewelryResponseDto?>?> GetJewelries();
+        public Task<PagingResponse> GetJewelries(int pageNumber, int pageSize);
         public Task<JewelryResponseDto?> GetJewelryById(string id);
         public Task<JewelryResponseDto?> GetJewelryByTypeId(string id);
-        public Task<int> CreateJewelry(Jewelry jewelry);
+        public Task<int> CreateJewelry(JewelryRequestDto jewelryRequestDto);
         public Task<int> UpdateJewelry(string id, Jewelry jewelry);
         public Task<int> DeleteJewelry(string id);
     }

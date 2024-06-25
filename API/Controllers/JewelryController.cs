@@ -1,6 +1,7 @@
 ﻿
 using AutoMapper;
 using BusinessObjects.DTO;
+using BusinessObjects.DTO.Jewelry;
 using BusinessObjects.DTO.ResponseDto;
 using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -17,11 +18,12 @@ public class JewelryController(IJewelryService jewelryService, IMapper mapper) :
     private IMapper Mapper { get; } = mapper;
 
     [HttpGet("GetJewelries")]
-    public async Task<IActionResult> GetJewelries()
+    public async Task<IActionResult> GetJewelries(int pageNumber, int pageSize)
     {
-        var jewelries = await JewelryService.GetJewelries();
+        var jewelries = await JewelryService.GetJewelries(pageNumber, pageSize);
         return Ok(jewelries);
     }
+
     [HttpGet("GetJewelryById/{id}")]
     public async Task<IActionResult> GetJewelryById(string id)
     {
@@ -30,16 +32,15 @@ public class JewelryController(IJewelryService jewelryService, IMapper mapper) :
         return Ok(jewelry);
     }
     [HttpPost("CreateJewelry")]
-    public async Task<IActionResult> CreateJewelry(JewelryDto jewelryDto)
+    public async Task<IActionResult> CreateJewelry(JewelryRequestDto jewelryRequestDto)
     {
-        var jewelry = Mapper.Map<Jewelry>(jewelryDto);
-        var result = await JewelryService.CreateJewelry(jewelry);
+        var result = await JewelryService.CreateJewelry(jewelryRequestDto);
         return Ok(result);
     }
     [HttpPut("UpdateJewelry/{id}")]
-    public async Task<IActionResult> UpdateJewelry(string id, JewelryDto jewelryDTO)
+    public async Task<IActionResult> UpdateJewelry(string id, JewelryRequestDto jewelryRequestDto)
     {
-        var jewelry = Mapper.Map<Jewelry>(jewelryDTO);
+        var jewelry = Mapper.Map<Jewelry>(jewelryRequestDto);
         var result = await JewelryService.UpdateJewelry(id, jewelry);
         return Ok(result);
     }

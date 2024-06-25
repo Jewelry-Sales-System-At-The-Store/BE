@@ -21,7 +21,7 @@ public class JewelryTypeRepository(JewelryTypeDao jewelryTypeDao) : IJewelryType
 
     public async Task<int> Create(JewelryType entity)
     {
-        entity.JewelryTypeId = IdGenerator.GenerateId();
+        entity.JewelryTypeId = Generator.GenerateId();
         return await JewelryTypeDao.CreateJewelryType(entity);
     }
 

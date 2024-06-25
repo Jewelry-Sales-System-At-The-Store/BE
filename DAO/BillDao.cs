@@ -21,7 +21,7 @@ namespace DAO
 
         public async Task<string> CreateBill(Bill bill)
         {
-            bill.BillId = IdGenerator.GenerateId();
+            bill.BillId = Generator.GenerateId();
             _context.Bills.Add(bill);
             await _context.SaveChangesAsync();
             return bill.BillId;

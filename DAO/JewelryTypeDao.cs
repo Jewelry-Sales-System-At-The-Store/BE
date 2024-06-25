@@ -23,7 +23,7 @@ namespace DAO
         }
         public async Task<int> CreateJewelryType(JewelryType jewelryType)
         {
-            jewelryType.JewelryTypeId = IdGenerator.GenerateId();
+            jewelryType.JewelryTypeId = Generator.GenerateId();
             _context.JewelryTypes.Add(jewelryType);
             return await _context.SaveChangesAsync();
         }

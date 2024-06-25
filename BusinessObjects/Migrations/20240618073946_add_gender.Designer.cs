@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusinessObjects.Migrations
 {
     [DbContext(typeof(JssatsContext))]
-    [Migration("20240617070416_init")]
-    partial class init
+    [Migration("20240618073946_add_gender")]
+    partial class add_gender
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,14 +33,20 @@ namespace BusinessObjects.Migrations
                     b.Property<string>("CounterId")
                         .HasColumnType("varchar(20)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("CustomerId")
                         .HasColumnType("varchar(20)");
 
-                    b.Property<DateTimeOffset?>("SaleDate")
+                    b.Property<DateTimeOffset>("SaleDate")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<double?>("TotalAmount")
                         .HasColumnType("float");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("UserId")
                         .HasColumnType("varchar(20)");
@@ -59,17 +65,21 @@ namespace BusinessObjects.Migrations
                         new
                         {
                             BillId = "1",
+                            CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             CustomerId = "1",
-                            SaleDate = new DateTimeOffset(new DateTime(2024, 6, 17, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6220), new TimeSpan(0, 7, 0, 0, 0)),
+                            SaleDate = new DateTimeOffset(new DateTime(2024, 6, 18, 14, 39, 46, 455, DateTimeKind.Unspecified).AddTicks(5635), new TimeSpan(0, 7, 0, 0, 0)),
                             TotalAmount = 500.0,
+                            UpdatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             UserId = "1"
                         },
                         new
                         {
                             BillId = "2",
+                            CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             CustomerId = "2",
-                            SaleDate = new DateTimeOffset(new DateTime(2024, 6, 17, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6223), new TimeSpan(0, 7, 0, 0, 0)),
+                            SaleDate = new DateTimeOffset(new DateTime(2024, 6, 18, 14, 39, 46, 455, DateTimeKind.Unspecified).AddTicks(5637), new TimeSpan(0, 7, 0, 0, 0)),
                             TotalAmount = 1200.0,
+                            UpdatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             UserId = "2"
                         });
                 });
@@ -82,8 +92,14 @@ namespace BusinessObjects.Migrations
                     b.Property<string>("BillId")
                         .HasColumnType("varchar(20)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("JewelryId")
                         .HasColumnType("varchar(20)");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.HasKey("BillJewelryId");
 
@@ -98,13 +114,17 @@ namespace BusinessObjects.Migrations
                         {
                             BillJewelryId = "1",
                             BillId = "1",
-                            JewelryId = "1"
+                            CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            JewelryId = "1",
+                            UpdatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
                         },
                         new
                         {
                             BillJewelryId = "2",
                             BillId = "1",
-                            JewelryId = "2"
+                            CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            JewelryId = "2",
+                            UpdatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
                         });
                 });
 
@@ -116,8 +136,14 @@ namespace BusinessObjects.Migrations
                     b.Property<string>("BillId")
                         .HasColumnType("varchar(20)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("PromotionId")
                         .HasColumnType("varchar(20)");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.HasKey("BillPromotionId");
 
@@ -132,13 +158,17 @@ namespace BusinessObjects.Migrations
                         {
                             BillPromotionId = "1",
                             BillId = "1",
-                            PromotionId = "1"
+                            CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            PromotionId = "1",
+                            UpdatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
                         },
                         new
                         {
                             BillPromotionId = "2",
                             BillId = "2",
-                            PromotionId = "1"
+                            CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            PromotionId = "1",
+                            UpdatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
                         });
                 });
 
@@ -147,8 +177,14 @@ namespace BusinessObjects.Migrations
                     b.Property<string>("CounterId")
                         .HasColumnType("varchar(20)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<int?>("Number")
                         .HasColumnType("int");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.HasKey("CounterId");
 
@@ -158,17 +194,23 @@ namespace BusinessObjects.Migrations
                         new
                         {
                             CounterId = "1",
-                            Number = 312
+                            CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            Number = 312,
+                            UpdatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
                         },
                         new
                         {
                             CounterId = "2",
-                            Number = 231
+                            CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            Number = 231,
+                            UpdatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
                         },
                         new
                         {
                             CounterId = "3",
-                            Number = 431
+                            CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            Number = 431,
+                            UpdatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
                         });
                 });
 
@@ -180,6 +222,12 @@ namespace BusinessObjects.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -188,6 +236,9 @@ namespace BusinessObjects.Migrations
 
                     b.Property<int?>("Point")
                         .HasColumnType("int");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.HasKey("CustomerId");
 
@@ -198,22 +249,28 @@ namespace BusinessObjects.Migrations
                         {
                             CustomerId = "1",
                             Address = "Ha Noi",
+                            CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Nguyen Van A",
-                            Phone = "0123456789"
+                            Phone = "0123456789",
+                            UpdatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
                         },
                         new
                         {
                             CustomerId = "2",
                             Address = "Ha Noi",
+                            CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Nguyen Van B",
-                            Phone = "0123456789"
+                            Phone = "0123456789",
+                            UpdatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
                         },
                         new
                         {
                             CustomerId = "3",
                             Address = "Ha Noi",
+                            CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Nguyen Van C",
-                            Phone = "0123456789"
+                            Phone = "0123456789",
+                            UpdatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
                         });
                 });
 
@@ -247,7 +304,7 @@ namespace BusinessObjects.Migrations
                             GemId = "1",
                             BuyPrice = 300f,
                             City = "Ha Noi",
-                            LastUpdated = new DateTimeOffset(new DateTime(2024, 6, 17, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6287), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdated = new DateTimeOffset(new DateTime(2024, 6, 18, 14, 39, 46, 455, DateTimeKind.Unspecified).AddTicks(5690), new TimeSpan(0, 7, 0, 0, 0)),
                             SellPrice = 400f,
                             Type = "Ruby"
                         },
@@ -256,7 +313,7 @@ namespace BusinessObjects.Migrations
                             GemId = "2",
                             BuyPrice = 400f,
                             City = "Ha Noi",
-                            LastUpdated = new DateTimeOffset(new DateTime(2024, 6, 17, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6289), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdated = new DateTimeOffset(new DateTime(2024, 6, 18, 14, 39, 46, 455, DateTimeKind.Unspecified).AddTicks(5692), new TimeSpan(0, 7, 0, 0, 0)),
                             SellPrice = 500f,
                             Type = "Sapphire"
                         },
@@ -265,7 +322,7 @@ namespace BusinessObjects.Migrations
                             GemId = "3",
                             BuyPrice = 500f,
                             City = "Ha Noi",
-                            LastUpdated = new DateTimeOffset(new DateTime(2024, 6, 17, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6291), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdated = new DateTimeOffset(new DateTime(2024, 6, 18, 14, 39, 46, 455, DateTimeKind.Unspecified).AddTicks(5694), new TimeSpan(0, 7, 0, 0, 0)),
                             SellPrice = 600f,
                             Type = "Emerald"
                         });
@@ -301,7 +358,7 @@ namespace BusinessObjects.Migrations
                             GoldId = "1",
                             BuyPrice = 1000f,
                             City = "Ha Noi",
-                            LastUpdated = new DateTimeOffset(new DateTime(2024, 6, 17, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6313), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdated = new DateTimeOffset(new DateTime(2024, 6, 18, 14, 39, 46, 455, DateTimeKind.Unspecified).AddTicks(5715), new TimeSpan(0, 7, 0, 0, 0)),
                             SellPrice = 1200f,
                             Type = "9999"
                         },
@@ -310,7 +367,7 @@ namespace BusinessObjects.Migrations
                             GoldId = "2",
                             BuyPrice = 1200f,
                             City = "Ha Noi",
-                            LastUpdated = new DateTimeOffset(new DateTime(2024, 6, 17, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6315), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdated = new DateTimeOffset(new DateTime(2024, 6, 18, 14, 39, 46, 455, DateTimeKind.Unspecified).AddTicks(5718), new TimeSpan(0, 7, 0, 0, 0)),
                             SellPrice = 1400f,
                             Type = "SCJ"
                         },
@@ -319,7 +376,7 @@ namespace BusinessObjects.Migrations
                             GoldId = "3",
                             BuyPrice = 1400f,
                             City = "Ha Noi",
-                            LastUpdated = new DateTimeOffset(new DateTime(2024, 6, 17, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6317), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdated = new DateTimeOffset(new DateTime(2024, 6, 18, 14, 39, 46, 455, DateTimeKind.Unspecified).AddTicks(5720), new TimeSpan(0, 7, 0, 0, 0)),
                             SellPrice = 1600f,
                             Type = "18k"
                         });
@@ -333,6 +390,9 @@ namespace BusinessObjects.Migrations
                     b.Property<string>("Barcode")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<bool?>("IsSold")
                         .HasColumnType("bit");
 
@@ -345,6 +405,9 @@ namespace BusinessObjects.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.HasKey("JewelryId");
 
                     b.HasIndex("JewelryTypeId");
@@ -356,19 +419,23 @@ namespace BusinessObjects.Migrations
                         {
                             JewelryId = "1",
                             Barcode = "AVC131",
+                            CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             IsSold = true,
                             JewelryTypeId = "1",
                             LaborCost = 312.0,
-                            Name = "Vong tay"
+                            Name = "Vong tay",
+                            UpdatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
                         },
                         new
                         {
                             JewelryId = "2",
                             Barcode = "SAC132",
+                            CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             IsSold = false,
                             JewelryTypeId = "2",
                             LaborCost = 231.0,
-                            Name = "Nhan"
+                            Name = "Nhan",
+                            UpdatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
                         });
                 });
 
@@ -376,6 +443,9 @@ namespace BusinessObjects.Migrations
                 {
                     b.Property<string>("JewelryMaterialId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("GoldPriceId")
                         .HasColumnType("varchar(20)");
@@ -392,6 +462,9 @@ namespace BusinessObjects.Migrations
                     b.Property<float>("StoneQuantity")
                         .HasColumnType("real");
 
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.HasKey("JewelryMaterialId");
 
                     b.HasIndex("GoldPriceId");
@@ -406,20 +479,24 @@ namespace BusinessObjects.Migrations
                         new
                         {
                             JewelryMaterialId = "1",
+                            CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             GoldPriceId = "1",
                             GoldQuantity = 30f,
                             JewelryId = "1",
                             StonePriceId = "1",
-                            StoneQuantity = 1f
+                            StoneQuantity = 1f,
+                            UpdatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
                         },
                         new
                         {
                             JewelryMaterialId = "2",
+                            CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             GoldPriceId = "2",
                             GoldQuantity = 20f,
                             JewelryId = "2",
                             StonePriceId = "2",
-                            StoneQuantity = 1f
+                            StoneQuantity = 1f,
+                            UpdatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
                         });
                 });
 
@@ -486,8 +563,8 @@ namespace BusinessObjects.Migrations
                             PromotionId = "1",
                             Description = "Giam gia 10%",
                             DiscountRate = 1.0,
-                            EndDate = new DateTimeOffset(new DateTime(2024, 6, 27, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6189), new TimeSpan(0, 7, 0, 0, 0)),
-                            StartDate = new DateTimeOffset(new DateTime(2024, 6, 17, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6164), new TimeSpan(0, 7, 0, 0, 0)),
+                            EndDate = new DateTimeOffset(new DateTime(2024, 6, 28, 14, 39, 46, 455, DateTimeKind.Unspecified).AddTicks(5605), new TimeSpan(0, 7, 0, 0, 0)),
+                            StartDate = new DateTimeOffset(new DateTime(2024, 6, 18, 14, 39, 46, 455, DateTimeKind.Unspecified).AddTicks(5579), new TimeSpan(0, 7, 0, 0, 0)),
                             Type = "Giam gia"
                         },
                         new
@@ -495,8 +572,8 @@ namespace BusinessObjects.Migrations
                             PromotionId = "2",
                             Description = "Giam gia 20%",
                             DiscountRate = 2.0,
-                            EndDate = new DateTimeOffset(new DateTime(2024, 6, 27, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6195), new TimeSpan(0, 7, 0, 0, 0)),
-                            StartDate = new DateTimeOffset(new DateTime(2024, 6, 17, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6194), new TimeSpan(0, 7, 0, 0, 0)),
+                            EndDate = new DateTimeOffset(new DateTime(2024, 6, 28, 14, 39, 46, 455, DateTimeKind.Unspecified).AddTicks(5611), new TimeSpan(0, 7, 0, 0, 0)),
+                            StartDate = new DateTimeOffset(new DateTime(2024, 6, 18, 14, 39, 46, 455, DateTimeKind.Unspecified).AddTicks(5610), new TimeSpan(0, 7, 0, 0, 0)),
                             Type = "Giam gia"
                         },
                         new
@@ -504,8 +581,8 @@ namespace BusinessObjects.Migrations
                             PromotionId = "3",
                             Description = "Giam gia 30%",
                             DiscountRate = 3.0,
-                            EndDate = new DateTimeOffset(new DateTime(2024, 6, 27, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6198), new TimeSpan(0, 7, 0, 0, 0)),
-                            StartDate = new DateTimeOffset(new DateTime(2024, 6, 17, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6197), new TimeSpan(0, 7, 0, 0, 0)),
+                            EndDate = new DateTimeOffset(new DateTime(2024, 6, 28, 14, 39, 46, 455, DateTimeKind.Unspecified).AddTicks(5614), new TimeSpan(0, 7, 0, 0, 0)),
+                            StartDate = new DateTimeOffset(new DateTime(2024, 6, 18, 14, 39, 46, 455, DateTimeKind.Unspecified).AddTicks(5613), new TimeSpan(0, 7, 0, 0, 0)),
                             Type = "Giam gia"
                         });
                 });
@@ -550,7 +627,7 @@ namespace BusinessObjects.Migrations
                             CustomerId = "1",
                             IsBuyBack = 0,
                             JewelryId = "1",
-                            PurchaseDate = new DateTimeOffset(new DateTime(2024, 6, 17, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6337), new TimeSpan(0, 7, 0, 0, 0)),
+                            PurchaseDate = new DateTimeOffset(new DateTime(2024, 6, 18, 14, 39, 46, 455, DateTimeKind.Unspecified).AddTicks(5740), new TimeSpan(0, 7, 0, 0, 0)),
                             PurchasePrice = 500.0,
                             UserId = "1"
                         },
@@ -560,7 +637,7 @@ namespace BusinessObjects.Migrations
                             CustomerId = "2",
                             IsBuyBack = 1,
                             JewelryId = "2",
-                            PurchaseDate = new DateTimeOffset(new DateTime(2024, 6, 17, 14, 4, 16, 346, DateTimeKind.Unspecified).AddTicks(6340), new TimeSpan(0, 7, 0, 0, 0)),
+                            PurchaseDate = new DateTimeOffset(new DateTime(2024, 6, 18, 14, 39, 46, 455, DateTimeKind.Unspecified).AddTicks(5742), new TimeSpan(0, 7, 0, 0, 0)),
                             PurchasePrice = 300.0,
                             UserId = "1"
                         });
@@ -604,10 +681,22 @@ namespace BusinessObjects.Migrations
                     b.Property<string>("CounterId")
                         .HasColumnType("varchar(20)");
 
+                    b.Property<DateTimeOffset?>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RoleId")
@@ -615,6 +704,9 @@ namespace BusinessObjects.Migrations
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("UpdatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");

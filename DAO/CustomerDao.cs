@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.Context;
+using BusinessObjects.DTO.Other;
 using BusinessObjects.Models;
 using DAO.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -6,14 +7,24 @@ using Tools;
 
 namespace DAO
 {
-    public class CustomerDao : Singleton<CustomerDao>
+    public class CustomerDao
     {
         public readonly JssatsContext _context;
         public CustomerDao()
         {
             _context = new JssatsContext();
         }
-        public async Task<IEnumerable<Customer>> GetCustomers()
+        public async Task<(int,int,IEnumerable<Customer>)> GetCustomersPaging(int pageNumber, int pageSize)
+        {
+            var totalRecord = await _context.Customers.CountAsync();
+            var totalPage = (int)Math.Ceiling((double)totalRecord / pageSize);
+            var customers = await _context.Customers
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+            return (totalRecord,totalPage, customers);
+        }
+        public async Task<IEnumerable<Customer>?> GetCustomers()
         {
             return await _context.Customers.ToListAsync();
         }
@@ -23,21 +34,21 @@ namespace DAO
         }
         public async Task<int> CreateCustomer(Customer customer)
         {
-            customer.CustomerId = IdGenerator.GenerateId();
+            customer.CustomerId = Generator.GenerateId();
             _context.Customers.Add(customer);
             return await _context.SaveChangesAsync();
         }
         public async Task<int> UpdateCustomer(string id,Customer customer)
         {
-            // Find the existing customer based on the provided ID
             var existingCustomer = await _context.Customers
                 .FirstOrDefaultAsync(c => c.CustomerId == id);
             if (existingCustomer == null) return 0;
+            customer.CustomerId = id;
             _context.Entry(existingCustomer).CurrentValues.SetValues(customer);
             _context.Entry(existingCustomer).State = EntityState.Modified;
             return await _context.SaveChangesAsync();
         }
-        public async Task<int> DeleteCustomer(int id)
+        public async Task<int> DeleteCustomer(string id)
         {
             var customer = await _context.Customers.FindAsync(id);
             if (customer == null)
@@ -53,6 +64,5 @@ namespace DAO
             if (bill == null) return null;
             return await _context.Customers.FindAsync(bill.CustomerId);
         }
-
     }
 }

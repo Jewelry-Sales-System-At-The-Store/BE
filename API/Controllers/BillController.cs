@@ -1,20 +1,21 @@
 ﻿using BusinessObjects.DTO.Bill;
 using Management.Interface;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Services.Interface;
 
 namespace API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class BillController(IUserManagement userManagement) : ControllerBase
+public class BillController(IUserManagement userManagement, IPaymentService paymentService) : ControllerBase
 {
     private IUserManagement UserManagement { get; } = userManagement;
-    
+    public IPaymentService PaymentService { get; } = paymentService;
+
     [HttpGet("GetBills")]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> Get(int pageNumber, int pageSize)
     {
-        var bills = await UserManagement.GetBills();
+        var bills = await UserManagement.GetBills(pageNumber, pageSize);
         return Ok(bills);
     }
     [HttpGet("GetBillById/{id}")]
@@ -28,5 +29,10 @@ public class BillController(IUserManagement userManagement) : ControllerBase
     public async Task<IActionResult> Create(BillRequestDto billRequestDto)
     {
         return Ok(await UserManagement.CreateBill(billRequestDto));
+    }
+    [HttpGet("CheckoutBill/{id}")]
+    public async Task<IActionResult> Checkout(string id)
+    {
+        return Ok(await PaymentService.CheckoutBill(id));
     }
 }

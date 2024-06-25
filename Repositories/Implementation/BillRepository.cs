@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.DTO.Bill;
+using BusinessObjects.DTO.BillReqRes;
 using BusinessObjects.Models;
 using DAO;
 using Repositories.Interface;
@@ -31,10 +32,10 @@ namespace Repositories.Implementation
             // Create bill
             var bill = new Bill
             {
-                BillId = IdGenerator.GenerateId(),
+                BillId = Generator.GenerateId(),
                 CustomerId = billRequestDto.CustomerId,
                 UserId = billRequestDto.UserId,
-                SaleDate = DateTime.Now,
+                SaleDate = DateTime.Now.ToUniversalTime(),
                 TotalAmount = totalAmount,
             };
             var billId = await BillDao.CreateBill(bill);
@@ -48,7 +49,7 @@ namespace Repositories.Implementation
             {
                 var billJewelry = new BillJewelry
                 {
-                    BillJewelryId = IdGenerator.GenerateId(),
+                    BillJewelryId = Generator.GenerateId(),
                     BillId = billId,
                     JewelryId = item.JewelryId,
                 };
@@ -59,7 +60,7 @@ namespace Repositories.Implementation
             {
                 var billPromotion = new BillPromotion
                 {
-                    BillPromotionId = IdGenerator.GenerateId(),
+                    BillPromotionId = Generator.GenerateId(),
                     BillId = billId,
                     PromotionId = promotion.PromotionId,
                 };

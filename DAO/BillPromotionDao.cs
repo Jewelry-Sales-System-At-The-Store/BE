@@ -6,7 +6,7 @@ using Tools;
 
 namespace DAO;
 
-public class BillPromotionDao : Singleton<BillPromotionDao>
+public class BillPromotionDao
 {
     private readonly JssatsContext _context;
     public BillPromotionDao()
@@ -23,7 +23,7 @@ public class BillPromotionDao : Singleton<BillPromotionDao>
     }
     public async Task<int> CreateBillPromotion(BillPromotion billPromotion)
     {
-        billPromotion.BillPromotionId = IdGenerator.GenerateId();
+        billPromotion.BillPromotionId = Generator.GenerateId();
         _context.BillPromotions.Add(billPromotion);
         return await _context.SaveChangesAsync();
     }

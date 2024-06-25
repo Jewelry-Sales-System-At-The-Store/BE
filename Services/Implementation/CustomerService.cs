@@ -1,35 +1,61 @@
-﻿using BusinessObjects.Models;
+﻿using AutoMapper;
+using BusinessObjects.DTO;
+using BusinessObjects.DTO.Other;
+using BusinessObjects.DTO.ResponseDto;
+using BusinessObjects.Models;
 using Repositories.Interface;
 using Services.Interface;
 
 namespace Services.Implementation
 {
-    public class CustomerService(ICustomerRepository customerRepository) : ICustomerService
+    public class CustomerService(IMapper mapper, ICustomerRepository customerRepository) : ICustomerService
     {
-        public ICustomerRepository CustomerRepository { get; } = customerRepository;
+        private IMapper Mapper { get; } = mapper;
+        private ICustomerRepository CustomerRepository { get; } = customerRepository;
 
-        public async Task<int> CreateCustomer(Customer customer)
+        public async Task<int> CreateCustomer(CustomerDto customerDto)
         {
+            var customer = Mapper.Map<Customer>(customerDto);
             return await CustomerRepository.Create(customer);
         }
 
-        public Task<int> DeleteCustomer(string id)
+        public async Task<int> DeleteCustomer(string id)
         {
-            throw new NotImplementedException();
+            return await CustomerRepository.Delete(id);
         }
 
-        public async Task<Customer?> GetCustomerById(string id)
+
+        public async Task<PagingResponse> GetCustomersPaging(int pageNumber, int pageSize)
         {
-            return await CustomerRepository.GetById(id);
+            var customers = await CustomerRepository.GetsPaging(pageNumber, pageSize);
+            var pagingResponse = new PagingResponse
+            {
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalRecord = customers.Item1,
+                TotalPage = customers.Item2,
+                Data = Mapper.Map<IEnumerable<CustomerResponseDto>>(customers.Item3)
+            };
+            return pagingResponse;
         }
 
-        public async Task<IEnumerable<Customer?>?> GetCustomers()
+        public async Task<CustomerResponseDto?> GetCustomerById(string id)
         {
-            return await CustomerRepository.Gets();
+            var customer = await CustomerRepository.GetById(id);
+            var responseCustomer = Mapper.Map<CustomerResponseDto>(customer);
+            return responseCustomer;
         }
 
-        public async Task<int> UpdateCustomer(string id, Customer customer)
+        public async Task<IEnumerable<CustomerResponseDto?>?> GetCustomers()
         {
+            var customers = await CustomerRepository.Gets();
+            var responseCustomers = Mapper.Map<IEnumerable<CustomerResponseDto>>(customers);
+            return responseCustomers;
+        }
+
+        public async Task<int> UpdateCustomer(string id, CustomerDto customerDto)
+        {
+            var customer = Mapper.Map<Customer>(customerDto);
             return await CustomerRepository.Update(id, customer);
         }
     }

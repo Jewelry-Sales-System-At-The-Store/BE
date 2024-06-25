@@ -1,12 +1,13 @@
 ﻿using BusinessObjects.DTO.Bill;
-using BusinessObjects.Models;
+using BusinessObjects.DTO.BillReqRes;
+using BusinessObjects.DTO.Other;
 
 namespace Services.Interface
 {
     public interface IBillService
     {
         public Task<BillResponseDto> Create(BillRequestDto entity);
-        public Task<IEnumerable<Bill?>?> GetBills();
-        public Task<Bill?> GetById(string id);
+        public Task<PagingResponse> GetBills(int pageNumber, int pageSize);
+        public Task<BillDetailDto?> GetById(string id);
     }
 }

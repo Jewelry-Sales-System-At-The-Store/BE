@@ -4,10 +4,11 @@ using Repositories.Interface;
 
 namespace Repositories.Implementation
 {
-    public class UserRepository(UserDao userDao, RoleDao roleDao) : IUserRepository
+    public class UserRepository(UserDao userDao, RoleDao roleDao, CounterDao counterDao) : IUserRepository
     {
         public UserDao UserDao { get; } = userDao;
         public RoleDao RoleDao { get; } = roleDao;
+        public CounterDao CounterDao { get; } = counterDao;
 
         public Task<IEnumerable<User>> Find(Func<User, bool> predicate)
         {
@@ -26,8 +27,11 @@ namespace Repositories.Implementation
         public async Task<User?> GetById(string id)
         {
             var user = await UserDao.GetUserById(id);
+            if (user == null) return null;
             var role = await RoleDao.GetRoleById(user.RoleId);
+            var counter = await CounterDao.GetCounterById(user.CounterId);
             user.Role = role;
+            user.Counter = counter;
             return user;
         }
 
@@ -36,13 +40,16 @@ namespace Repositories.Implementation
            return await UserDao.UpdateUser(id, entity);
         }
 
-        public async Task<IEnumerable<User?>?> Gets()
+        public async Task<IEnumerable<User>?> Gets()
         {
             var users = await UserDao.GetUsers();
+            if (users == null) return null;
             foreach (var user in users)
             {
                 var userRole = await RoleDao.GetRoleById(user.RoleId);
+                var counter = await CounterDao.GetCounterById(user.CounterId);
                 user.Role = userRole;
+                user.Counter = counter;
             }
             return users;
         }

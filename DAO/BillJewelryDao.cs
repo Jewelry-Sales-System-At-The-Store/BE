@@ -23,7 +23,7 @@ namespace DAO
         }
         public async Task<int> CreateBillJewelry(BillJewelry billJewelry)
         {
-            billJewelry.BillJewelryId = IdGenerator.GenerateId();
+            billJewelry.BillJewelryId = Generator.GenerateId();
             _context.BillJewelries.Add(billJewelry);
             return await _context.SaveChangesAsync();
         }

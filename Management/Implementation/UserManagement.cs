@@ -1,5 +1,7 @@
 ﻿using BusinessObjects.DTO;
 using BusinessObjects.DTO.Bill;
+using BusinessObjects.DTO.BillReqRes;
+using BusinessObjects.DTO.Other;
 using BusinessObjects.DTO.ResponseDto;
 using BusinessObjects.Models;
 using Management.Interface;
@@ -22,17 +24,17 @@ namespace Management.Implementation
             return token;
         }
 
-        public async Task<IEnumerable<User?>?> GetUsers()
+        public async Task<IEnumerable<UserResponseDto?>?> GetUsers()
         {
             return await UserService.GetUsers();
         }
 
-        public async Task<IEnumerable<Bill?>?> GetBills()
+        public async Task<PagingResponse> GetBills(int pageNumber, int pageSize)
         {
-            return await BillService.GetBills();
+            return await BillService.GetBills(pageNumber, pageSize);
         }
 
-        public async Task<Bill?> GetBillById(string id)
+        public async Task<BillDetailDto?> GetBillById(string id)
         {
             return await BillService.GetById(id);
         }
@@ -42,7 +44,7 @@ namespace Management.Implementation
             return await BillService.Create(billRequestDto);
         }
 
-        public async Task<User?> GetUserById(string id)
+        public async Task<UserResponseDto?> GetUserById(string id)
         {
             return await UserService.GetUserById(id);
         }

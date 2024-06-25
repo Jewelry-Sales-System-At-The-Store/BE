@@ -1,6 +1,13 @@
-﻿using DAO;
+﻿using BusinessObjects.DTO.BillReqRes;
+using BusinessObjects.DTO.Other;
+using BusinessObjects.Models;
+using DAO;
 using Management.Implementation;
 using Management.Interface;
+using Microsoft.AspNetCore.OData;
+using Microsoft.OData.Edm;
+using Microsoft.OData.ModelBuilder;
+using MongoDB.Driver;
 using Repositories.Implementation;
 using Repositories.Interface;
 using Services.Implementation;
@@ -12,9 +19,14 @@ public static class ServiceExtensions
 {
     public static IServiceCollection AddScopeService(this IServiceCollection serviceCollection)
     {
-        //Management
+        #region Management
+
         serviceCollection.AddScoped<IUserManagement, UserManagement>();
-        //Repositories
+
+        #endregion
+        
+        #region Repository
+
         serviceCollection.AddScoped<IUserRepository, UserRepository>();
         serviceCollection.AddScoped<IJewelryRepository, JewelryRepository>();
         serviceCollection.AddScoped<IWarrantyRepository, WarrantyRepository>();
@@ -27,7 +39,13 @@ public static class ServiceExtensions
         serviceCollection.AddScoped<IGemPriceRepository, GemPriceRepository>();
         serviceCollection.AddScoped<IBillPromotionRepository, BillPromotionRepository>();
         serviceCollection.AddScoped<IBillJewelryRepository, BillJewelryRepository>();
-        //Services
+        serviceCollection.AddScoped<IBillDetailRepository, BillDetailRepository>();
+        serviceCollection.AddScoped<IJewelryMaterialRepository, JewelryMaterialRepository>();
+        serviceCollection.AddScoped<ICounterRepository, CounterRepository>();
+        #endregion
+        
+        #region Service
+        serviceCollection.AddScoped<IPaymentService, PaymentService>();
         serviceCollection.AddScoped<IGemPriceService, GemPriceService>();
         serviceCollection.AddScoped<IGoldPriceService, GoldPriceService>();
         serviceCollection.AddScoped<IRoleService, RoleService>();
@@ -39,7 +57,11 @@ public static class ServiceExtensions
         serviceCollection.AddScoped<IPromotionService, PromotionService>();
         serviceCollection.AddScoped<IJewelryTypeService, JewelryTypeService>();
         serviceCollection.AddScoped<ITokenService, TokenService>();
-        //DAO
+
+        #endregion
+        
+        #region Dao
+        serviceCollection.AddScoped<CounterDao>();
         serviceCollection.AddScoped<BillDao>();
         serviceCollection.AddScoped<BillJewelryDao>();
         serviceCollection.AddScoped<BillPromotionDao>();
@@ -54,6 +76,31 @@ public static class ServiceExtensions
         serviceCollection.AddScoped<UserDao>();
         serviceCollection.AddScoped<WarrantyDao>();
         serviceCollection.AddScoped<JewelryMaterialDao>();
+
+        #endregion
+        
+        #region MongoDb
+        serviceCollection.AddSingleton<IMongoClient, MongoClient>(s =>
+        {
+            var uri = s.GetRequiredService<IConfiguration>()["MongoDb:CloudConnectionString"];
+            return new MongoClient(uri);
+        });
+        #endregion
+        
+        #region Odata
+        serviceCollection.AddControllers().AddOData(opt =>
+        {
+            opt.Select().Filter().OrderBy().Expand().Count().SetMaxTop(100).AddRouteComponents("odata", GetEdmModel());
+        });
+        #endregion
+        
+        
         return serviceCollection;
+    }
+    static IEdmModel GetEdmModel()
+    {
+        var builder = new ODataConventionModelBuilder();
+        builder.EntitySet<User>("Users");
+        return builder.GetEdmModel();
     }
 }

@@ -10,6 +10,9 @@ public partial class BillPromotion
     public string? BillId { get; set; }
 
     public string? PromotionId { get; set; }
+    
+    public DateTimeOffset CreatedAt { get; set; }
+    public DateTimeOffset UpdatedAt { get; set; }
 
     public virtual Bill? Bill { get; set; }
 

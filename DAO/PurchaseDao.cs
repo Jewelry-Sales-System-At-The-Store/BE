@@ -24,7 +24,7 @@ public class PurchaseDao : Singleton<PurchaseDao>
     }
     public async Task<Purchase> CreatePurchase(Purchase purchase)
     {
-        purchase.PurchaseId = IdGenerator.GenerateId();
+        purchase.PurchaseId = Generator.GenerateId();
         _context.Purchases.Add(purchase);
         await _context.SaveChangesAsync();
         return purchase;
