@@ -138,7 +138,6 @@ namespace Services.Implementation
                 PointsUsed = 0, // Calculate points used
                 FinalAmount = CalculateFinalAmount(totalAmount, (float)totalDiscountRate)
             };
-
             await BillDetailRepository.AddBillDetail(Mapper.Map<BillDetailDto>(billResponseDto));
             return billResponseDto;
         }
