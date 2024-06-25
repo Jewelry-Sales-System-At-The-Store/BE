@@ -21,6 +21,11 @@ namespace Services.Implementation
             return jewelryResponseDto;
         }
 
+        public Task<JewelryResponseDto?> GetJewelryByTypeId(string id)
+        {
+            throw new NotImplementedException();
+        }
+
 
         public async Task<int> CreateJewelry(Jewelry jewelry)
         {
