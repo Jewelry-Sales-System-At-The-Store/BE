@@ -1,5 +1,4 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using BusinessObjects.DTO;
 using BusinessObjects.DTO.Jewelry;
 using BusinessObjects.DTO.ResponseDto;
@@ -24,6 +23,13 @@ public class JewelryController(IJewelryService jewelryService, IMapper mapper) :
         return Ok(jewelries);
     }
 
+    [HttpGet("GetJewelriesByType")]
+    public async Task<IActionResult> GetJewelriesByType(string jewelryTypeId, int pageNumber, int pageSize)
+    {
+        var jewelries = await JewelryService.GetJewelryByType(jewelryTypeId, pageNumber, pageSize);
+        return Ok(jewelries);
+    }
+
     [HttpGet("GetJewelryById/{id}")]
     public async Task<IActionResult> GetJewelryById(string id)
     {
@@ -31,12 +37,14 @@ public class JewelryController(IJewelryService jewelryService, IMapper mapper) :
         if (jewelry == null) return NotFound();
         return Ok(jewelry);
     }
+
     [HttpPost("CreateJewelry")]
     public async Task<IActionResult> CreateJewelry(JewelryRequestDto jewelryRequestDto)
     {
         var result = await JewelryService.CreateJewelry(jewelryRequestDto);
         return Ok(result);
     }
+
     [HttpPut("UpdateJewelry/{id}")]
     public async Task<IActionResult> UpdateJewelry(string id, JewelryRequestDto jewelryRequestDto)
     {
@@ -44,6 +52,7 @@ public class JewelryController(IJewelryService jewelryService, IMapper mapper) :
         var result = await JewelryService.UpdateJewelry(id, jewelry);
         return Ok(result);
     }
+
     [HttpDelete("DeleteJewelry/{id}")]
     public async Task<IActionResult> DeleteJewelry(string id)
     {

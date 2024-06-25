@@ -35,11 +35,19 @@ namespace Services.Implementation
             return jewelryResponseDto;
         }
 
-        public Task<JewelryResponseDto?> GetJewelryByTypeId(string id)
+        public async Task<PagingResponse?> GetJewelryByType(string jewelryTypeId, int pageNumBer, int pageSize)
         {
-            throw new NotImplementedException();
+            var jewelries = await JewelryRepository.GetsJewelryPagingByType(jewelryTypeId, pageNumBer, pageSize);
+            var jewelryPaging = new PagingResponse
+            {
+                PageNumber = pageNumBer,
+                PageSize = pageSize,
+                TotalRecord = jewelries.Item1,
+                TotalPage = jewelries.Item2,
+                Data = jewelries.Item3
+            };
+            return jewelryPaging;
         }
-
 
         public async Task<int> CreateJewelry(JewelryRequestDto jewelryRequestDto)
         {
@@ -61,6 +69,7 @@ namespace Services.Implementation
             {
                 throw new CustomException.InvalidDataException("Failed to create Jewelry.");
             }
+
             // Create JewelryMaterial
             var jewelryMaterial = new JewelryMaterial
             {

@@ -90,6 +90,68 @@ namespace Repositories.Implementation
             return (jewelries.Item1, jewelries.Item2, jewelryResponseDtos);
         }
 
+        public async Task<(int, int, IEnumerable<JewelryResponseDto>)> GetsJewelryPagingByType(string jewelryTypeId,
+            int pageNumber, int pageSize)
+        {
+            var jewelries = await JewelryDao.GetJewelriesByType(jewelryTypeId, pageNumber, pageSize);
+            if (jewelries.Item3 == null || !jewelries.Item3.Any())
+            {
+                return default;
+            }
+
+            var jewelryResponseDtos = new List<JewelryResponseDto>();
+
+            foreach (var jewelry in jewelries.Item3)
+            {
+                var jewelryType = await JewelryTypeDao.GetJewelryTypeById(jewelry.JewelryTypeId);
+                var jewelryMaterials = await JewelryMaterialDao.GetJewelryMaterialByJewelry(jewelry.JewelryId);
+                var jewelryMaterialList = new List<JewelryMaterial> { jewelryMaterials };
+                foreach (var jewelryMaterial in jewelryMaterialList)
+                {
+                    var goldType = await GoldPriceDao.GetGoldPriceById(jewelryMaterial.GoldPriceId);
+                    var stoneType = await GemPriceDao.GetStonePriceById(jewelryMaterial.StonePriceId);
+
+                    jewelryMaterial.GoldPrice = goldType;
+                    jewelryMaterial.StonePrice = stoneType;
+                }
+
+                jewelry.JewelryType = jewelryType;
+                jewelry.JewelryMaterials = jewelryMaterialList;
+
+                var totalPrice = jewelry.JewelryMaterials.Sum(jm => CalculateTotalPrice(jm, jewelry.LaborCost));
+
+                var jewelryResponseDto = new JewelryResponseDto
+                {
+                    JewelryId = jewelry.JewelryId,
+                    Name = jewelry.Name,
+                    Type = jewelryType.Name,
+                    ImageUrl = jewelry.ImageUrl,
+                    Barcode = jewelry.Barcode,
+                    LaborCost = jewelry.LaborCost,
+                    Materials = jewelry.JewelryMaterials.Select(jm => new Materials
+                    {
+                        Gold = new GoldResponseDto
+                        {
+                            GoldType = jm.GoldPrice?.Type,
+                            GoldQuantity = jm.GoldQuantity,
+                            GoldPrice = jm.GoldPrice?.SellPrice ?? 0
+                        },
+                        Gem = new GemResponseDto
+                        {
+                            Gem = jm.StonePrice?.Type,
+                            GemQuantity = jm.StoneQuantity,
+                            GemPrice = jm.StonePrice?.SellPrice ?? 0
+                        }
+                    }).ToList(),
+                    TotalPrice = totalPrice
+                };
+
+                jewelryResponseDtos.Add(jewelryResponseDto);
+            }
+
+            return (jewelries.Item1, jewelries.Item2, jewelryResponseDtos);
+        }
+
         public Task<IEnumerable<JewelryResponseDto>?> Gets()
         {
             throw new NotImplementedException();
