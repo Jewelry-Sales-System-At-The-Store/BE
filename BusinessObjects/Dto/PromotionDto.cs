@@ -3,7 +3,7 @@ public class PromotionDto
 {
     public string? Type { get; set; }
 
-    //public string? ApproveManager { get; set; }
+    // public string? ApproveManager { get; set; }
 
     public string? Description { get; set; }
 
