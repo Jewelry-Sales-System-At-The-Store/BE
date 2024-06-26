@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.DTO;
+using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interface;
 
@@ -22,9 +23,9 @@ namespace API.Controllers
             return Ok(result);
         }
         [HttpPost("AddNewPromotion")]
-        public async Task<IActionResult> AddPromotion(PromotionDto promotionDto)
+        public async Task<IActionResult> AddPromotion(string userId, PromotionDto promotionDto)
         {
-            var result = await PromotionService.CreatePromotion(promotionDto);
+            var result = await PromotionService.CreatePromotion(userId, promotionDto);
             return Ok(result);
         }
         [HttpDelete("DeletePromotion")]
