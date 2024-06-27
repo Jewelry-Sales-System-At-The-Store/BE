@@ -10,7 +10,7 @@ namespace API.Controllers;
 public class BillController(IUserManagement userManagement, IPaymentService paymentService) : ControllerBase
 {
     private IUserManagement UserManagement { get; } = userManagement;
-    public IPaymentService PaymentService { get; } = paymentService;
+    private IPaymentService PaymentService { get; } = paymentService;
 
     [HttpGet("GetBills")]
     public async Task<IActionResult> Get(int pageNumber, int pageSize)
