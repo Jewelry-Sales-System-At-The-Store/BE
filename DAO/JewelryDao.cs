@@ -23,7 +23,6 @@ namespace DAO
                 .ToListAsync();
             return (totalRecord,totalPage, jewelries);
         }
-        
         public async Task<(int,int,IEnumerable<Jewelry>)> GetJewelriesByType(string jewelryTypeId, int pageNumber, int pageSize)
         {
             var totalRecord = await _context.Jewelries.Where(x => x.JewelryTypeId  == jewelryTypeId).CountAsync();

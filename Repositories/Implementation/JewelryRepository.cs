@@ -29,21 +29,37 @@ namespace Repositories.Implementation
             return await JewelryDao.DeleteJewelry(id);
         }
 
-        public async Task<(int, int, IEnumerable<JewelryResponseDto>)> GetsJewelryPaging(int pageNumber, int pageSize)
+        public async Task<(int, int, IEnumerable<JewelryResponseDto>)> GetsJewelryPaging(int pageNumber, int pageSize,
+            string? name, string? typeId)
         {
+            // Retrieve paginated jewelries from DAO
             var jewelries = await JewelryDao.GetJewelries(pageNumber, pageSize);
             if (jewelries.Item3 == null || !jewelries.Item3.Any())
             {
                 return default;
             }
 
+            // Apply filters on the retrieved paginated jewelries
+            var filteredJewelries = jewelries.Item3.AsQueryable();
+            if (!string.IsNullOrEmpty(name))
+            {
+                filteredJewelries =
+                    filteredJewelries.Where(j => j.Name.Contains(name, StringComparison.OrdinalIgnoreCase));
+            }
+
+            if (!string.IsNullOrEmpty(typeId))
+            {
+                filteredJewelries = filteredJewelries.Where(j => j.JewelryTypeId == typeId);
+            }
+
             var jewelryResponseDtos = new List<JewelryResponseDto>();
 
-            foreach (var jewelry in jewelries.Item3)
+            foreach (var jewelry in filteredJewelries)
             {
                 var jewelryType = await JewelryTypeDao.GetJewelryTypeById(jewelry.JewelryTypeId);
                 var jewelryMaterials = await JewelryMaterialDao.GetJewelryMaterialByJewelry(jewelry.JewelryId);
                 var jewelryMaterialList = new List<JewelryMaterial> { jewelryMaterials };
+
                 foreach (var jewelryMaterial in jewelryMaterialList)
                 {
                     var goldType = await GoldPriceDao.GetGoldPriceById(jewelryMaterial.GoldPriceId);
@@ -87,8 +103,10 @@ namespace Repositories.Implementation
                 jewelryResponseDtos.Add(jewelryResponseDto);
             }
 
+            // Return the total number of items, the page size, and the filtered jewelry list
             return (jewelries.Item1, jewelries.Item2, jewelryResponseDtos);
         }
+
 
         public async Task<(int, int, IEnumerable<JewelryResponseDto>)> GetsJewelryPagingByType(string jewelryTypeId,
             int pageNumber, int pageSize)

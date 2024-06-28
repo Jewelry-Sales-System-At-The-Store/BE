@@ -15,9 +15,9 @@ namespace Services.Implementation
         private IJewelryRepository JewelryRepository { get; } = jewelryRepository;
         private IJewelryMaterialRepository JewelryMaterialRepository { get; } = jewelryMaterialRepository;
 
-        public async Task<PagingResponse> GetJewelries(int pageNumber, int pageSize)
+        public async Task<PagingResponse> GetJewelries(int pageNumber, int pageSize, string? name, string? typeId)
         {
-            var jewelries = await JewelryRepository.GetsJewelryPaging(pageNumber, pageSize);
+            var jewelries = await JewelryRepository.GetsJewelryPaging(pageNumber, pageSize, name, typeId);
             var jewelryPaging = new PagingResponse
             {
                 PageNumber = pageNumber,
