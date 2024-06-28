@@ -1,5 +1,4 @@
-﻿using BusinessObjects.DTO.Other;
-using BusinessObjects.Models;
+﻿using BusinessObjects.Models;
 using DAO;
 using Repositories.Interface;
 
@@ -9,7 +8,7 @@ namespace Repositories.Implementation
     {
         private CustomerDao CustomerDao { get; } = customerDao;
 
-        public async Task<int> Create(Customer entity)
+        public async Task<Customer> CreateCustomer(Customer entity)
         {
             entity.Point = 0;
             return await CustomerDao.CreateCustomer(entity);
@@ -19,6 +18,11 @@ namespace Repositories.Implementation
         {
             var (totalRecord, totalPage, customers) = await CustomerDao.GetCustomersPaging(pageNumber, pageSize);
             return (totalRecord, totalPage, customers);
+        }
+
+        public async Task<Customer?> GetCustomerByPhone(string phoneNumber)
+        {
+            return await CustomerDao.GetCustomerByPhone(phoneNumber);
         }
 
         public async Task<IEnumerable<Customer>?> Gets()
@@ -39,6 +43,11 @@ namespace Repositories.Implementation
         public async Task<int> Delete(string id)
         {
             return await CustomerDao.DeleteCustomer(id);
+        }
+
+        public Task<int> Create(Customer entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

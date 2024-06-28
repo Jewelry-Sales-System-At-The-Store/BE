@@ -32,11 +32,12 @@ namespace DAO
         {
             return await _context.Customers.FindAsync(id);
         }
-        public async Task<int> CreateCustomer(Customer customer)
+        public async Task<Customer> CreateCustomer(Customer customer)
         {
             customer.CustomerId = Generator.GenerateId();
             _context.Customers.Add(customer);
-            return await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+            return customer;
         }
         public async Task<int> UpdateCustomer(string id,Customer customer)
         {
@@ -63,6 +64,10 @@ namespace DAO
             var bill = await _context.Bills.FindAsync(billId);
             if (bill == null) return null;
             return await _context.Customers.FindAsync(bill.CustomerId);
+        }
+        public async Task<Customer?> GetCustomerByPhone(string phoneNumber)
+        {
+            return await _context.Customers.FirstOrDefaultAsync(c => c.Phone == phoneNumber);
         }
     }
 }

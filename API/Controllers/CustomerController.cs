@@ -20,6 +20,11 @@ public class CustomerController(ICustomerService customerService) : ControllerBa
     {
         return Ok(await CustomerService.GetCustomerById(id));
     }
+    [HttpGet("GetCustomerByPhone/{phoneNumber}")]
+    public async Task<IActionResult> GetCustomerByPhone(string phoneNumber)
+    {
+        return Ok(await CustomerService.GetCustomerByPhone(phoneNumber));
+    }
     [HttpPost("CreateCustomer")]
     public async Task<IActionResult> CreateCustomer(CustomerDto customer)
     {
