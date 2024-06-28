@@ -4,6 +4,7 @@ public class UserResponseDto
 {
     public required string UserId { get; set; }
     public string? RoleName { get; set; }
+    public string? CounterId { get; set; }
     public int? CounterNumber { get; set; }
     public string? Username { get; set; }
     public string? FullName { get; set; }
