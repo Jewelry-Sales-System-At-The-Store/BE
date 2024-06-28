@@ -24,8 +24,12 @@ public class JewelryController(IJewelryService jewelryService, IMapper mapper) :
     }
 
     [HttpGet("GetJewelriesByType")]
-    public async Task<IActionResult> GetJewelriesByType(string jewelryTypeId, int pageNumber, int pageSize)
+    public async Task<IActionResult> GetJewelriesByType(string? jewelryTypeId, int pageNumber, int pageSize)
     {
+        if(jewelryTypeId == null)
+        {
+            return await GetJewelries(pageNumber, pageSize);
+        }
         var jewelries = await JewelryService.GetJewelryByType(jewelryTypeId, pageNumber, pageSize);
         return Ok(jewelries);
     }
