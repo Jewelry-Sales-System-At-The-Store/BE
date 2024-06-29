@@ -14,6 +14,11 @@ namespace DAO
             return await _context.Bills.ToListAsync();
         }
 
+        public IQueryable<Bill> GetAllBills()
+        {
+            return _context.Bills.AsQueryable();
+        }
+
         public async Task<Bill?> GetBillById(string id)
         {
             return await _context.Bills.FindAsync(id);
