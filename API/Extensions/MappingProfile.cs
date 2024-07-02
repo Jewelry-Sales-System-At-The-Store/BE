@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using BusinessObjects.DTO;
-using BusinessObjects.DTO.BillReqRes;
-using BusinessObjects.DTO.Jewelry;
-using BusinessObjects.DTO.ResponseDto;
+using BusinessObjects.Dto;
+using BusinessObjects.Dto.BillReqRes;
+using BusinessObjects.Dto.Jewelry;
+using BusinessObjects.Dto.ResponseDto;
 using BusinessObjects.Models;
 
 namespace API.Extensions
@@ -13,6 +13,8 @@ namespace API.Extensions
         {
             // RequestDto Mapping
             CreateMap<Jewelry, JewelryRequestDto>().ReverseMap();
+            CreateMap<Jewelry, JewelryResponseDto>().ReverseMap();
+
             // Dto Mapping
             CreateMap<Warranty, WarrantyDto>().ReverseMap();
             CreateMap<JewelryType, JewelryTypeDto>().ReverseMap();

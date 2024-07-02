@@ -1,8 +1,7 @@
-﻿using BusinessObjects.DTO;
-using BusinessObjects.DTO.Bill;
-using BusinessObjects.DTO.BillReqRes;
-using BusinessObjects.DTO.Other;
-using BusinessObjects.DTO.ResponseDto;
+﻿using BusinessObjects.Dto;
+using BusinessObjects.Dto.BillReqRes;
+using BusinessObjects.Dto.Other;
+using BusinessObjects.Dto.ResponseDto;
 using BusinessObjects.Models;
 using Management.Interface;
 using Services.Interface;
@@ -24,6 +23,10 @@ namespace Management.Implementation
             return token;
         }
 
+        public async Task<BillCashCheckoutResponseDto> CheckoutBill(string id, float cashAmount)
+        {
+            return await BillService.CheckoutBill(id, cashAmount);
+        }
         public async Task<IEnumerable<UserResponseDto?>?> GetUsers()
         {
             return await UserService.GetUsers();

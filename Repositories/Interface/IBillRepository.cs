@@ -1,5 +1,4 @@
-﻿using BusinessObjects.Dto.Revenue;
-using BusinessObjects.DTO.Bill;
+using BusinessObjects.Dto.Revenue;
 using BusinessObjects.Models;
 using Repositories.Interface.GenericRepository;
 

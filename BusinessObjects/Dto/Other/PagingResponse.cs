@@ -1,4 +1,4 @@
-﻿namespace BusinessObjects.DTO.Other;
+﻿namespace BusinessObjects.Dto.Other;
 
 public class PagingResponse
 {

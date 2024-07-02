@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 using AutoMapper;
-using BusinessObjects.DTO.ResponseDto;
+using BusinessObjects.Dto.ResponseDto;
 using BusinessObjects.Models;
 using HtmlAgilityPack;
 using Repositories.Interface;

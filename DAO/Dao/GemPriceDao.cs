@@ -1,9 +1,8 @@
 ﻿using BusinessObjects.Context;
 using BusinessObjects.Models;
-using DAO.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace DAO;
+namespace DAO.Dao;
 
 public class GemPriceDao 
 {

@@ -1,12 +1,11 @@
-﻿using BusinessObjects.Models;
-using DAO.Interfaces;
-using BusinessObjects.Context;
+﻿using BusinessObjects.Context;
+using BusinessObjects.Models;
 using Microsoft.EntityFrameworkCore;
 using Tools;
 
-namespace DAO
+namespace DAO.Dao
 {
-    public class JewelryTypeDao : Singleton<JewelryTypeDao>
+    public class JewelryTypeDao 
     {
         private readonly JssatsContext _context;
         public JewelryTypeDao()

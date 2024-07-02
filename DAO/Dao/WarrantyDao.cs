@@ -1,12 +1,11 @@
 ﻿using BusinessObjects.Context;
 using BusinessObjects.Models;
-using DAO.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Tools;
 
-namespace DAO
+namespace DAO.Dao
 {
-    public class WarrantyDao : Singleton<WarrantyDao>
+    public class WarrantyDao
     {
         private readonly JssatsContext _context;
 

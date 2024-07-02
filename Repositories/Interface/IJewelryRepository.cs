@@ -1,4 +1,4 @@
-﻿using BusinessObjects.DTO.ResponseDto;
+﻿using BusinessObjects.Dto.ResponseDto;
 using BusinessObjects.Models;
 using Repositories.Interface.GenericRepository;
 
@@ -12,4 +12,5 @@ public interface IJewelryRepository : IReadRepository<JewelryResponseDto>, ICrea
 
     Task<(int, int, IEnumerable<JewelryResponseDto>)> GetsJewelryPagingByType(string jewelryTypeId, int pageNumber,
         int pageSize);
+    Task<Jewelry?> GetJewelryById(string id);
 }

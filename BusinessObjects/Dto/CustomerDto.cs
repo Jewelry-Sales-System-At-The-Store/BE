@@ -1,4 +1,4 @@
-﻿namespace BusinessObjects.DTO;
+﻿namespace BusinessObjects.Dto;
 
 public class CustomerDto
 {

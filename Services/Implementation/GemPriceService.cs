@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BusinessObjects.DTO.ResponseDto;
+using BusinessObjects.Dto.ResponseDto;
 using Repositories.Interface;
 using Services.Interface;
 

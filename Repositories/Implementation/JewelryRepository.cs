@@ -1,6 +1,7 @@
-﻿using BusinessObjects.DTO.ResponseDto;
+﻿using BusinessObjects.Dto.ResponseDto;
 using BusinessObjects.Models;
 using DAO;
+using DAO.Dao;
 using Repositories.Interface;
 
 namespace Repositories.Implementation
@@ -170,6 +171,11 @@ namespace Repositories.Implementation
             return (jewelries.Item1, jewelries.Item2, jewelryResponseDtos);
         }
 
+        public async Task<Jewelry?> GetJewelryById(string id)
+        {
+            return await JewelryDao.GetJewelryById(id);
+        }
+
         public Task<IEnumerable<JewelryResponseDto>?> Gets()
         {
             throw new NotImplementedException();
@@ -199,6 +205,7 @@ namespace Repositories.Implementation
                 Barcode = jewelry.Barcode,
                 JewelryPrice = CalculateJewelryPrice(jewelryMaterial),
                 LaborCost = jewelry.LaborCost,
+                IsSold = (bool)jewelry.IsSold,
                 Materials = jewelry.JewelryMaterials.Select(jm => new Materials
                 {
                     Gold = new GoldResponseDto

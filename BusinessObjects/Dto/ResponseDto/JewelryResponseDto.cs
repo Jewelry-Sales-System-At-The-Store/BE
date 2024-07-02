@@ -1,6 +1,4 @@
-﻿using BusinessObjects.Models;
-
-namespace BusinessObjects.DTO.ResponseDto;
+﻿namespace BusinessObjects.Dto.ResponseDto;
 
 public class JewelryResponseDto
 {
@@ -10,7 +8,7 @@ public class JewelryResponseDto
     public string? Barcode { get; set; }
     public double? LaborCost { get; set; }
     public float JewelryPrice { get; set; }
-    
+    public bool IsSold { get; set; }
     public string? ImageUrl { get; set; }
     public IList<Materials>? Materials { get; set; }
     public float TotalPrice { get; set; }

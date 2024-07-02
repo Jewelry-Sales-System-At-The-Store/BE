@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using BusinessObjects.DTO;
-using BusinessObjects.DTO.Jewelry;
-using BusinessObjects.DTO.ResponseDto;
+using BusinessObjects.Dto.Jewelry;
 using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
 using Services;

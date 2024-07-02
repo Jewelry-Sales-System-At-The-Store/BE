@@ -1,6 +1,6 @@
-﻿using BusinessObjects.DTO.Jewelry;
-using BusinessObjects.DTO.Other;
-using BusinessObjects.DTO.ResponseDto;
+﻿using BusinessObjects.Dto.Jewelry;
+using BusinessObjects.Dto.Other;
+using BusinessObjects.Dto.ResponseDto;
 using BusinessObjects.Models;
 
 namespace Services.Interface

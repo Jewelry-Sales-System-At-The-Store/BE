@@ -342,8 +342,8 @@ namespace BusinessObjects.Context
             );
 
             modelBuilder.Entity<Bill>().HasData(
-                new Bill { BillId = "1", CustomerId = "1", UserId = "1", SaleDate = DateTime.Now, TotalAmount = 500 },
-                new Bill { BillId = "2", CustomerId = "2", UserId = "2", SaleDate = DateTime.Now, TotalAmount = 1200 }
+                new Bill {CounterId = "1", BillId = "1", CustomerId = "1", UserId = "1", SaleDate = DateTime.Now, TotalAmount = 500 },
+                new Bill {CounterId = "1", BillId = "2", CustomerId = "2", UserId = "2", SaleDate = DateTime.Now, TotalAmount = 1200 }
             );
 
             modelBuilder.Entity<BillJewelry>().HasData(

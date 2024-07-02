@@ -1,7 +1,7 @@
-﻿using BusinessObjects.DTO.BillReqRes;
-using BusinessObjects.DTO.Other;
+﻿using BusinessObjects.Dto.BillReqRes;
+using BusinessObjects.Dto.Other;
 
-namespace Repositories.Implementation;
+namespace Repositories.Interface;
 
 public interface IBillDetailRepository
 {

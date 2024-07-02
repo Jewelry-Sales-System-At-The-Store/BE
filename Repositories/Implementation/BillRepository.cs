@@ -1,9 +1,10 @@
-﻿using BusinessObjects.Dto.Revenue;
+using BusinessObjects.Dto.Revenue;
 using BusinessObjects.DTO.Bill;
 using BusinessObjects.DTO.BillReqRes;
 using BusinessObjects.Models;
 using DAO;
 using Microsoft.EntityFrameworkCore;
+using DAO.Dao;
 using Repositories.Interface;
 using Tools;
 
@@ -35,6 +36,7 @@ namespace Repositories.Implementation
             var bill = new Bill
             {
                 BillId = Generator.GenerateId(),
+                CounterId = billRequestDto.CounterId,
                 CustomerId = billRequestDto.CustomerId,
                 UserId = billRequestDto.UserId,
                 SaleDate = DateTime.Now.ToUniversalTime(),

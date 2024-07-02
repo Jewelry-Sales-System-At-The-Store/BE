@@ -1,8 +1,7 @@
-﻿using BusinessObjects.DTO;
-using BusinessObjects.DTO.Bill;
-using BusinessObjects.DTO.BillReqRes;
-using BusinessObjects.DTO.Other;
-using BusinessObjects.DTO.ResponseDto;
+﻿using BusinessObjects.Dto;
+using BusinessObjects.Dto.BillReqRes;
+using BusinessObjects.Dto.Other;
+using BusinessObjects.Dto.ResponseDto;
 
 namespace Management.Interface
 {
@@ -13,6 +12,7 @@ namespace Management.Interface
         public Task<PagingResponse> GetBills(int pageNumber, int pageSize);
         public Task<BillDetailDto?> GetBillById(string id);
         public Task<BillResponseDto> CreateBill(BillRequestDto billRequestDto);
+        public Task<BillCashCheckoutResponseDto> CheckoutBill(string id, float cashAmount);
         //Crud User
         public Task<IEnumerable<UserResponseDto?>?> GetUsers();
         public Task<UserResponseDto?> GetUserById(string id);

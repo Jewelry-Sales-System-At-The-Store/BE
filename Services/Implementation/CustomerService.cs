@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using BusinessObjects.DTO;
-using BusinessObjects.DTO.Other;
-using BusinessObjects.DTO.ResponseDto;
+using BusinessObjects.Dto;
+using BusinessObjects.Dto.Other;
+using BusinessObjects.Dto.ResponseDto;
 using BusinessObjects.Models;
 using Repositories.Interface;
 using Services.Interface;

@@ -18,9 +18,9 @@ namespace BusinessObjects.Migrations
                 columns: table => new
                 {
                     CounterId = table.Column<string>(type: "varchar(20)", nullable: false),
-                    Number = table.Column<int>(type: "int", nullable: true),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
+                    Number = table.Column<int>(type: "integer", nullable: true),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -32,12 +32,15 @@ namespace BusinessObjects.Migrations
                 columns: table => new
                 {
                     CustomerId = table.Column<string>(type: "varchar(20)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Point = table.Column<int>(type: "int", nullable: true),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
+                    UserName = table.Column<string>(type: "text", nullable: true),
+                    FullName = table.Column<string>(type: "text", nullable: true),
+                    Email = table.Column<string>(type: "text", nullable: true),
+                    Phone = table.Column<string>(type: "text", nullable: true),
+                    Gender = table.Column<string>(type: "text", nullable: true),
+                    Address = table.Column<string>(type: "text", nullable: true),
+                    Point = table.Column<int>(type: "integer", nullable: true),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -49,11 +52,11 @@ namespace BusinessObjects.Migrations
                 columns: table => new
                 {
                     GemId = table.Column<string>(type: "varchar(20)", nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Type = table.Column<string>(type: "text", nullable: true),
+                    City = table.Column<string>(type: "text", nullable: true),
                     BuyPrice = table.Column<float>(type: "real", nullable: false),
                     SellPrice = table.Column<float>(type: "real", nullable: false),
-                    LastUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
+                    LastUpdated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -65,11 +68,11 @@ namespace BusinessObjects.Migrations
                 columns: table => new
                 {
                     GoldId = table.Column<string>(type: "varchar(20)", nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Type = table.Column<string>(type: "text", nullable: true),
+                    City = table.Column<string>(type: "text", nullable: true),
                     BuyPrice = table.Column<float>(type: "real", nullable: false),
                     SellPrice = table.Column<float>(type: "real", nullable: false),
-                    LastUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                    LastUpdated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -81,7 +84,7 @@ namespace BusinessObjects.Migrations
                 columns: table => new
                 {
                     JewelryTypeId = table.Column<string>(type: "varchar(20)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -93,12 +96,12 @@ namespace BusinessObjects.Migrations
                 columns: table => new
                 {
                     PromotionId = table.Column<string>(type: "varchar(20)", nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ApproveManager = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DiscountRate = table.Column<double>(type: "float", nullable: true),
-                    StartDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    EndDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                    Type = table.Column<string>(type: "text", nullable: true),
+                    ApproveManager = table.Column<string>(type: "text", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    DiscountRate = table.Column<double>(type: "double precision", nullable: true),
+                    StartDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    EndDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -110,7 +113,7 @@ namespace BusinessObjects.Migrations
                 columns: table => new
                 {
                     RoleId = table.Column<string>(type: "varchar(20)", nullable: false),
-                    RoleName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    RoleName = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -123,12 +126,13 @@ namespace BusinessObjects.Migrations
                 {
                     JewelryId = table.Column<string>(type: "varchar(20)", nullable: false),
                     JewelryTypeId = table.Column<string>(type: "varchar(20)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Barcode = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LaborCost = table.Column<double>(type: "float", nullable: true),
-                    IsSold = table.Column<bool>(type: "bit", nullable: true),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    Barcode = table.Column<string>(type: "text", nullable: true),
+                    ImageUrl = table.Column<string>(type: "text", nullable: true),
+                    LaborCost = table.Column<double>(type: "double precision", nullable: true),
+                    IsSold = table.Column<bool>(type: "boolean", nullable: true),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -147,15 +151,15 @@ namespace BusinessObjects.Migrations
                     UserId = table.Column<string>(type: "varchar(20)", nullable: false),
                     RoleId = table.Column<string>(type: "varchar(20)", nullable: true),
                     CounterId = table.Column<string>(type: "varchar(20)", nullable: true),
-                    Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                    Username = table.Column<string>(type: "text", nullable: true),
+                    FullName = table.Column<string>(type: "text", nullable: true),
+                    Gender = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    Email = table.Column<string>(type: "text", nullable: true),
+                    Password = table.Column<string>(type: "text", nullable: true),
+                    Status = table.Column<bool>(type: "boolean", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -176,14 +180,14 @@ namespace BusinessObjects.Migrations
                 name: "JewelryMaterials",
                 columns: table => new
                 {
-                    JewelryMaterialId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    JewelryMaterialId = table.Column<string>(type: "text", nullable: false),
                     JewelryId = table.Column<string>(type: "varchar(20)", nullable: true),
                     GoldPriceId = table.Column<string>(type: "varchar(20)", nullable: true),
                     StonePriceId = table.Column<string>(type: "varchar(20)", nullable: true),
                     GoldQuantity = table.Column<float>(type: "real", nullable: false),
                     StoneQuantity = table.Column<float>(type: "real", nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -211,8 +215,8 @@ namespace BusinessObjects.Migrations
                 {
                     WarrantyId = table.Column<string>(type: "varchar(20)", nullable: false),
                     JewelryId = table.Column<string>(type: "varchar(20)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EndDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    EndDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -229,13 +233,13 @@ namespace BusinessObjects.Migrations
                 columns: table => new
                 {
                     BillId = table.Column<string>(type: "varchar(20)", nullable: false),
-                    CustomerId = table.Column<string>(type: "varchar(20)", nullable: true),
-                    UserId = table.Column<string>(type: "varchar(20)", nullable: true),
-                    CounterId = table.Column<string>(type: "varchar(20)", nullable: true),
-                    TotalAmount = table.Column<double>(type: "float", nullable: true),
-                    SaleDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
+                    CustomerId = table.Column<string>(type: "varchar(20)", maxLength: 7, nullable: false),
+                    UserId = table.Column<string>(type: "varchar(20)", maxLength: 7, nullable: false),
+                    CounterId = table.Column<string>(type: "varchar(20)", maxLength: 7, nullable: false),
+                    TotalAmount = table.Column<double>(type: "double precision", nullable: true),
+                    SaleDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -265,9 +269,9 @@ namespace BusinessObjects.Migrations
                     CustomerId = table.Column<string>(type: "varchar(20)", nullable: true),
                     UserId = table.Column<string>(type: "varchar(20)", nullable: true),
                     JewelryId = table.Column<string>(type: "varchar(20)", nullable: true),
-                    PurchaseDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    PurchasePrice = table.Column<double>(type: "float", nullable: true),
-                    IsBuyBack = table.Column<int>(type: "int", nullable: true)
+                    PurchaseDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    PurchasePrice = table.Column<double>(type: "double precision", nullable: true),
+                    IsBuyBack = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -296,8 +300,8 @@ namespace BusinessObjects.Migrations
                     BillJewelryId = table.Column<string>(type: "varchar(20)", nullable: false),
                     BillId = table.Column<string>(type: "varchar(20)", nullable: true),
                     JewelryId = table.Column<string>(type: "varchar(20)", nullable: true),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -321,8 +325,8 @@ namespace BusinessObjects.Migrations
                     BillPromotionId = table.Column<string>(type: "varchar(20)", nullable: false),
                     BillId = table.Column<string>(type: "varchar(20)", nullable: true),
                     PromotionId = table.Column<string>(type: "varchar(20)", nullable: true),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -351,12 +355,12 @@ namespace BusinessObjects.Migrations
 
             migrationBuilder.InsertData(
                 table: "Customers",
-                columns: new[] { "CustomerId", "Address", "CreatedAt", "Name", "Phone", "Point", "UpdatedAt" },
+                columns: new[] { "CustomerId", "Address", "CreatedAt", "Email", "FullName", "Gender", "Phone", "Point", "UpdatedAt", "UserName" },
                 values: new object[,]
                 {
-                    { "1", "Ha Noi", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "Nguyen Van A", "0123456789", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) },
-                    { "2", "Ha Noi", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "Nguyen Van B", "0123456789", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) },
-                    { "3", "Ha Noi", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "Nguyen Van C", "0123456789", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) }
+                    { "1", "Ha Noi", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Nguyen Van A", null, "0123456789", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null },
+                    { "2", "Ha Noi", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Nguyen Van B", null, "0123456789", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null },
+                    { "3", "Ha Noi", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Nguyen Van C", null, "0123456789", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null }
                 });
 
             migrationBuilder.InsertData(
@@ -364,9 +368,9 @@ namespace BusinessObjects.Migrations
                 columns: new[] { "GemId", "BuyPrice", "City", "LastUpdated", "SellPrice", "Type" },
                 values: new object[,]
                 {
-                    { "1", 300f, "Ha Noi", new DateTimeOffset(new DateTime(2024, 6, 18, 13, 37, 45, 816, DateTimeKind.Unspecified).AddTicks(7083), new TimeSpan(0, 7, 0, 0, 0)), 400f, "Ruby" },
-                    { "2", 400f, "Ha Noi", new DateTimeOffset(new DateTime(2024, 6, 18, 13, 37, 45, 816, DateTimeKind.Unspecified).AddTicks(7086), new TimeSpan(0, 7, 0, 0, 0)), 500f, "Sapphire" },
-                    { "3", 500f, "Ha Noi", new DateTimeOffset(new DateTime(2024, 6, 18, 13, 37, 45, 816, DateTimeKind.Unspecified).AddTicks(7087), new TimeSpan(0, 7, 0, 0, 0)), 600f, "Emerald" }
+                    { "1", 300f, "Ha Noi", new DateTimeOffset(new DateTime(2024, 7, 2, 13, 35, 57, 387, DateTimeKind.Unspecified).AddTicks(407), new TimeSpan(0, 7, 0, 0, 0)), 400f, "Ruby" },
+                    { "2", 400f, "Ha Noi", new DateTimeOffset(new DateTime(2024, 7, 2, 13, 35, 57, 387, DateTimeKind.Unspecified).AddTicks(410), new TimeSpan(0, 7, 0, 0, 0)), 500f, "Sapphire" },
+                    { "3", 500f, "Ha Noi", new DateTimeOffset(new DateTime(2024, 7, 2, 13, 35, 57, 387, DateTimeKind.Unspecified).AddTicks(411), new TimeSpan(0, 7, 0, 0, 0)), 600f, "Emerald" }
                 });
 
             migrationBuilder.InsertData(
@@ -374,9 +378,9 @@ namespace BusinessObjects.Migrations
                 columns: new[] { "GoldId", "BuyPrice", "City", "LastUpdated", "SellPrice", "Type" },
                 values: new object[,]
                 {
-                    { "1", 1000f, "Ha Noi", new DateTimeOffset(new DateTime(2024, 6, 18, 13, 37, 45, 816, DateTimeKind.Unspecified).AddTicks(7108), new TimeSpan(0, 7, 0, 0, 0)), 1200f, "9999" },
-                    { "2", 1200f, "Ha Noi", new DateTimeOffset(new DateTime(2024, 6, 18, 13, 37, 45, 816, DateTimeKind.Unspecified).AddTicks(7110), new TimeSpan(0, 7, 0, 0, 0)), 1400f, "SCJ" },
-                    { "3", 1400f, "Ha Noi", new DateTimeOffset(new DateTime(2024, 6, 18, 13, 37, 45, 816, DateTimeKind.Unspecified).AddTicks(7112), new TimeSpan(0, 7, 0, 0, 0)), 1600f, "18k" }
+                    { "1", 1000f, "Ha Noi", new DateTimeOffset(new DateTime(2024, 7, 2, 13, 35, 57, 387, DateTimeKind.Unspecified).AddTicks(433), new TimeSpan(0, 7, 0, 0, 0)), 1200f, "9999" },
+                    { "2", 1200f, "Ha Noi", new DateTimeOffset(new DateTime(2024, 7, 2, 13, 35, 57, 387, DateTimeKind.Unspecified).AddTicks(436), new TimeSpan(0, 7, 0, 0, 0)), 1400f, "SCJ" },
+                    { "3", 1400f, "Ha Noi", new DateTimeOffset(new DateTime(2024, 7, 2, 13, 35, 57, 387, DateTimeKind.Unspecified).AddTicks(438), new TimeSpan(0, 7, 0, 0, 0)), 1600f, "18k" }
                 });
 
             migrationBuilder.InsertData(
@@ -394,9 +398,9 @@ namespace BusinessObjects.Migrations
                 columns: new[] { "PromotionId", "ApproveManager", "Description", "DiscountRate", "EndDate", "StartDate", "Type" },
                 values: new object[,]
                 {
-                    { "1", null, "Giam gia 10%", 1.0, new DateTimeOffset(new DateTime(2024, 6, 28, 13, 37, 45, 816, DateTimeKind.Unspecified).AddTicks(6997), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 6, 18, 13, 37, 45, 816, DateTimeKind.Unspecified).AddTicks(6967), new TimeSpan(0, 7, 0, 0, 0)), "Giam gia" },
-                    { "2", null, "Giam gia 20%", 2.0, new DateTimeOffset(new DateTime(2024, 6, 28, 13, 37, 45, 816, DateTimeKind.Unspecified).AddTicks(7003), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 6, 18, 13, 37, 45, 816, DateTimeKind.Unspecified).AddTicks(7002), new TimeSpan(0, 7, 0, 0, 0)), "Giam gia" },
-                    { "3", null, "Giam gia 30%", 3.0, new DateTimeOffset(new DateTime(2024, 6, 28, 13, 37, 45, 816, DateTimeKind.Unspecified).AddTicks(7006), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 6, 18, 13, 37, 45, 816, DateTimeKind.Unspecified).AddTicks(7005), new TimeSpan(0, 7, 0, 0, 0)), "Giam gia" }
+                    { "1", null, "Giam gia 10%", 1.0, new DateTimeOffset(new DateTime(2024, 7, 12, 13, 35, 57, 387, DateTimeKind.Unspecified).AddTicks(320), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 7, 2, 13, 35, 57, 387, DateTimeKind.Unspecified).AddTicks(295), new TimeSpan(0, 7, 0, 0, 0)), "Giam gia" },
+                    { "2", null, "Giam gia 20%", 2.0, new DateTimeOffset(new DateTime(2024, 7, 12, 13, 35, 57, 387, DateTimeKind.Unspecified).AddTicks(326), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 7, 2, 13, 35, 57, 387, DateTimeKind.Unspecified).AddTicks(325), new TimeSpan(0, 7, 0, 0, 0)), "Giam gia" },
+                    { "3", null, "Giam gia 30%", 3.0, new DateTimeOffset(new DateTime(2024, 7, 12, 13, 35, 57, 387, DateTimeKind.Unspecified).AddTicks(329), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 7, 2, 13, 35, 57, 387, DateTimeKind.Unspecified).AddTicks(328), new TimeSpan(0, 7, 0, 0, 0)), "Giam gia" }
                 });
 
             migrationBuilder.InsertData(
@@ -411,11 +415,11 @@ namespace BusinessObjects.Migrations
 
             migrationBuilder.InsertData(
                 table: "Jewelries",
-                columns: new[] { "JewelryId", "Barcode", "CreatedAt", "IsSold", "JewelryTypeId", "LaborCost", "Name", "UpdatedAt" },
+                columns: new[] { "JewelryId", "Barcode", "CreatedAt", "ImageUrl", "IsSold", "JewelryTypeId", "LaborCost", "Name", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { "1", "AVC131", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), true, "1", 312.0, "Vong tay", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) },
-                    { "2", "SAC132", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), false, "2", 231.0, "Nhan", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) }
+                    { "1", "AVC131", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, true, "1", 312.0, "Vong tay", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) },
+                    { "2", "SAC132", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, false, "2", 231.0, "Nhan", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) }
                 });
 
             migrationBuilder.InsertData(
@@ -433,8 +437,8 @@ namespace BusinessObjects.Migrations
                 columns: new[] { "BillId", "CounterId", "CreatedAt", "CustomerId", "SaleDate", "TotalAmount", "UpdatedAt", "UserId" },
                 values: new object[,]
                 {
-                    { "1", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "1", new DateTimeOffset(new DateTime(2024, 6, 18, 13, 37, 45, 816, DateTimeKind.Unspecified).AddTicks(7028), new TimeSpan(0, 7, 0, 0, 0)), 500.0, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "1" },
-                    { "2", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "2", new DateTimeOffset(new DateTime(2024, 6, 18, 13, 37, 45, 816, DateTimeKind.Unspecified).AddTicks(7030), new TimeSpan(0, 7, 0, 0, 0)), 1200.0, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "2" }
+                    { "1", "1", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "1", new DateTimeOffset(new DateTime(2024, 7, 2, 13, 35, 57, 387, DateTimeKind.Unspecified).AddTicks(351), new TimeSpan(0, 7, 0, 0, 0)), 500.0, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "1" },
+                    { "2", "1", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "2", new DateTimeOffset(new DateTime(2024, 7, 2, 13, 35, 57, 387, DateTimeKind.Unspecified).AddTicks(353), new TimeSpan(0, 7, 0, 0, 0)), 1200.0, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "2" }
                 });
 
             migrationBuilder.InsertData(
@@ -451,8 +455,8 @@ namespace BusinessObjects.Migrations
                 columns: new[] { "PurchaseId", "CustomerId", "IsBuyBack", "JewelryId", "PurchaseDate", "PurchasePrice", "UserId" },
                 values: new object[,]
                 {
-                    { "1", "1", 0, "1", new DateTimeOffset(new DateTime(2024, 6, 18, 13, 37, 45, 816, DateTimeKind.Unspecified).AddTicks(7138), new TimeSpan(0, 7, 0, 0, 0)), 500.0, "1" },
-                    { "2", "2", 1, "2", new DateTimeOffset(new DateTime(2024, 6, 18, 13, 37, 45, 816, DateTimeKind.Unspecified).AddTicks(7141), new TimeSpan(0, 7, 0, 0, 0)), 300.0, "1" }
+                    { "1", "1", 0, "1", new DateTimeOffset(new DateTime(2024, 7, 2, 13, 35, 57, 387, DateTimeKind.Unspecified).AddTicks(457), new TimeSpan(0, 7, 0, 0, 0)), 500.0, "1" },
+                    { "2", "2", 1, "2", new DateTimeOffset(new DateTime(2024, 7, 2, 13, 35, 57, 387, DateTimeKind.Unspecified).AddTicks(460), new TimeSpan(0, 7, 0, 0, 0)), 300.0, "1" }
                 });
 
             migrationBuilder.InsertData(
@@ -557,8 +561,7 @@ namespace BusinessObjects.Migrations
                 name: "IX_Warranties_JewelryId",
                 table: "Warranties",
                 column: "JewelryId",
-                unique: true,
-                filter: "[JewelryId] IS NOT NULL");
+                unique: true);
         }
 
         /// <inheritdoc />
