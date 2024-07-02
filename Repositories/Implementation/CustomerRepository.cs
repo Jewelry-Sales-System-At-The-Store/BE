@@ -1,4 +1,5 @@
-﻿using BusinessObjects.Models;
+﻿using BusinessObjects.Dto;
+using BusinessObjects.Models;
 using DAO.Dao;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Interface;
@@ -59,8 +60,11 @@ namespace Repositories.Implementation
 
         public async Task<int> GetNewCustomers(DateTime startDate, DateTime endDate)
         {
+            var utcStartDate = startDate.ToUniversalTime();
+            var utcEndDate = endDate.ToUniversalTime();
+
             return await CustomerDao.GetAllCustomers()
-                                     .Where(c => c.CreatedAt >= startDate && c.CreatedAt <= endDate)
+                                     .Where(c => c.CreatedAt >= utcStartDate && c.CreatedAt <= utcEndDate)
                                      .CountAsync();
         }
 
@@ -72,8 +76,11 @@ namespace Repositories.Implementation
 
         public async Task<int> GetActiveCustomers(DateTime startDate, DateTime endDate)
         {
+            var utcStartDate = startDate.ToUniversalTime();
+            var utcEndDate = endDate.ToUniversalTime();
+
             return await CustomerDao.GetAllCustomers()
-                                     .CountAsync(c => c.Bills.Any(b => b.SaleDate >= startDate && b.SaleDate <= endDate));
+                                     .CountAsync(c => c.Bills.Any(b => b.SaleDate >= utcStartDate && b.SaleDate <= utcEndDate));
         }
     }
 }
