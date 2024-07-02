@@ -1,6 +1,4 @@
-﻿using BusinessObjects.DTO;
-using BusinessObjects.Models;
-using DAO;
+﻿using BusinessObjects.Models;
 using DAO.Dao;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Interface;
