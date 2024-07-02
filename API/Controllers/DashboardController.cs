@@ -77,5 +77,33 @@ namespace API.Controllers
             var activeCustomers = await _dashboardService.GetActiveCustomers(startDate, endDate);
             return Ok(activeCustomers);
         }
+
+        [HttpGet("BestSellingJewelry")]
+        public async Task<IActionResult> GetBestSellingProducts()
+        {
+            var bestSellingProducts = await _dashboardService.GetBestSellingProducts();
+            return Ok(bestSellingProducts);
+        }
+
+        [HttpGet("BestSellingJewelryTypes")]
+        public async Task<IActionResult> GetBestSellingProductTypes()
+        {
+            var bestSellingProductTypes = await _dashboardService.GetBestSellingProductTypes();
+            return Ok(bestSellingProductTypes);
+        }
+
+        [HttpGet("TotalRevenueByJewelry")]
+        public async Task<IActionResult> GetTotalRevenueByProducts()
+        {
+            var totalRevenueByProducts = await _dashboardService.GetTotalRevenueByProducts();
+            return Ok(totalRevenueByProducts);
+        }
+
+        [HttpGet("TotalRevenueByJewelryTypes")]
+        public async Task<IActionResult> GetTotalRevenueByProductTypes()
+        {
+            var totalRevenueByProductTypes = await _dashboardService.GetTotalRevenueByProductTypes();
+            return Ok(totalRevenueByProductTypes);
+        }
     }
 }

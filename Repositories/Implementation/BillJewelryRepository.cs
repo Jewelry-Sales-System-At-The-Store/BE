@@ -1,4 +1,5 @@
-﻿using BusinessObjects.Models;
+﻿using BusinessObjects.Dto.Dashboard;
+using BusinessObjects.Models;
 using DAO;
 using DAO.Dao;
 using Repositories.Interface;
@@ -13,5 +14,25 @@ public class BillJewelryRepository(BillJewelryDao billJewelryDao) : IBillJewelry
     public async Task<int> Create(BillJewelry entity)
     {
         return await BillJewelryDao.CreateBillJewelry(entity);
+    }
+
+    public async Task<IEnumerable<BestSellingProductDto>> GetBestSellingProducts()
+    {
+        return await BillJewelryDao.GetBestSellingProducts();
+    }
+
+    public async Task<IEnumerable<BestSellingProductTypeDto>> GetBestSellingProductTypes()
+    {
+        return await BillJewelryDao.GetBestSellingProductTypes();
+    }
+
+    public async Task<IEnumerable<ProductRevenueDto>> GetTotalRevenueByProducts()
+    {
+        return await BillJewelryDao.GetTotalRevenueByProducts();
+    }
+
+    public async Task<IEnumerable<ProductTypeRevenueDto>> GetTotalRevenueByProductTypes()
+    {
+        return await BillJewelryDao.GetTotalRevenueByProductTypes();
     }
 }
