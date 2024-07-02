@@ -1,6 +1,4 @@
-﻿using BusinessObjects.DTO.Other;
-using BusinessObjects.DTO.ResponseDto;
-using BusinessObjects.Models;
+﻿using BusinessObjects.Models;
 using Repositories.Interface.GenericRepository;
 
 namespace Repositories.Interface

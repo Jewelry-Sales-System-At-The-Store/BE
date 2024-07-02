@@ -2,7 +2,7 @@
 using BusinessObjects.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace DAO;
+namespace DAO.Dao;
 
 public class GoldPriceDao
 {

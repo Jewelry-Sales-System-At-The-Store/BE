@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
-using BusinessObjects.DTO.BillReqRes;
-using BusinessObjects.DTO.Other;
+using BusinessObjects.Dto.BillReqRes;
+using BusinessObjects.Dto.Other;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
+using Repositories.Interface;
 using Tools;
 
 namespace Repositories.Implementation;

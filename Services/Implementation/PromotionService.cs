@@ -2,7 +2,7 @@
 using Repositories.Interface;
 using Services.Interface;
 using AutoMapper;
-using BusinessObjects.DTO;
+using BusinessObjects.Dto;
 
 namespace Services.Implementation
 {

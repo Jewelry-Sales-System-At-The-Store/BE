@@ -1,5 +1,6 @@
 ﻿using BusinessObjects.Models;
 using DAO;
+using DAO.Dao;
 using Repositories.Interface;
 
 namespace Repositories.Implementation

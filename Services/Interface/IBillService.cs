@@ -1,6 +1,5 @@
-﻿using BusinessObjects.DTO.Bill;
-using BusinessObjects.DTO.BillReqRes;
-using BusinessObjects.DTO.Other;
+﻿using BusinessObjects.Dto.BillReqRes;
+using BusinessObjects.Dto.Other;
 
 namespace Services.Interface
 {
@@ -9,5 +8,7 @@ namespace Services.Interface
         public Task<BillResponseDto> Create(BillRequestDto entity);
         public Task<PagingResponse> GetBills(int pageNumber, int pageSize);
         public Task<BillDetailDto?> GetById(string id);
+        
+        public Task<BillCashCheckoutResponseDto> CheckoutBill(string id, float cashAmount);
     }
 }

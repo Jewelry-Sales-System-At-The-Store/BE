@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BusinessObjects.DTO;
-using BusinessObjects.DTO.Other;
-using BusinessObjects.DTO.ResponseDto;
+using BusinessObjects.Dto;
+using BusinessObjects.Dto.Other;
+using BusinessObjects.Dto.ResponseDto;
 
 namespace Services.Interface
 {

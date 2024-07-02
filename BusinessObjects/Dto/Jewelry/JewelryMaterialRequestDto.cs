@@ -1,4 +1,4 @@
-﻿namespace BusinessObjects.DTO.Jewelry;
+﻿namespace BusinessObjects.Dto.Jewelry;
 
 public class JewelryMaterialRequestDto
 {

@@ -1,11 +1,9 @@
 ﻿using BusinessObjects.Context;
-using BusinessObjects.DTO.Other;
 using BusinessObjects.Models;
-using DAO.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Tools;
 
-namespace DAO
+namespace DAO.Dao
 {
     public class CustomerDao
     {

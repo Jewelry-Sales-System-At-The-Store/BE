@@ -1,4 +1,4 @@
-﻿namespace BusinessObjects.DTO.Bill;
+﻿namespace BusinessObjects.Dto.BillReqRes;
 
 public class BillPromotionRequestDto
 {
