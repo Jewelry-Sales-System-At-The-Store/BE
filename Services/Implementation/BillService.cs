@@ -174,14 +174,25 @@ namespace Services.Implementation
             {
                 throw new InvalidOperationException($"Cash amount is not enough, It must be greater than {billDetail.FinalAmount}$ .");
             }
+            
+            var cashBack = cashAmount - (float)billDetail.FinalAmount;
+            var finalAmount = cashAmount - cashBack;
+            var billCheckoutResponse = new BillCashCheckoutResponseDto
+            {
+                BillId = billDetail.BillId,
+                CustomerName = billDetail.CustomerName,
+                InitialAmount = cashAmount,
+                CashBack = cashBack,
+                FinalAmount = finalAmount,
+                Status = "Success"
+            };
             // Purchase 
-            return new BillCashCheckoutResponseDto{BillId = billDetail.BillId, InitialAmount = cashAmount,CashBack = (cashAmount - (float)billDetail.FinalAmount), Status = "Success"};
+            return billCheckoutResponse;
         }
         private static double CalculateFinalAmount(double totalAmount, double discountRate)
         {
             return totalAmount - (totalAmount * (discountRate / 100));
         }
-
 
     }
 }
