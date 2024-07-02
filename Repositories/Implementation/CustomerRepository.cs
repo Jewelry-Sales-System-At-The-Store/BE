@@ -1,6 +1,8 @@
-﻿using BusinessObjects.Models;
+﻿using BusinessObjects.DTO;
+using BusinessObjects.Models;
 using DAO;
 using DAO.Dao;
+using Microsoft.EntityFrameworkCore;
 using Repositories.Interface;
 
 namespace Repositories.Implementation
@@ -8,6 +10,7 @@ namespace Repositories.Implementation
     public class CustomerRepository(CustomerDao customerDao) : ICustomerRepository
     {
         private CustomerDao CustomerDao { get; } = customerDao;
+
 
         public async Task<Customer> CreateCustomer(Customer entity)
         {
@@ -49,6 +52,30 @@ namespace Repositories.Implementation
         public Task<int> Create(Customer entity)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<int> GetTotalCustomers()
+        {
+            return await CustomerDao.GetAllCustomers().CountAsync();
+        }
+
+        public async Task<int> GetNewCustomers(DateTime startDate, DateTime endDate)
+        {
+            return await CustomerDao.GetAllCustomers()
+                                     .Where(c => c.CreatedAt >= startDate && c.CreatedAt <= endDate)
+                                     .CountAsync();
+        }
+
+        public async Task<int> GetRepeatCustomers()
+        {
+            return await CustomerDao.GetAllCustomers()
+                                     .CountAsync(c => c.Bills.Count() > 1);
+        }
+
+        public async Task<int> GetActiveCustomers(DateTime startDate, DateTime endDate)
+        {
+            return await CustomerDao.GetAllCustomers()
+                                     .CountAsync(c => c.Bills.Any(b => b.SaleDate >= startDate && b.SaleDate <= endDate));
         }
     }
 }
