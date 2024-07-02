@@ -69,5 +69,10 @@ namespace DAO
         {
             return await _context.Customers.FirstOrDefaultAsync(c => c.Phone == phoneNumber);
         }
+
+        public IQueryable<Customer> GetAllCustomers()
+        {
+            return _context.Customers.AsQueryable();
+        }
     }
 }

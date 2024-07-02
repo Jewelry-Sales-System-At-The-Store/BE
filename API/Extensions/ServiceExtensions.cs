@@ -57,7 +57,7 @@ public static class ServiceExtensions
         serviceCollection.AddScoped<IPromotionService, PromotionService>();
         serviceCollection.AddScoped<IJewelryTypeService, JewelryTypeService>();
         serviceCollection.AddScoped<ITokenService, TokenService>();
-        serviceCollection.AddScoped<IRevenueService, RevenueService>();
+        serviceCollection.AddScoped<IDashboardService, DashboardService>();
 
         #endregion
 
