@@ -57,9 +57,10 @@ public static class ServiceExtensions
         serviceCollection.AddScoped<IPromotionService, PromotionService>();
         serviceCollection.AddScoped<IJewelryTypeService, JewelryTypeService>();
         serviceCollection.AddScoped<ITokenService, TokenService>();
+        serviceCollection.AddScoped<IDashboardService, DashboardService>();
 
         #endregion
-        
+
         #region Dao
         serviceCollection.AddScoped<CounterDao>();
         serviceCollection.AddScoped<BillDao>();

@@ -1,7 +1,9 @@
-﻿using BusinessObjects.DTO.Bill;
+﻿using BusinessObjects.Dto.Revenue;
+using BusinessObjects.DTO.Bill;
 using BusinessObjects.DTO.BillReqRes;
 using BusinessObjects.Models;
 using DAO;
+using Microsoft.EntityFrameworkCore;
 using Repositories.Interface;
 using Tools;
 
@@ -100,6 +102,100 @@ namespace Repositories.Implementation
         public async Task<int> UpdateBill(Bill entity)
         {
             return await BillDao.UpdateBill(entity);
+        }
+
+        public async Task<decimal> GetTotalRevenueAllTime()
+        {
+            var bills = await BillDao.GetBills();
+            return (decimal)bills.Sum(b => (decimal?)b.TotalAmount ?? 0);
+        }
+
+        public async Task<decimal> GetTotalRevenue(DateTime startDate, DateTime endDate)
+        {
+            var bills = await BillDao.GetBills();
+            return (decimal)bills.Where(b => b.SaleDate >= startDate && b.SaleDate <= endDate)
+                                 .Sum(b => (decimal?)b.TotalAmount ?? 0);
+        }
+
+        public async Task<RevenueByCounterDto> GetRevenueByCounter(string counterId)
+        {
+            var bills = await BillDao.GetBills();
+            var revenue = bills.Where(b => b.CounterId == counterId)
+                               .Sum(b => (decimal?)b.TotalAmount ?? 0);
+            return new RevenueByCounterDto { CounterId = counterId, TotalRevenue = revenue };
+        }
+
+        public async Task<RevenueByEmployeeDto> GetRevenueByEmployee(string userId)
+        {
+            var bills = await BillDao.GetBills();
+            var revenue = bills.Where(b => b.UserId == userId)
+                               .Sum(b => (decimal?)b.TotalAmount ?? 0);
+            return new RevenueByEmployeeDto { EmployeeId = userId, TotalRevenue = revenue };
+        }
+
+        public async Task<RevenueByProductTypeDto> GetRevenueByProductType(string typeId)
+        {
+            var bills = await BillDao.GetAllBills()
+                                     .Include(b => b.BillJewelries)
+                                     .ThenInclude(bj => bj.Jewelry)
+                                     .ThenInclude(j => j.JewelryMaterials)
+                                     .ThenInclude(jm => jm.GoldPrice)
+                                     .Include(b => b.BillJewelries)
+                                     .ThenInclude(bj => bj.Jewelry)
+                                     .ThenInclude(j => j.JewelryMaterials)
+                                     .ThenInclude(jm => jm.StonePrice)
+                                     .ToListAsync();
+
+            var billJewelries = bills.SelectMany(b => b.BillJewelries)
+                                     .Where(j => j.Jewelry != null && j.Jewelry.JewelryTypeId == typeId)
+                                     .ToList();
+
+            if (!billJewelries.Any())
+            {
+                Console.WriteLine("No billJewelries found for the given typeId.");
+            }
+
+            decimal totalRevenue = 0;
+
+            foreach (var billJewelry in billJewelries)
+            {
+                var jewelry = billJewelry.Jewelry;
+                var jewelryPrice = CalculateJewelryPrice(jewelry);
+
+                // Log details for debugging
+                Console.WriteLine($"Jewelry ID: {jewelry.JewelryId}, Type ID: {jewelry.JewelryTypeId}, Calculated Price: {jewelryPrice}");
+
+                totalRevenue += jewelryPrice;
+            }
+
+            return new RevenueByProductTypeDto { JewelryTypeId = typeId, TotalRevenue = totalRevenue };
+        }
+
+        private static decimal CalculateJewelryPrice(Jewelry jewelry)
+        {
+            if (jewelry == null || jewelry.JewelryMaterials == null)
+                return 0;
+
+            decimal totalPrice = 0;
+
+            foreach (var material in jewelry.JewelryMaterials)
+            {
+                if (material.GoldPrice != null)
+                {
+                    totalPrice += (decimal)material.GoldPrice.SellPrice * (decimal)material.GoldQuantity;
+                }
+                if (material.StonePrice != null)
+                {
+                    totalPrice += (decimal)material.StonePrice.SellPrice * (decimal)material.StoneQuantity;
+                }
+            }
+
+            if (jewelry.LaborCost.HasValue)
+            {
+                totalPrice += (decimal)jewelry.LaborCost.Value;
+            }
+
+            return totalPrice;
         }
     }
 }
