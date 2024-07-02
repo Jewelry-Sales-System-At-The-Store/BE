@@ -9,6 +9,7 @@ namespace Services.Interface
 {
     public interface IRevenueService
     {
+        Task<RevenueDto> GetTotalRevenueAllTime();
         Task<RevenueDto> GetTotalRevenue(DateTime startDate, DateTime endDate);
         Task<RevenueByCounterDto> GetRevenueByCounter(string counterId);
         Task<RevenueByEmployeeDto> GetRevenueByEmployee(string userId);

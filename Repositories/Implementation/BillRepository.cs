@@ -104,6 +104,12 @@ namespace Repositories.Implementation
             return await BillDao.UpdateBill(entity);
         }
 
+        public async Task<decimal> GetTotalRevenueAllTime()
+        {
+            var bills = await BillDao.GetBills();
+            return (decimal)bills.Sum(b => (decimal?)b.TotalAmount ?? 0);
+        }
+
         public async Task<decimal> GetTotalRevenue(DateTime startDate, DateTime endDate)
         {
             var bills = await BillDao.GetBills();

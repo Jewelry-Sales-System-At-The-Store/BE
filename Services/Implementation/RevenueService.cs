@@ -17,6 +17,11 @@ namespace Services.Implementation
         {
             _billRepository = billRepository;
         }
+        public async Task<RevenueDto> GetTotalRevenueAllTime()
+        {
+            var totalRevenue = await _billRepository.GetTotalRevenueAllTime();
+            return new RevenueDto { TotalRevenue = totalRevenue };
+        }
 
         public async Task<RevenueDto> GetTotalRevenue(DateTime startDate, DateTime endDate)
         {

@@ -14,6 +14,13 @@ namespace API.Controllers
             _revenueService = revenueService;
         }
 
+        [HttpGet("TotalRevenueAllTime")]
+        public async Task<IActionResult> GetTotalRevenueAllTime()
+        {
+            var totalRevenue = await _revenueService.GetTotalRevenueAllTime();
+            return Ok(totalRevenue);
+        }
+
         [HttpGet("GetTotalRevenue")]
         public async Task<IActionResult> GetTotalRevenue(DateTime startDate, DateTime endDate)
         {
@@ -35,7 +42,7 @@ namespace API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("bGetRevenueByProductType")]
+        [HttpGet("GetRevenueByProductType")]
         public async Task<IActionResult> GetRevenueByProductType(string typeId)
         {
             var result = await _revenueService.GetRevenueByProductType(typeId);
