@@ -8,6 +8,6 @@ public class BillCashCheckoutResponseDto
     public float CashBack { get; set; }
     
     public float FinalAmount { get; set; }
-    
+    public DateTimeOffset CreatedAt { get; set; }
     public string? Status { get; set; }
 }

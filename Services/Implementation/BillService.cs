@@ -184,6 +184,7 @@ namespace Services.Implementation
                 InitialAmount = cashAmount,
                 CashBack = cashBack,
                 FinalAmount = finalAmount,
+                CreatedAt = DateTime.UtcNow.ToUniversalTime(),
                 Status = "Success"
             };
             // Purchase 
