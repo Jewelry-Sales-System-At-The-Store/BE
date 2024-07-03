@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace BusinessObjects.Models;
 
 public partial class Counter
 {
+    [MaxLength(7)]
     public required string CounterId { get; set; }
     public int? Number { get; set; }
     

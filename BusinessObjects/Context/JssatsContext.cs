@@ -64,105 +64,35 @@ namespace BusinessObjects.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
+            // Primary keys
             modelBuilder.Entity<Bill>()
                 .HasKey(b => b.BillId);
-
-            modelBuilder.Entity<Bill>()
-                .Property(b => b.BillId)
-                .HasColumnType("varchar(20)");
-
             modelBuilder.Entity<BillJewelry>()
                 .HasKey(bj => bj.BillJewelryId);
-
-            modelBuilder.Entity<BillJewelry>()
-                .Property(bj => bj.BillJewelryId)
-                .HasColumnType("varchar(20)");
-
             modelBuilder.Entity<BillPromotion>()
                 .HasKey(bp => bp.BillPromotionId);
-
-            modelBuilder.Entity<BillPromotion>()
-                .Property(bp => bp.BillPromotionId)
-                .HasColumnType("varchar(20)");
-
             modelBuilder.Entity<Counter>()
                 .HasKey(c => c.CounterId);
-
-            modelBuilder.Entity<Counter>()
-                .Property(c => c.CounterId)
-                .HasColumnType("varchar(20)");
-
             modelBuilder.Entity<Customer>()
                 .HasKey(cu => cu.CustomerId);
-
-            modelBuilder.Entity<Customer>()
-                .Property(cu => cu.CustomerId)
-                .HasColumnType("varchar(20)");
-
             modelBuilder.Entity<Gold>()
                 .HasKey(gp => gp.GoldId);
-
-            modelBuilder.Entity<Gold>()
-                .Property(gp => gp.GoldId)
-                .HasColumnType("varchar(20)");
-
             modelBuilder.Entity<Jewelry>()
                 .HasKey(j => j.JewelryId);
-
-            modelBuilder.Entity<Jewelry>()
-                .Property(j => j.JewelryId)
-                .HasColumnType("varchar(20)");
-
             modelBuilder.Entity<JewelryType>()
                 .HasKey(jt => jt.JewelryTypeId);
-
-            modelBuilder.Entity<JewelryType>()
-                .Property(jt => jt.JewelryTypeId)
-                .HasColumnType("varchar(20)");
-
             modelBuilder.Entity<Promotion>()
                 .HasKey(p => p.PromotionId);
-
-            modelBuilder.Entity<Promotion>()
-                .Property(p => p.PromotionId)
-                .HasColumnType("varchar(20)");
-
             modelBuilder.Entity<Purchase>()
                 .HasKey(p => p.PurchaseId);
-
-            modelBuilder.Entity<Purchase>()
-                .Property(p => p.PurchaseId)
-                .HasColumnType("varchar(20)");
-
             modelBuilder.Entity<Role>()
                 .HasKey(r => r.RoleId);
-
-            modelBuilder.Entity<Role>()
-                .Property(r => r.RoleId)
-                .HasColumnType("varchar(20)");
-
             modelBuilder.Entity<User>()
                 .HasKey(u => u.UserId);
-
-            modelBuilder.Entity<User>()
-                .Property(u => u.UserId)
-                .HasColumnType("varchar(20)");
-
             modelBuilder.Entity<Warranty>()
                 .HasKey(w => w.WarrantyId);
-
-            modelBuilder.Entity<Warranty>()
-                .Property(w => w.WarrantyId)
-                .HasColumnType("varchar(20)");
-
-
             modelBuilder.Entity<Gem>()
                 .HasKey(sp => sp.GemId);
-
-            modelBuilder.Entity<Gem>()
-                .Property(sp => sp.GemId)
-                .HasColumnType("varchar(20)");
             // Relationships
 
             modelBuilder.Entity<JewelryMaterial>()
@@ -342,8 +272,16 @@ namespace BusinessObjects.Context
             );
 
             modelBuilder.Entity<Bill>().HasData(
-                new Bill {CounterId = "1", BillId = "1", CustomerId = "1", UserId = "1", SaleDate = DateTime.Now, TotalAmount = 500 },
-                new Bill {CounterId = "1", BillId = "2", CustomerId = "2", UserId = "2", SaleDate = DateTime.Now, TotalAmount = 1200 }
+                new Bill
+                {
+                    CounterId = "1", BillId = "1", CustomerId = "1", UserId = "1", SaleDate = DateTime.Now,
+                    TotalAmount = 500
+                },
+                new Bill
+                {
+                    CounterId = "1", BillId = "2", CustomerId = "2", UserId = "2", SaleDate = DateTime.Now,
+                    TotalAmount = 1200
+                }
             );
 
             modelBuilder.Entity<BillJewelry>().HasData(

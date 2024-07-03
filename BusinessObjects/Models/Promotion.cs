@@ -6,6 +6,7 @@ namespace BusinessObjects.Models;
 
 public partial class Promotion
 {
+    [MaxLength(7)]
     public required string PromotionId { get; set; }
     [MaxLength(255)]
 

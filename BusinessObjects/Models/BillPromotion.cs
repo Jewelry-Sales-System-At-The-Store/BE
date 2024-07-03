@@ -6,6 +6,7 @@ namespace BusinessObjects.Models;
 
 public partial class BillPromotion
 {
+    [MaxLength(7)]
     public required string BillPromotionId { get; set; }
     [MaxLength(7)]
     public string? BillId { get; set; }

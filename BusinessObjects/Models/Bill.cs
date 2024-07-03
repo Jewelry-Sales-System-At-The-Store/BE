@@ -7,6 +7,7 @@ namespace BusinessObjects.Models;
 
 public partial class Bill
 {
+    [MaxLength(7)]
     public required string BillId { get; set; }
     
     [MaxLength(7)]
