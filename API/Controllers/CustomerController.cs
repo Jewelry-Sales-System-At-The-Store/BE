@@ -23,7 +23,12 @@ public class CustomerController(ICustomerService customerService) : ControllerBa
     [HttpGet("GetCustomerByPhone/{phoneNumber}")]
     public async Task<IActionResult> GetCustomerByPhone(string phoneNumber)
     {
-        return Ok(await CustomerService.GetCustomerByPhone(phoneNumber));
+        var result = await CustomerService.GetCustomerByPhone(phoneNumber);
+        if (result == null)
+        {
+            return NotFound();
+        }
+        return Ok(result);
     }
     [HttpPost("CreateCustomer")]
     public async Task<IActionResult> CreateCustomer(CustomerDto customer)
