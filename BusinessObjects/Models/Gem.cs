@@ -1,9 +1,13 @@
-﻿namespace BusinessObjects.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BusinessObjects.Models;
 
 public class Gem
 {
     public required string GemId { get; set; }
+    [MaxLength(255)]
     public string? Type { get; set; }
+    [MaxLength(255)]
     public string? City { get; set; }
     public float BuyPrice { get; set; }
     public float SellPrice { get; set; }

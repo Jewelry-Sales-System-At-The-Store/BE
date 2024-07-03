@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace BusinessObjects.Models;
 
 public partial class Promotion
 {
     public required string PromotionId { get; set; }
+    [MaxLength(255)]
 
     public string? Type { get; set; }
+    [MaxLength(255)]
 
     public string? ApproveManager { get; set; }
+    [MaxLength(255)]
 
     public string? Description { get; set; }
 
