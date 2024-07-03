@@ -4,6 +4,7 @@ namespace BusinessObjects.Models;
 
 public class Gem
 {
+    [MaxLength(7)]
     public required string GemId { get; set; }
     [MaxLength(255)]
     public string? Type { get; set; }

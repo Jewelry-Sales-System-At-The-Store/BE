@@ -7,7 +7,7 @@ namespace BusinessObjects.Models;
 
 public partial class Role
 {
-
+    [MaxLength(7)]
     public required string RoleId { get; set; }
     [MaxLength(255)]
     public string? RoleName { get; set; }

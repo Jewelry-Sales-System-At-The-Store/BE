@@ -6,6 +6,7 @@ namespace BusinessObjects.Models;
 
 public partial class Gold
 {
+    [MaxLength(7)]
     public required string GoldId { get; set; }
     [MaxLength(255)]
     public string? Type { get; set; }

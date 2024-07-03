@@ -7,6 +7,7 @@ namespace BusinessObjects.Models;
 
 public partial class Jewelry
 {
+    [MaxLength(7)]
     public required string JewelryId { get; set; }
     [MaxLength(7)]
     public string? JewelryTypeId { get; set; }

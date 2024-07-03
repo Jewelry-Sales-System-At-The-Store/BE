@@ -6,6 +6,7 @@ namespace BusinessObjects.Models;
 
 public partial class Customer
 {
+    [MaxLength(7)]
     public required string CustomerId { get; set; }
     [MaxLength(255)]
 
