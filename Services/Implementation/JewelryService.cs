@@ -56,6 +56,7 @@ namespace Services.Implementation
             {
                 JewelryId = Generator.GenerateId(),
                 JewelryTypeId = jewelryRequestDto.JewelryTypeId,
+                ImageUrl = jewelryRequestDto.ImageUrl,
                 Name = jewelryRequestDto.Name,
                 Barcode = jewelryRequestDto.Barcode,
                 LaborCost = jewelryRequestDto.LaborCost,

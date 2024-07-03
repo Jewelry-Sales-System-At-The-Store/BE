@@ -13,7 +13,6 @@ namespace API.Extensions
         {
             // RequestDto Mapping
             CreateMap<Jewelry, JewelryRequestDto>().ReverseMap();
-            CreateMap<Jewelry, JewelryResponseDto>().ReverseMap();
 
             // Dto Mapping
             CreateMap<Warranty, WarrantyDto>().ReverseMap();
@@ -27,6 +26,7 @@ namespace API.Extensions
             CreateMap<Gem, GemPriceResponseDto>().ReverseMap();
             CreateMap<Customer, CustomerResponseDto>();
             CreateMap<User, UserResponseDto>();
+            CreateMap<Jewelry, JewelryResponseDto>().ReverseMap();
             // MongoDB Mapping
             CreateMap<BillResponseDto, BillDetailDto>().ReverseMap();
             // Paging Mapping
