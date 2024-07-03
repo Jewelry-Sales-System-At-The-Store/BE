@@ -5,6 +5,7 @@ public class JewelryRequestDto
     public string? JewelryTypeId { get; set; }
     
     public string? Name { get; set; }
+    public string? ImageUrl { get; set; }
     
     public JewelryMaterialRequestDto? JewelryMaterial { get; set; }
 
