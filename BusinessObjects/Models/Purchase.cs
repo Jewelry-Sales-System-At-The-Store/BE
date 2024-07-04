@@ -24,6 +24,7 @@ public partial class Purchase
     public double? PurchasePrice { get; set; }
 
     public int? IsBuyBack { get; set; }
+    public string? BillJewelryId { get; set; }
 
     public virtual Customer? Customer { get; set; }
     public virtual Jewelry? Jewelry { get; set; }
