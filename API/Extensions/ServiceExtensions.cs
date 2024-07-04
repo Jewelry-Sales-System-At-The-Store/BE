@@ -41,8 +41,10 @@ public static class ServiceExtensions
         serviceCollection.AddScoped<IBillDetailRepository, BillDetailRepository>();
         serviceCollection.AddScoped<IJewelryMaterialRepository, JewelryMaterialRepository>();
         serviceCollection.AddScoped<ICounterRepository, CounterRepository>();
+        serviceCollection.AddScoped<IPurchaseRepository, PurchaseRepository>();
+
         #endregion
-        
+
         #region Service
         serviceCollection.AddScoped<IPaymentService, PaymentService>();
         serviceCollection.AddScoped<IGemPriceService, GemPriceService>();
@@ -57,6 +59,8 @@ public static class ServiceExtensions
         serviceCollection.AddScoped<IJewelryTypeService, JewelryTypeService>();
         serviceCollection.AddScoped<ITokenService, TokenService>();
         serviceCollection.AddScoped<IDashboardService, DashboardService>();
+        serviceCollection.AddScoped<IPurchaseService, PurchaseService>();
+
 
         #endregion
 

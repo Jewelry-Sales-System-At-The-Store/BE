@@ -7,6 +7,7 @@ using DAO.Dao;
 using Repositories.Interface;
 using Tools;
 using BusinessObjects.Dto.BillReqRes;
+using MongoDB.Driver;
 
 namespace Repositories.Implementation
 {
@@ -15,6 +16,8 @@ namespace Repositories.Implementation
         public BillDao BillDao { get; } = billDao;
         public BillJewelryDao BillJewelryDao { get; } = billJewelryDao;
         public BillPromotionDao BillPromotionDao { get; } = billPromotionDao;
+        private readonly IMongoCollection<BillDetailDto> _collection;
+
 
         public async Task<IEnumerable<Bill?>?> Gets()
         {
