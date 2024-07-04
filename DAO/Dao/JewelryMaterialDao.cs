@@ -38,4 +38,9 @@ public class JewelryMaterialDao
         _context.JewelryMaterials.Remove(jewelryMaterial);
         return await _context.SaveChangesAsync();
     }
+
+    public async Task<List<JewelryMaterial>> GetJewelryMaterialsByJewelryId(string jewelryId)
+    {
+        return await _context.JewelryMaterials.Where(jm => jm.JewelryId == jewelryId).ToListAsync();
+    }
 }
