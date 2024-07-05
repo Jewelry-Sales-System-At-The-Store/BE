@@ -21,11 +21,12 @@ namespace DAO
         {
             return await _context.BillJewelries.FindAsync(id);
         }
-        public async Task<int> CreateBillJewelry(BillJewelry billJewelry)
+        public async Task<BillJewelry> CreateBillJewelry(BillJewelry billJewelry)
         {
             billJewelry.BillJewelryId = Generator.GenerateId();
             _context.BillJewelries.Add(billJewelry);
-            return await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+            return billJewelry;
         }
         public async Task<BillJewelry?> GetBillJewelryByBillId(string billId)
         {

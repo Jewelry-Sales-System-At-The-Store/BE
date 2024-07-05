@@ -21,10 +21,11 @@ public class RoleDao
     {
         return await _context.Roles.ToListAsync();
     }
-    public async Task<int> CreateRole(Role role)
+    public async Task<Role> CreateRole(Role role)
     {
         role.RoleId = Generator.GenerateId();
         _context.Roles.Add(role);
-        return await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync();
+        return role;
     }
 }

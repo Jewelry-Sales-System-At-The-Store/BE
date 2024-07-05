@@ -21,7 +21,7 @@ public class RoleService(IRoleRepository roleRepository, IMapper mapper) : IRole
         return await RoleRepository.GetById(id);
     }
 
-    public async Task<int> Create(RoleDto entity)
+    public async Task<Role> Create(RoleDto entity)
     {
         return await RoleRepository.Create(Mapper.Map<Role>(entity));
     }

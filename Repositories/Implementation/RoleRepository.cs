@@ -18,7 +18,7 @@ public class RoleRepository(RoleDao roleDao) : IRoleRepository
         return await RoleDao.GetRoleById(id);
     }
 
-    public async Task<int> Create(Role entity)
+    public async Task<Role> Create(Role entity)
     {
         return await RoleDao.CreateRole(entity);
     }

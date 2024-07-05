@@ -9,7 +9,7 @@ public class BillJewelryRepository(BillJewelryDao billJewelryDao) : IBillJewelry
 {
     public BillJewelryDao BillJewelryDao { get; } = billJewelryDao;
 
-    public async Task<int> Create(BillJewelry entity)
+    public async Task<BillJewelry> Create(BillJewelry entity)
     {
         return await BillJewelryDao.CreateBillJewelry(entity);
     }

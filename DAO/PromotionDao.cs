@@ -23,11 +23,12 @@ namespace DAO
         {
             return await _context.Promotions.FindAsync(id);
         }
-        public async Task<int> CreatePromotion(Promotion promotion)
+        public async Task<Promotion> CreatePromotion(Promotion promotion)
         {
             promotion.PromotionId = Generator.GenerateId();
             await _context.Promotions.AddAsync(promotion);
-            return await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+            return promotion;
         }
         
         public async Task<int> UpdatePromotion(string id, Promotion promotion)

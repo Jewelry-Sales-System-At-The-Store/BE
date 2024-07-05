@@ -8,7 +8,7 @@ public class BillPromotionRepository(BillPromotionDao billPromotionDao) : IBillP
 {
     public BillPromotionDao BillPromotionDao { get; } = billPromotionDao;
 
-    public async Task<int> Create(BillPromotion entity)
+    public async Task<BillPromotion> Create(BillPromotion entity)
     {
         return await BillPromotionDao.CreateBillPromotion(entity);
     }

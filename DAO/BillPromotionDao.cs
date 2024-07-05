@@ -21,10 +21,11 @@ public class BillPromotionDao
     {
         return await _context.BillPromotions.FindAsync(id);
     }
-    public async Task<int> CreateBillPromotion(BillPromotion billPromotion)
+    public async Task<BillPromotion> CreateBillPromotion(BillPromotion billPromotion)
     {
         billPromotion.BillPromotionId = Generator.GenerateId();
         _context.BillPromotions.Add(billPromotion);
-        return await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync();
+        return billPromotion;
     }
 }
