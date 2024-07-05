@@ -22,6 +22,7 @@ namespace Repositories.Implementation
         public async Task<int> Create(Jewelry entity)
         {
             entity.IsSold = false;
+            entity.CreatedAt = DateTimeOffset.UtcNow.ToUniversalTime();
             return await JewelryDao.CreateJewelry(entity);
         }
 
