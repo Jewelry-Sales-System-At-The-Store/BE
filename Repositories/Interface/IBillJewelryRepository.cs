@@ -10,5 +10,5 @@ public interface IBillJewelryRepository : ICreateRepository<BillJewelry>
     Task<IEnumerable<BestSellingProductTypeDto>> GetBestSellingProductTypes();
     Task<IEnumerable<ProductRevenueDto>> GetTotalRevenueByProducts();
     Task<IEnumerable<ProductTypeRevenueDto>> GetTotalRevenueByProductTypes();
-
+    Task<decimal> GetTotalRevenueByMonth(int month, int year);
 }

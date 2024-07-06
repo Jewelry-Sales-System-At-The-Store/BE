@@ -36,6 +36,11 @@ namespace Services.Implementation
             return new RevenueDto { TotalRevenue = totalRevenue };
         }
 
+        public async Task<decimal> GetTotalRevenueByMonth(int month, int year)
+        {
+            return await _billJewelryRepository.GetTotalRevenueByMonth(month, year);
+        }
+
         public async Task<RevenueByCounterDto> GetRevenueByCounter(string counterId)
         {
             return await _billRepository.GetRevenueByCounter(counterId);
