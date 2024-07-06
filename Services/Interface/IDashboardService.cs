@@ -13,6 +13,7 @@ namespace Services.Interface
     {
         Task<RevenueDto> GetTotalRevenueAllTime();
         Task<RevenueDto> GetTotalRevenue(DateTime startDate, DateTime endDate);
+        Task<decimal> GetTotalRevenueByMonth(int month, int year);
         Task<RevenueByCounterDto> GetRevenueByCounter(string counterId);
         Task<RevenueByEmployeeDto> GetRevenueByEmployee(string userId);
         Task<RevenueByProductTypeDto> GetRevenueByProductType(string typeId);

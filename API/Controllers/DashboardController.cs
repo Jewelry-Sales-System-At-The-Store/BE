@@ -29,6 +29,13 @@ namespace API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("TotalRevenueByMonth")]
+        public async Task<IActionResult> GetTotalRevenueByMonth([FromQuery] int month, [FromQuery] int year)
+        {
+            var totalRevenue = await _dashboardService.GetTotalRevenueByMonth(month, year);
+            return Ok(totalRevenue);
+        }
+
         [HttpGet("GetRevenueByCounter")]
         public async Task<IActionResult> GetRevenueByCounter(string counterId)
         {

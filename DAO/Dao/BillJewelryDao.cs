@@ -86,5 +86,16 @@ namespace DAO.Dao
                 .OrderByDescending(x => x.JewelryTypeRevenue)
                 .ToListAsync();
         }
+
+        public async Task<decimal> GetTotalRevenueByMonth(int month, int year)
+        {
+            var startDate = new DateTime(year, month, 1).ToUniversalTime();
+            var endDate = startDate.AddMonths(1).ToUniversalTime();
+
+            return await _context.BillJewelries
+                .Where(bj => bj.Bill.SaleDate >= startDate && bj.Bill.SaleDate < endDate)
+                .SumAsync(bj => bj.Jewelry.JewelryMaterials
+                    .Sum(jm => (decimal)jm.GoldPrice.SellPrice * (decimal)jm.GoldQuantity + (decimal)jm.StonePrice.SellPrice * (decimal)jm.StoneQuantity));
+        }
     }
 }
