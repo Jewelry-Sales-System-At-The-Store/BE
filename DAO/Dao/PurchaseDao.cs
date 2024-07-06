@@ -83,11 +83,5 @@ namespace DAO.Dao
             await _context.SaveChangesAsync();
             return existingPurchase;
         }
-
-        public async Task CreateCustomer(Customer customer)
-        {
-            _context.Customers.Add(customer);
-            await _context.SaveChangesAsync();
-        }
     }
 }

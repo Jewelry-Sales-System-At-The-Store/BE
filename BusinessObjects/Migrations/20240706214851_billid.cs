@@ -6,106 +6,137 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BusinessObjects.Migrations
 {
     /// <inheritdoc />
-    public partial class jewelrybill : Migration
+    public partial class billid : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AddColumn<string>(
+                name: "BillId",
+                table: "Purchases",
+                type: "character varying(7)",
+                maxLength: 7,
+                nullable: true);
+
             migrationBuilder.UpdateData(
                 table: "Bills",
                 keyColumn: "BillId",
                 keyValue: "1",
                 column: "SaleDate",
-                value: new DateTimeOffset(new DateTime(2024, 7, 4, 15, 7, 41, 358, DateTimeKind.Unspecified).AddTicks(3493), new TimeSpan(0, 7, 0, 0, 0)));
+                value: new DateTimeOffset(new DateTime(2024, 7, 7, 4, 48, 51, 33, DateTimeKind.Unspecified).AddTicks(2803), new TimeSpan(0, 7, 0, 0, 0)));
 
             migrationBuilder.UpdateData(
                 table: "Bills",
                 keyColumn: "BillId",
                 keyValue: "2",
                 column: "SaleDate",
-                value: new DateTimeOffset(new DateTime(2024, 7, 4, 15, 7, 41, 358, DateTimeKind.Unspecified).AddTicks(3496), new TimeSpan(0, 7, 0, 0, 0)));
+                value: new DateTimeOffset(new DateTime(2024, 7, 7, 4, 48, 51, 33, DateTimeKind.Unspecified).AddTicks(2806), new TimeSpan(0, 7, 0, 0, 0)));
 
             migrationBuilder.UpdateData(
                 table: "Gems",
                 keyColumn: "GemId",
                 keyValue: "1",
                 column: "LastUpdated",
-                value: new DateTimeOffset(new DateTime(2024, 7, 4, 15, 7, 41, 358, DateTimeKind.Unspecified).AddTicks(3562), new TimeSpan(0, 7, 0, 0, 0)));
+                value: new DateTimeOffset(new DateTime(2024, 7, 7, 4, 48, 51, 33, DateTimeKind.Unspecified).AddTicks(2864), new TimeSpan(0, 7, 0, 0, 0)));
 
             migrationBuilder.UpdateData(
                 table: "Gems",
                 keyColumn: "GemId",
                 keyValue: "2",
                 column: "LastUpdated",
-                value: new DateTimeOffset(new DateTime(2024, 7, 4, 15, 7, 41, 358, DateTimeKind.Unspecified).AddTicks(3566), new TimeSpan(0, 7, 0, 0, 0)));
+                value: new DateTimeOffset(new DateTime(2024, 7, 7, 4, 48, 51, 33, DateTimeKind.Unspecified).AddTicks(2867), new TimeSpan(0, 7, 0, 0, 0)));
 
             migrationBuilder.UpdateData(
                 table: "Gems",
                 keyColumn: "GemId",
                 keyValue: "3",
                 column: "LastUpdated",
-                value: new DateTimeOffset(new DateTime(2024, 7, 4, 15, 7, 41, 358, DateTimeKind.Unspecified).AddTicks(3568), new TimeSpan(0, 7, 0, 0, 0)));
+                value: new DateTimeOffset(new DateTime(2024, 7, 7, 4, 48, 51, 33, DateTimeKind.Unspecified).AddTicks(2869), new TimeSpan(0, 7, 0, 0, 0)));
 
             migrationBuilder.UpdateData(
                 table: "Golds",
                 keyColumn: "GoldId",
                 keyValue: "1",
                 column: "LastUpdated",
-                value: new DateTimeOffset(new DateTime(2024, 7, 4, 15, 7, 41, 358, DateTimeKind.Unspecified).AddTicks(3590), new TimeSpan(0, 7, 0, 0, 0)));
+                value: new DateTimeOffset(new DateTime(2024, 7, 7, 4, 48, 51, 33, DateTimeKind.Unspecified).AddTicks(2889), new TimeSpan(0, 7, 0, 0, 0)));
 
             migrationBuilder.UpdateData(
                 table: "Golds",
                 keyColumn: "GoldId",
                 keyValue: "2",
                 column: "LastUpdated",
-                value: new DateTimeOffset(new DateTime(2024, 7, 4, 15, 7, 41, 358, DateTimeKind.Unspecified).AddTicks(3593), new TimeSpan(0, 7, 0, 0, 0)));
+                value: new DateTimeOffset(new DateTime(2024, 7, 7, 4, 48, 51, 33, DateTimeKind.Unspecified).AddTicks(2891), new TimeSpan(0, 7, 0, 0, 0)));
 
             migrationBuilder.UpdateData(
                 table: "Golds",
                 keyColumn: "GoldId",
                 keyValue: "3",
                 column: "LastUpdated",
-                value: new DateTimeOffset(new DateTime(2024, 7, 4, 15, 7, 41, 358, DateTimeKind.Unspecified).AddTicks(3595), new TimeSpan(0, 7, 0, 0, 0)));
+                value: new DateTimeOffset(new DateTime(2024, 7, 7, 4, 48, 51, 33, DateTimeKind.Unspecified).AddTicks(2893), new TimeSpan(0, 7, 0, 0, 0)));
 
             migrationBuilder.UpdateData(
                 table: "Promotions",
                 keyColumn: "PromotionId",
                 keyValue: "1",
                 columns: new[] { "EndDate", "StartDate" },
-                values: new object[] { new DateTimeOffset(new DateTime(2024, 7, 14, 15, 7, 41, 358, DateTimeKind.Unspecified).AddTicks(3458), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 7, 4, 15, 7, 41, 358, DateTimeKind.Unspecified).AddTicks(3431), new TimeSpan(0, 7, 0, 0, 0)) });
+                values: new object[] { new DateTimeOffset(new DateTime(2024, 7, 17, 4, 48, 51, 33, DateTimeKind.Unspecified).AddTicks(2768), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 7, 7, 4, 48, 51, 33, DateTimeKind.Unspecified).AddTicks(2735), new TimeSpan(0, 7, 0, 0, 0)) });
 
             migrationBuilder.UpdateData(
                 table: "Promotions",
                 keyColumn: "PromotionId",
                 keyValue: "2",
                 columns: new[] { "EndDate", "StartDate" },
-                values: new object[] { new DateTimeOffset(new DateTime(2024, 7, 14, 15, 7, 41, 358, DateTimeKind.Unspecified).AddTicks(3466), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 7, 4, 15, 7, 41, 358, DateTimeKind.Unspecified).AddTicks(3465), new TimeSpan(0, 7, 0, 0, 0)) });
+                values: new object[] { new DateTimeOffset(new DateTime(2024, 7, 17, 4, 48, 51, 33, DateTimeKind.Unspecified).AddTicks(2776), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 7, 7, 4, 48, 51, 33, DateTimeKind.Unspecified).AddTicks(2775), new TimeSpan(0, 7, 0, 0, 0)) });
 
             migrationBuilder.UpdateData(
                 table: "Promotions",
                 keyColumn: "PromotionId",
                 keyValue: "3",
                 columns: new[] { "EndDate", "StartDate" },
-                values: new object[] { new DateTimeOffset(new DateTime(2024, 7, 14, 15, 7, 41, 358, DateTimeKind.Unspecified).AddTicks(3469), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 7, 4, 15, 7, 41, 358, DateTimeKind.Unspecified).AddTicks(3468), new TimeSpan(0, 7, 0, 0, 0)) });
+                values: new object[] { new DateTimeOffset(new DateTime(2024, 7, 17, 4, 48, 51, 33, DateTimeKind.Unspecified).AddTicks(2779), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 7, 7, 4, 48, 51, 33, DateTimeKind.Unspecified).AddTicks(2778), new TimeSpan(0, 7, 0, 0, 0)) });
 
             migrationBuilder.UpdateData(
                 table: "Purchases",
                 keyColumn: "PurchaseId",
                 keyValue: "1",
-                column: "PurchaseDate",
-                value: new DateTimeOffset(new DateTime(2024, 7, 4, 15, 7, 41, 358, DateTimeKind.Unspecified).AddTicks(3614), new TimeSpan(0, 7, 0, 0, 0)));
+                columns: new[] { "BillId", "PurchaseDate" },
+                values: new object[] { null, new DateTimeOffset(new DateTime(2024, 7, 7, 4, 48, 51, 33, DateTimeKind.Unspecified).AddTicks(2914), new TimeSpan(0, 7, 0, 0, 0)) });
 
             migrationBuilder.UpdateData(
                 table: "Purchases",
                 keyColumn: "PurchaseId",
                 keyValue: "2",
-                column: "PurchaseDate",
-                value: new DateTimeOffset(new DateTime(2024, 7, 4, 15, 7, 41, 358, DateTimeKind.Unspecified).AddTicks(3617), new TimeSpan(0, 7, 0, 0, 0)));
+                columns: new[] { "BillId", "PurchaseDate" },
+                values: new object[] { null, new DateTimeOffset(new DateTime(2024, 7, 7, 4, 48, 51, 33, DateTimeKind.Unspecified).AddTicks(2916), new TimeSpan(0, 7, 0, 0, 0)) });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Purchases_BillId",
+                table: "Purchases",
+                column: "BillId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Purchases_Bills_BillId",
+                table: "Purchases",
+                column: "BillId",
+                principalTable: "Bills",
+                principalColumn: "BillId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Purchases_Bills_BillId",
+                table: "Purchases");
+
+            migrationBuilder.DropIndex(
+                name: "IX_Purchases_BillId",
+                table: "Purchases");
+
+            migrationBuilder.DropColumn(
+                name: "BillId",
+                table: "Purchases");
+
             migrationBuilder.UpdateData(
                 table: "Bills",
                 keyColumn: "BillId",

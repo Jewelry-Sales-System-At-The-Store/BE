@@ -1,4 +1,5 @@
-﻿using BusinessObjects.Dto.BuyBack;
+﻿using BusinessObjects.Dto.BillReqRes;
+using BusinessObjects.Dto.BuyBack;
 using BusinessObjects.Models;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Interface;
@@ -14,10 +15,16 @@ namespace Repositories.Implementation
     public class PurchaseService : IPurchaseService
     {
         private readonly IPurchaseRepository _purchaseRepository;
+        private readonly IBillDetailRepository _billDetailRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly ICustomerRepository _customerRepository;
 
-        public PurchaseService(IPurchaseRepository purchaseRepository)
+        public PurchaseService(IPurchaseRepository purchaseRepository, IBillDetailRepository billDetailRepository, IUserRepository userRepository, ICustomerRepository customerRepository)
         {
             _purchaseRepository = purchaseRepository;
+            _billDetailRepository = billDetailRepository;
+            _userRepository = userRepository;
+            _customerRepository = customerRepository;
         }
 
         public async Task<string> ProcessBuybackById(string jewelryId)
@@ -42,6 +49,39 @@ namespace Repositories.Implementation
 
             purchase.IsBuyBack = 1;
             purchase.PurchasePrice = totalPrice;
+
+            var customer = await _customerRepository.GetById(purchase.CustomerId);
+            var user = await _userRepository.GetUserById(purchase.UserId);
+
+            var billDetailDto = new BillDetailDto
+            {
+                Id = Generator.GenerateId(),
+                BillId = Generator.GenerateId(), 
+                CustomerName = customer?.FullName,
+                StaffName = user?.FullName,
+                TotalAmount = (double)purchase.PurchasePrice,
+                TotalDiscount = 0,
+                SaleDate = purchase.PurchaseDate,
+                Items = new List<BillItemResponse?>
+        {
+            new BillItemResponse
+            {
+                JewelryId = purchase.JewelryId,
+                Name = jewelry.Name,
+                JewelryPrice = totalPrice,
+                TotalPrice = totalPrice
+            }
+        },
+                Promotions = new List<BillPromotionResponse?>(),
+                AdditionalDiscount = 0,
+                PointsUsed = 0,
+                FinalAmount = (double)purchase.PurchasePrice
+            };
+
+            await _billDetailRepository.AddBillDetail(billDetailDto);
+
+            purchase.BillId = billDetailDto.BillId;
+
             await _purchaseRepository.UpdatePurchase(purchase);
 
             return $"Jewelry updated with purchase price {totalPrice}.";
@@ -49,12 +89,7 @@ namespace Repositories.Implementation
 
         public async Task<string> ProcessBuybackByName(BuybackByNameRequest request)
         {
-            // Generate IDs for new entities
             var jewelryId = Generator.GenerateId();
-            var jewelryMaterialId = Generator.GenerateId();
-            var customerId = Generator.GenerateId();
-
-            // Create new Jewelry entity
             var jewelry = new Jewelry
             {
                 JewelryId = jewelryId,
@@ -62,11 +97,11 @@ namespace Repositories.Implementation
                 JewelryTypeId = request.JewelryTypeId,
                 ImageUrl = request.ImageUrl,
                 LaborCost = request.LaborCost,
-                CreatedAt = DateTimeOffset.UtcNow, // Convert to UTC
-                UpdatedAt = DateTimeOffset.UtcNow  // Convert to UTC
+                CreatedAt = DateTimeOffset.UtcNow,
+                UpdatedAt = DateTimeOffset.UtcNow
             };
 
-            // Create new JewelryMaterial entity
+            var jewelryMaterialId = Generator.GenerateId();
             var jewelryMaterial = new JewelryMaterial
             {
                 JewelryMaterialId = jewelryMaterialId,
@@ -75,49 +110,77 @@ namespace Repositories.Implementation
                 StonePriceId = request.JewelryMaterial.StoneId,
                 GoldQuantity = request.JewelryMaterial.GoldQuantity,
                 StoneQuantity = request.JewelryMaterial.StoneQuantity,
-                CreatedAt = DateTimeOffset.UtcNow, // Convert to UTC
-                UpdatedAt = DateTimeOffset.UtcNow  // Convert to UTC
+                CreatedAt = DateTimeOffset.UtcNow,
+                UpdatedAt = DateTimeOffset.UtcNow
             };
 
-            // Create new Customer entity
-            var customer = new Customer
+            var customerId = Generator.GenerateId();
+            var addCustomer = new Customer
             {
                 CustomerId = customerId,
                 FullName = request.Customer.FullName,
                 Phone = request.Customer.Phone,
                 Address = request.Customer.Address,
-                CreatedAt = DateTimeOffset.UtcNow, // Convert to UTC
-                UpdatedAt = DateTimeOffset.UtcNow  // Convert to UTC
+                CreatedAt = DateTimeOffset.UtcNow, 
+                UpdatedAt = DateTimeOffset.UtcNow  
             };
 
-            // Save entities using the repository
             await _purchaseRepository.CreateJewelry(jewelry);
             await _purchaseRepository.CreateJewelryMaterial(jewelryMaterial);
-            await _purchaseRepository.CreateCustomer(customer); // This line is added to save the customer
+            await _customerRepository.CreateCustomer(addCustomer); 
 
 
             var materials = await _purchaseRepository.GetJewelryMaterialByJewelryId(jewelryId);
             jewelry.JewelryMaterials = new List<JewelryMaterial> { materials };
 
-            // Calculate total price
             var totalPrice = CalculateTotalPrice(new List<JewelryMaterial> { materials }, request.LaborCost);
-           
 
-            // Create new Purchase entity
             var purchase = new Purchase
             {
                 PurchaseId = Generator.GenerateId(),
+                CustomerId = addCustomer.CustomerId,
                 JewelryId = jewelryId,
                 UserId = request.UserId,
-                CustomerId = customerId,
-                PurchaseDate = DateTimeOffset.UtcNow, // Convert to UTC
+                PurchaseDate = DateTimeOffset.UtcNow,
                 PurchasePrice = request.HasGuarantee ? totalPrice : totalPrice * 0.3,
                 IsBuyBack = request.HasGuarantee ? 2 : 3
             };
-            // Save the purchase
+
+            var customer = await _customerRepository.GetById(purchase.CustomerId);
+            var user = await _userRepository.GetUserById(purchase.UserId);
+
+            var billDetailDto = new BillDetailDto
+            {
+                Id = Generator.GenerateId(),
+                BillId = Generator.GenerateId(), 
+                CustomerName = customer?.FullName,
+                StaffName = user?.FullName,
+                TotalAmount = (double)purchase.PurchasePrice,
+                TotalDiscount = 0,
+                SaleDate = purchase.PurchaseDate,
+                Items = new List<BillItemResponse?>
+        {
+            new BillItemResponse
+            {
+                JewelryId = purchase.JewelryId,
+                Name = jewelry.Name,
+                JewelryPrice = totalPrice,
+                TotalPrice = totalPrice
+            }
+        },
+                Promotions = new List<BillPromotionResponse?>(),
+                AdditionalDiscount = 0,
+                PointsUsed = 0,
+                FinalAmount = (double)purchase.PurchasePrice
+            };
+
+            await _billDetailRepository.AddBillDetail(billDetailDto);
+
+            purchase.BillId = billDetailDto.BillId;
+
             await _purchaseRepository.CreatePurchase(purchase);
 
-            return $"Jewelry inserted with buyback {(request.HasGuarantee ? "HasGuarantee" : "NoGuarantee")} and purchase price {purchase.PurchasePrice}";
+            return $"Jewelry inserted with buyback {(request.HasGuarantee ? "Graduate"  : "Not Graduate")} and purchase price {purchase.PurchasePrice}";
         }
 
         private static float CalculateTotalPrice(IEnumerable<JewelryMaterial> jewelryMaterials, double? laborCost)
