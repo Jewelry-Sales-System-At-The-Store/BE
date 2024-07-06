@@ -62,10 +62,5 @@ namespace Repositories.Implementation
         {
             return await _purchaseDao.UpdatePurchase(purchase.PurchaseId, purchase);
         }
-
-        public async Task CreateCustomer(Customer customer)
-        {
-            await _purchaseDao.CreateCustomer(customer);
-        }
     }
 }

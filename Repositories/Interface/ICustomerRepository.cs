@@ -12,5 +12,6 @@ namespace Repositories.Interface
         Task<int> GetNewCustomers(DateTime startDate, DateTime endDate);
         Task<int> GetRepeatCustomers();
         Task<int> GetActiveCustomers(DateTime startDate, DateTime endDate);
+        Task<Customer?> GetById(string id);
     }
 }

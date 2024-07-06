@@ -18,13 +18,14 @@ public partial class Purchase
     [MaxLength(7)]
 
     public string? JewelryId { get; set; }
+    [MaxLength(7)]
+    public string? BillId { get; set; }
 
     public DateTimeOffset? PurchaseDate { get; set; }
 
     public double? PurchasePrice { get; set; }
 
     public int? IsBuyBack { get; set; }
-
     public virtual Customer? Customer { get; set; }
     public virtual Jewelry? Jewelry { get; set; }
     [JsonIgnore]
