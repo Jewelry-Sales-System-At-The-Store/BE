@@ -14,7 +14,7 @@ namespace DAO.Dao
         }
         public async Task<(int,int,IEnumerable<Jewelry>)> GetJewelries(int pageNumber, int pageSize)
         {
-            var totalRecord = await _context.Jewelries.CountAsync();
+            var totalRecord = await _context.Jewelries.CountAsync(j=>j.IsSold == false);
             var totalPage = (int)Math.Ceiling((double)totalRecord / pageSize);
             var jewelries = await _context.Jewelries
                 .Where(x => x.IsSold == false)
@@ -45,6 +45,7 @@ namespace DAO.Dao
         public async Task<int> CreateJewelry(Jewelry jewelry)
         {
             jewelry.JewelryId = Generator.GenerateId();
+            jewelry.IsSold = false;
             _context.Jewelries.Add(jewelry);
             return await _context.SaveChangesAsync();
         }
@@ -54,6 +55,7 @@ namespace DAO.Dao
             var existingJewelry = await _context.Jewelries
                 .FirstOrDefaultAsync(w => w.JewelryId == id);
             jewelry.JewelryId = id;
+            jewelry.IsSold = false;
             if (existingJewelry == null) return 0;
             _context.Entry(existingJewelry).CurrentValues.SetValues(jewelry);
             _context.Entry(existingJewelry).State = EntityState.Modified;
