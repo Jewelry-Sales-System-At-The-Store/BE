@@ -265,5 +265,10 @@ namespace Repositories.Implementation
 
             return totalPrice;
         }
+
+        public async Task<int> GetSoldJewelryCount()
+        {
+            return await JewelryDao.GetTotalSellJewelry();
+        }
     }
 }
