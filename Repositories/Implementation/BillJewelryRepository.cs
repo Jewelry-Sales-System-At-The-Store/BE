@@ -35,4 +35,9 @@ public class BillJewelryRepository(BillJewelryDao billJewelryDao) : IBillJewelry
     {
         return await BillJewelryDao.GetTotalRevenueByProductTypes();
     }
+
+    public async Task<decimal> GetTotalRevenueByMonth(int month, int year)
+    {
+        return await BillJewelryDao.GetTotalRevenueByMonth(month, year);
+    }
 }

@@ -1,12 +1,8 @@
 using System.Text;
 using API.Extensions;
 using API.Middleware;
-using BusinessObjects.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.OData;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OData.Edm;
-using Microsoft.OData.ModelBuilder;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -81,7 +77,6 @@ builder.Services.AddCors(options =>
 #endregion
 
 
-
 var app = builder.Build();
 
 # region Swagger
@@ -97,7 +92,7 @@ var app = builder.Build();
 # endregion
 # region Middleware
 app.UseMiddleware<AuthMiddleware>();
-app.UseMiddleware<ErrorHandlingMiddleware>();
+//app.UseMiddleware<ErrorHandlingMiddleware>();
 # endregion
 app.UseCors();
 app.UseAuthentication();

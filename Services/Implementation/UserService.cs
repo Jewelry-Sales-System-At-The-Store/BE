@@ -18,14 +18,18 @@ namespace Services.Implementation
             return user ?? null;
         }
 
-        public async Task<IEnumerable<UserResponseDto?>?> GetUsers()
+        public async Task<IEnumerable<UserResponseDto?>> GetUsers()
         {
             var users = await UserRepository.Gets();
             var userResponseDtos = Mapper.Map<IEnumerable<UserResponseDto>>(users);
+
             foreach (var userResponseDto in userResponseDtos)
             {
-                userResponseDto.RoleName = users.FirstOrDefault(a => a.UserId == userResponseDto.UserId)?.Role.RoleName;
+                var user = await UserRepository.GetById(userResponseDto.UserId);
+                userResponseDto.CounterNumber = user?.Counter?.Number;
+                userResponseDto.RoleName = user?.Role?.RoleName;
             }
+
             return userResponseDtos;
         }
 

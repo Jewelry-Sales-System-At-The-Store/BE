@@ -18,6 +18,5 @@ namespace Repositories.Interface
         Task CreateJewelryMaterial(JewelryMaterial jewelryMaterial);
         Task CreatePurchase(Purchase purchase);
         Task<Purchase> UpdatePurchase(Purchase purchase);
-        Task CreateCustomer(Customer customer);
     }
 }

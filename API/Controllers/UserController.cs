@@ -16,7 +16,7 @@ public class UserController(IUserManagement userManagement) : ControllerBase
     public async Task<IActionResult> Get()
     {
         var users = await UserManagement.GetUsers();
-        return Ok(users.AsQueryable());
+        return Ok(users);
     }
     [HttpGet("GetUserById/{id}")]
     public async Task<IActionResult> GetUserById(string id)

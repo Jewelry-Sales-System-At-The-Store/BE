@@ -63,5 +63,10 @@ namespace Repositories.Implementation
         {
             return await UserDao.DeleteUser(id);
         }
+
+        public async Task<User?> GetUserById(string id)
+        {
+            return await UserDao.GetUserById(id);
+        }
     }
 }
