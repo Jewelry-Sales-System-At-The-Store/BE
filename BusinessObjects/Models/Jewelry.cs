@@ -1,15 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace BusinessObjects.Models;
 
 public partial class Jewelry
 {
+    [MaxLength(7)]
     public required string JewelryId { get; set; }
+    [MaxLength(7)]
     public string? JewelryTypeId { get; set; }
+    [MaxLength(255)]
     public string? Name { get; set; }
+    [MaxLength(255)]
     public string? Barcode { get; set; }
+    [MaxLength(255)]
     public string? ImageUrl { get; set; }
     public double? LaborCost { get; set; }
     public bool? IsSold { get; set; }

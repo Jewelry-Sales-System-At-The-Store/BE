@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using BusinessObjects.DTO;
-using BusinessObjects.DTO.Jewelry;
-using BusinessObjects.DTO.ResponseDto;
+using BusinessObjects.Dto.Jewelry;
 using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
 using Services;
@@ -17,15 +15,19 @@ public class JewelryController(IJewelryService jewelryService, IMapper mapper) :
     private IMapper Mapper { get; } = mapper;
 
     [HttpGet("GetJewelries")]
-    public async Task<IActionResult> GetJewelries(int pageNumber, int pageSize)
+    public async Task<IActionResult> GetJewelries(int pageNumber, int pageSize, string? name, string? typeId)
     {
-        var jewelries = await JewelryService.GetJewelries(pageNumber, pageSize);
+        var jewelries = await JewelryService.GetJewelries(pageNumber, pageSize, name, typeId);
         return Ok(jewelries);
     }
-
+    [Obsolete]
     [HttpGet("GetJewelriesByType")]
-    public async Task<IActionResult> GetJewelriesByType(string jewelryTypeId, int pageNumber, int pageSize)
+    public async Task<IActionResult> GetJewelriesByType(string? jewelryTypeId, int pageNumber, int pageSize)
     {
+        if(jewelryTypeId == null)
+        {
+            return await GetJewelries(pageNumber, pageSize, "", "");
+        }
         var jewelries = await JewelryService.GetJewelryByType(jewelryTypeId, pageNumber, pageSize);
         return Ok(jewelries);
     }

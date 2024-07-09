@@ -1,4 +1,5 @@
-﻿using BusinessObjects.DTO.ResponseDto;
+﻿using BusinessObjects.Dto.ResponseDto;
+
 namespace Services.Interface;
 
 public interface IGoldPriceService

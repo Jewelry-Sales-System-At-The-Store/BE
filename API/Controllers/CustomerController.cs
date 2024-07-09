@@ -1,4 +1,4 @@
-﻿using BusinessObjects.DTO;
+﻿using BusinessObjects.Dto;
 using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interface;
@@ -19,6 +19,16 @@ public class CustomerController(ICustomerService customerService) : ControllerBa
     public async Task<IActionResult> GetCustomerById(string id)
     {
         return Ok(await CustomerService.GetCustomerById(id));
+    }
+    [HttpGet("GetCustomerByPhone/{phoneNumber}")]
+    public async Task<IActionResult> GetCustomerByPhone(string phoneNumber)
+    {
+        var result = await CustomerService.GetCustomerByPhone(phoneNumber);
+        if (result == null)
+        {
+            return NotFound();
+        }
+        return Ok(result);
     }
     [HttpPost("CreateCustomer")]
     public async Task<IActionResult> CreateCustomer(CustomerDto customer)

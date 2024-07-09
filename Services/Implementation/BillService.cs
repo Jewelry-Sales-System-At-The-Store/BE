@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using BusinessObjects.DTO.Bill;
-using BusinessObjects.DTO.BillReqRes;
-using BusinessObjects.DTO.Other;
+using BusinessObjects.Dto.BillReqRes;
+using BusinessObjects.Dto.Other;
 using BusinessObjects.Models;
 using Repositories.Implementation;
 using Repositories.Interface;
@@ -141,21 +140,60 @@ namespace Services.Implementation
             await BillDetailRepository.AddBillDetail(Mapper.Map<BillDetailDto>(billResponseDto));
             return billResponseDto;
         }
-
-
         public async Task<PagingResponse> GetBills(int pageNumber, int pageSize)
         {
             return await BillDetailRepository.GetBillDetails(pageNumber, pageSize);
         }
-
         public async Task<BillDetailDto?> GetById(string id)
         {
             return await BillDetailRepository.GetBillDetail(id);
         }
+        public async Task<BillCashCheckoutResponseDto> CheckoutBill(string id, float cashAmount)
+        {
+            var bill = await BillRepository.GetById(id);
+            if (bill == null)
+            {
+                throw new InvalidOperationException("Bill not found.");
+            }
+            bill.IsPaid = true;
+            await BillRepository.UpdateBill(bill);
+            
+            var billDetail = await BillDetailRepository.GetBillDetail(id);
 
+            foreach (var item in billDetail.Items)
+            {
+                var jewelry = await JewelryRepository.GetJewelryById(item.JewelryId);
+                if (jewelry == null)
+                {
+                    throw new InvalidOperationException("Jewelry not found.");
+                }
+                jewelry.IsSold = true;
+                await JewelryRepository.Update(item.JewelryId, jewelry);
+            }
+            if (billDetail.FinalAmount > cashAmount)
+            {
+                throw new InvalidOperationException($"Cash amount is not enough, It must be greater than {billDetail.FinalAmount}$ .");
+            }
+            
+            var cashBack = cashAmount - (float)billDetail.FinalAmount;
+            var finalAmount = cashAmount - cashBack;
+            var billCheckoutResponse = new BillCashCheckoutResponseDto
+            {
+                BillId = billDetail.BillId,
+                CustomerName = billDetail.CustomerName,
+                InitialAmount = cashAmount,
+                CashBack = cashBack,
+                FinalAmount = finalAmount,
+                CreatedAt = DateTime.UtcNow.ToUniversalTime(),
+                Status = "Success"
+            };
+            // Purchase 
+            return billCheckoutResponse;
+        }
         private static double CalculateFinalAmount(double totalAmount, double discountRate)
         {
             return totalAmount - (totalAmount * (discountRate / 100));
         }
+
     }
 }

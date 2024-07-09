@@ -1,10 +1,16 @@
-﻿using BusinessObjects.DTO.ResponseDto;
+﻿using BusinessObjects.Dto.ResponseDto;
 using BusinessObjects.Models;
 using Repositories.Interface.GenericRepository;
+
 namespace Repositories.Interface;
 
-public interface IJewelryRepository : IReadRepository<JewelryResponseDto>, ICreateRepository<Jewelry>, IUpdateRepository<Jewelry>, IDeleteRepository<Jewelry>
+public interface IJewelryRepository : IReadRepository<JewelryResponseDto>, ICreateRepository<Jewelry>,
+    IUpdateRepository<Jewelry>, IDeleteRepository<Jewelry>
 {
-    Task<(int,int,IEnumerable<JewelryResponseDto>)> GetsJewelryPaging(int pageNumber, int pageSize);
-    Task<(int,int,IEnumerable<JewelryResponseDto>)> GetsJewelryPagingByType(string jewelryTypeId, int pageNumber, int pageSize);
+    Task<(int, int, IEnumerable<JewelryResponseDto>)> GetsJewelryPaging(int pageNumber, int pageSize,
+        string? name, string? typeId);
+
+    Task<(int, int, IEnumerable<JewelryResponseDto>)> GetsJewelryPagingByType(string jewelryTypeId, int pageNumber,
+        int pageSize);
+    Task<Jewelry?> GetJewelryById(string id);
 }

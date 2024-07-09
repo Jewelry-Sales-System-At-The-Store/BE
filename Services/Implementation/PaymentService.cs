@@ -1,4 +1,4 @@
-﻿using BusinessObjects.DTO.ResponseDto;
+﻿using BusinessObjects.Dto.ResponseDto;
 using Microsoft.Extensions.Configuration;
 using Net.payOS;
 using Net.payOS.Types;

@@ -2,6 +2,6 @@
 {
     public interface ICreateRepository<T>
     {
-        Task<T> Create(T entity);
+        Task<int> Create(T entity);
     }
 }

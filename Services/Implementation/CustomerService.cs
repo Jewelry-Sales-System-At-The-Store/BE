@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using BusinessObjects.DTO;
-using BusinessObjects.DTO.Other;
-using BusinessObjects.DTO.ResponseDto;
+using BusinessObjects.Dto;
+using BusinessObjects.Dto.Other;
+using BusinessObjects.Dto.ResponseDto;
 using BusinessObjects.Models;
 using Repositories.Interface;
 using Services.Interface;
@@ -13,17 +13,25 @@ namespace Services.Implementation
         private IMapper Mapper { get; } = mapper;
         private ICustomerRepository CustomerRepository { get; } = customerRepository;
 
-        public async Task<int> CreateCustomer(CustomerDto customerDto)
+        public async Task<CustomerResponseDto> CreateCustomer(CustomerDto customerDto)
         {
             var customer = Mapper.Map<Customer>(customerDto);
-            return await CustomerRepository.Create(customer);
+            var result = await CustomerRepository.CreateCustomer(customer);
+            var responseCustomer = Mapper.Map<CustomerResponseDto>(result);
+            return responseCustomer;
         }
 
         public async Task<int> DeleteCustomer(string id)
         {
             return await CustomerRepository.Delete(id);
         }
-
+        
+        public async Task<CustomerResponseDto?> GetCustomerByPhone(string phoneNumber)
+        {
+            var customer = await CustomerRepository.GetCustomerByPhone(phoneNumber);
+            var responseCustomer = Mapper.Map<CustomerResponseDto>(customer);
+            return responseCustomer;
+        }
 
         public async Task<PagingResponse> GetCustomersPaging(int pageNumber, int pageSize)
         {

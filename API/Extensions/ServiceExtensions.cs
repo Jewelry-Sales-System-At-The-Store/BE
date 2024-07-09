@@ -1,7 +1,6 @@
-﻿using BusinessObjects.DTO.BillReqRes;
-using BusinessObjects.DTO.Other;
-using BusinessObjects.Models;
+﻿using BusinessObjects.Models;
 using DAO;
+using DAO.Dao;
 using Management.Implementation;
 using Management.Interface;
 using Microsoft.AspNetCore.OData;
@@ -24,7 +23,7 @@ public static class ServiceExtensions
         serviceCollection.AddScoped<IUserManagement, UserManagement>();
 
         #endregion
-        
+
         #region Repository
 
         serviceCollection.AddScoped<IUserRepository, UserRepository>();
@@ -42,9 +41,12 @@ public static class ServiceExtensions
         serviceCollection.AddScoped<IBillDetailRepository, BillDetailRepository>();
         serviceCollection.AddScoped<IJewelryMaterialRepository, JewelryMaterialRepository>();
         serviceCollection.AddScoped<ICounterRepository, CounterRepository>();
+        serviceCollection.AddScoped<IPurchaseRepository, PurchaseRepository>();
+
         #endregion
-        
+
         #region Service
+
         serviceCollection.AddScoped<IPaymentService, PaymentService>();
         serviceCollection.AddScoped<IGemPriceService, GemPriceService>();
         serviceCollection.AddScoped<IGoldPriceService, GoldPriceService>();
@@ -58,10 +60,13 @@ public static class ServiceExtensions
         serviceCollection.AddScoped<IJewelryTypeService, JewelryTypeService>();
         serviceCollection.AddScoped<ITokenService, TokenService>();
         serviceCollection.AddScoped<ICounterService, CounterService>();
+        serviceCollection.AddScoped<IDashboardService, DashboardService>();
+        serviceCollection.AddScoped<IPurchaseService, PurchaseService>();
 
         #endregion
-        
+
         #region Dao
+
         serviceCollection.AddScoped<CounterDao>();
         serviceCollection.AddScoped<BillDao>();
         serviceCollection.AddScoped<BillJewelryDao>();
@@ -69,7 +74,7 @@ public static class ServiceExtensions
         serviceCollection.AddScoped<CustomerDao>();
         serviceCollection.AddScoped<GoldPriceDao>();
         serviceCollection.AddScoped<JewelryDao>();
-        serviceCollection.AddScoped<JewelryTypeDao>(); 
+        serviceCollection.AddScoped<JewelryTypeDao>();
         serviceCollection.AddScoped<PromotionDao>();
         serviceCollection.AddScoped<PurchaseDao>();
         serviceCollection.AddScoped<RoleDao>();
@@ -79,25 +84,31 @@ public static class ServiceExtensions
         serviceCollection.AddScoped<JewelryMaterialDao>();
 
         #endregion
-        
+
         #region MongoDb
+
         serviceCollection.AddSingleton<IMongoClient, MongoClient>(s =>
         {
             var uri = s.GetRequiredService<IConfiguration>()["MongoDb:CloudConnectionString"];
             return new MongoClient(uri);
         });
+
         #endregion
-        
+
         #region Odata
+
         serviceCollection.AddControllers().AddOData(opt =>
         {
-            opt.Select().Filter().OrderBy().Expand().Count().SetMaxTop(100).AddRouteComponents("odata", GetEdmModel());
+            opt.Select().Filter().OrderBy().Expand().Count().SetMaxTop(100)
+                .AddRouteComponents("odata", GetEdmModel());
         });
+
         #endregion
-        
-        
+
+
         return serviceCollection;
     }
+
     static IEdmModel GetEdmModel()
     {
         var builder = new ODataConventionModelBuilder();

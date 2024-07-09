@@ -1,11 +1,17 @@
-﻿namespace BusinessObjects.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BusinessObjects.Models;
 
 public class JewelryMaterial
 {
+    [MaxLength(7)]
     public required string JewelryMaterialId { get; set; }
+    [MaxLength(7)]
     public string? JewelryId { get; set; }
+    [MaxLength(255)]
     
     public string? GoldPriceId { get; set; }
+    [MaxLength(255)]
     
     public string? StonePriceId { get; set; }
     

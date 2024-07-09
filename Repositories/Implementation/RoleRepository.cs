@@ -1,5 +1,6 @@
 ﻿using BusinessObjects.Models;
 using DAO;
+using DAO.Dao;
 using Repositories.Interface;
 
 namespace Repositories.Implementation;
@@ -18,7 +19,7 @@ public class RoleRepository(RoleDao roleDao) : IRoleRepository
         return await RoleDao.GetRoleById(id);
     }
 
-    public async Task<Role> Create(Role entity)
+    public async Task<int> Create(Role entity)
     {
         return await RoleDao.CreateRole(entity);
     }

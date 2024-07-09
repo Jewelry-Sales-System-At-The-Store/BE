@@ -1,6 +1,6 @@
-﻿using BusinessObjects.DTO.Jewelry;
-using BusinessObjects.DTO.Other;
-using BusinessObjects.DTO.ResponseDto;
+﻿using BusinessObjects.Dto.Jewelry;
+using BusinessObjects.Dto.Other;
+using BusinessObjects.Dto.ResponseDto;
 using BusinessObjects.Models;
 using Repositories.Interface;
 using Services.Interface;
@@ -15,9 +15,9 @@ namespace Services.Implementation
         private IJewelryRepository JewelryRepository { get; } = jewelryRepository;
         private IJewelryMaterialRepository JewelryMaterialRepository { get; } = jewelryMaterialRepository;
 
-        public async Task<PagingResponse> GetJewelries(int pageNumber, int pageSize)
+        public async Task<PagingResponse> GetJewelries(int pageNumber, int pageSize, string? name, string? typeId)
         {
-            var jewelries = await JewelryRepository.GetsJewelryPaging(pageNumber, pageSize);
+            var jewelries = await JewelryRepository.GetsJewelryPaging(pageNumber, pageSize, name, typeId);
             var jewelryPaging = new PagingResponse
             {
                 PageNumber = pageNumber,
@@ -56,6 +56,7 @@ namespace Services.Implementation
             {
                 JewelryId = Generator.GenerateId(),
                 JewelryTypeId = jewelryRequestDto.JewelryTypeId,
+                ImageUrl = jewelryRequestDto.ImageUrl,
                 Name = jewelryRequestDto.Name,
                 Barcode = jewelryRequestDto.Barcode,
                 LaborCost = jewelryRequestDto.LaborCost,

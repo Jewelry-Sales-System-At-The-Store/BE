@@ -1,5 +1,5 @@
 using BusinessObjects.DTO;
-using BusinessObjects.DTO.Other;
+using BusinessObjects.Dto.Other;
 using BusinessObjects.Models;
 using Repositories.Interface;
 using Services.Interface;
