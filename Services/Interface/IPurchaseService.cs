@@ -1,13 +1,6 @@
-﻿using BusinessObjects.Dto;
-using BusinessObjects.Dto.BuyBack;
-using BusinessObjects.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BusinessObjects.Dto.BuyBack;
 
-namespace Repositories.Interface
+namespace Services.Interface
 {
     public interface IPurchaseService
     {

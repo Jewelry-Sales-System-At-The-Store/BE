@@ -1,5 +1,4 @@
 using BusinessObjects.Dto.BillReqRes;
-using BusinessObjects.Dto.Revenue;
 using BusinessObjects.Models;
 using DAO;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +6,7 @@ using DAO.Dao;
 using Repositories.Interface;
 using Tools;
 using BusinessObjects.Dto.BillReqRes;
+using BusinessObjects.Dto.Dashboard;
 using MongoDB.Driver;
 
 namespace Repositories.Implementation
