@@ -2,7 +2,6 @@
 using BusinessObjects.Dto.Jewelry;
 using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
-using Services;
 using Services.Interface;
 
 namespace API.Controllers;
@@ -20,9 +19,8 @@ public class JewelryController(IJewelryService jewelryService, IMapper mapper) :
         var jewelries = await JewelryService.GetJewelries(pageNumber, pageSize, name, typeId);
         return Ok(jewelries);
     }
-    [Obsolete]
     [HttpGet("GetJewelriesByType")]
-    public async Task<IActionResult> GetJewelriesByType(string? jewelryTypeId, int pageNumber, int pageSize)
+    private async Task<IActionResult> GetJewelriesByType(string? jewelryTypeId, int pageNumber, int pageSize)
     {
         if(jewelryTypeId == null)
         {

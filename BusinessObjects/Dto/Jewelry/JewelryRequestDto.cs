@@ -12,4 +12,6 @@ public class JewelryRequestDto
     public string? Barcode { get; set; }
     
     public double? LaborCost { get; set; }
+
+    public bool? IsSold { get; set; }
 }

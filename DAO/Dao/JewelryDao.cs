@@ -17,11 +17,13 @@ namespace DAO.Dao
             var totalRecord = await _context.Jewelries.CountAsync();
             var totalPage = (int)Math.Ceiling((double)totalRecord / pageSize);
             var jewelries = await _context.Jewelries
+                .Where(x => x.IsSold == false)
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
             return (totalRecord,totalPage, jewelries);
         }
+        [Obsolete]
         public async Task<(int,int,IEnumerable<Jewelry>)> GetJewelriesByType(string jewelryTypeId, int pageNumber, int pageSize)
         {
             var totalRecord = await _context.Jewelries.Where(x => x.JewelryTypeId  == jewelryTypeId).CountAsync();
@@ -34,10 +36,9 @@ namespace DAO.Dao
             return (totalRecord,totalPage, jewelries);
         }
 
-
         public async Task<Jewelry?> GetJewelryById(string id)
         {
-           var jewelry = await _context.Jewelries.FirstOrDefaultAsync(p => p.JewelryId == id);
+           var jewelry = await _context.Jewelries.Where(j=>j.JewelryId == id).FirstOrDefaultAsync();
            return jewelry;
         }
 

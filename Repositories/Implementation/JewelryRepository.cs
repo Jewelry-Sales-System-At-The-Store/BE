@@ -80,7 +80,7 @@ namespace Repositories.Implementation
                 {
                     JewelryId = jewelry.JewelryId,
                     Name = jewelry.Name,
-                    Type = jewelryType.Name,
+                    Type = jewelryType?.Name,
                     ImageUrl = jewelry.ImageUrl,
                     Barcode = jewelry.Barcode,
                     LaborCost = jewelry.LaborCost,
