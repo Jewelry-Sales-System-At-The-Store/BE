@@ -79,5 +79,9 @@ namespace DAO.Dao
                 .Where(j => j.BillJewelries.Any(bj => bj.BillId == billId))
                 .ToListAsync();
         }
+        public async Task<int> GetTotalSellJewelry()
+        {
+            return await _context.Jewelries.CountAsync(j => j.IsSold == true);
+        }
     }
 }
