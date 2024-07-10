@@ -1,3 +1,4 @@
+using System.Diagnostics.Metrics;
 using BusinessObjects.DTO;
 using BusinessObjects.Dto.Other;
 using BusinessObjects.Models;
@@ -33,6 +34,11 @@ namespace Services.Implementation
         public async Task<int> DeleteCounter(string id)
         {
             return await CounterRepository.Delete(id);
+        }
+        
+        public async Task<IEnumerable<Counter>> GetAvailableCounters()
+        {
+            return await CounterRepository.GetAvailableCounters();
         }
     }
 }

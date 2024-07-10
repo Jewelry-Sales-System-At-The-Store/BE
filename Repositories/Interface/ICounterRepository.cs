@@ -1,4 +1,5 @@
-﻿using BusinessObjects.DTO;
+﻿using System.Diagnostics.Metrics;
+using BusinessObjects.DTO;
 using BusinessObjects.Models;
 using Repositories.Interface.GenericRepository;
 
@@ -8,4 +9,5 @@ public interface ICounterRepository : IReadRepository<Counter>, IDeleteRepositor
 {
     Task<int> Create(CounterDto entity);
     Task<int> Update(string id, UpdateCounter entity);
+    Task<IEnumerable<Counter>> GetAvailableCounters();
 }

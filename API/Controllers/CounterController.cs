@@ -26,6 +26,13 @@ public class CounterController(ICounterService counterService) : ControllerBase
         if (counter == null) return NotFound();
         return Ok(counter);
     }
+    
+    [HttpGet("GetAvailableCounters")]
+    public async Task<IActionResult> GetAvailableCounters()
+    {
+        var counter = await CounterService.GetAvailableCounters();
+        return Ok(counter);
+    }
 
     [HttpPost("CreateCounter")]
     public async Task<IActionResult> Create(CounterDto counter)

@@ -42,5 +42,9 @@ public class CounterRepository(CounterDao counterDao) : ICounterRepository
     {
         return await CounterDao.UpdateCounter(id, entity);
     }
-    
+
+    public async Task<IEnumerable<Counter>> GetAvailableCounters()
+    {
+        return await CounterDao.GetAvailableCounters();
+    }
 }

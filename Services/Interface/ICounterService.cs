@@ -12,4 +12,5 @@ public interface ICounterService
     public Task<int> CreateCounter(CounterDto counterDto);
     public Task<int> UpdateCounter(string id, UpdateCounter counterDto);
     public Task<int> DeleteCounter(string id);
+    Task<IEnumerable<Counter>> GetAvailableCounters();
 }

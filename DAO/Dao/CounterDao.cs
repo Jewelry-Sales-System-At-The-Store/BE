@@ -53,7 +53,12 @@ public class CounterDao
         _context.Counters.Remove(counter);
         return await _context.SaveChangesAsync();
     }
-    
-    
-    
+
+    public async Task<IEnumerable<Counter>> GetAvailableCounters()
+    {
+        var availableCounters = await _context.Counters
+            .Where(c => !c.IsOccupied)
+            .ToListAsync();
+        return availableCounters;
+    }
 }
