@@ -10,9 +10,9 @@ namespace Services.Implementation
     {
         private ICounterRepository CounterRepository { get; } = counterRepository;
 
-        public Task<PagingResponse> GetCounterPaging(int pageNumber, int pageSize)
+        public async Task<IEnumerable<Counter>?> GetCounters()
         {
-            throw new NotImplementedException();
+            return await CounterRepository.Gets();
         }
 
         public async Task<Counter?> GetCounterById(string id)
@@ -20,19 +20,19 @@ namespace Services.Implementation
             return await CounterRepository.GetById(id);
         }
 
-        public Task<int> CreateCounter(CounterDto counterDto)
+        public async Task<int> CreateCounter(CounterDto counterDto)
         {
-            throw new NotImplementedException();
+            return await CounterRepository.Create(counterDto);
         }
 
-        public Task<int> UpdateCounter(string id, CounterDto counterDto)
+        public async Task<int> UpdateCounter(string id, UpdateCounter counterDto)
         {
-            throw new NotImplementedException();
+            return await CounterRepository.Update(id, counterDto);
         }
 
-        public Task<int> DeleteCounter(string id)
+        public async Task<int> DeleteCounter(string id)
         {
-            throw new NotImplementedException();
+            return await CounterRepository.Delete(id);
         }
     }
 }

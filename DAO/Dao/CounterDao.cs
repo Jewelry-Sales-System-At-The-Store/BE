@@ -1,4 +1,5 @@
 using BusinessObjects.Context;
+using BusinessObjects.DTO;
 using BusinessObjects.Models;
 using Microsoft.EntityFrameworkCore;
 using Tools;
@@ -26,8 +27,32 @@ public class CounterDao
         return await _context.SaveChangesAsync();
     }
 
-    public async Task<int> UpdateCounter(string id, Counter counter)
+    public async Task<int> UpdateCounter(string id, UpdateCounter counter)
     {
+        var existingCounter = await _context.Counters.FindAsync(id);
+        if (existingCounter == null)
+        {
+            return 0;
+        }
+
+        existingCounter.Number = counter.Number;
+        existingCounter.CreatedAt = counter.CreatedAt;
+        existingCounter.UpdatedAt = counter.UpdatedAt;
+
         return await _context.SaveChangesAsync();
     }
+
+    public async Task<int> DeleteCounter(string id)
+    {
+        var counter = await _context.Counters.FindAsync(id);
+        if (counter == null)
+        {
+            return 0;
+        }
+
+        _context.Counters.Remove(counter);
+        return await _context.SaveChangesAsync();
+    }
+    
+    
 }

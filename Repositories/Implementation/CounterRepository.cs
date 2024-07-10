@@ -1,7 +1,9 @@
-﻿using BusinessObjects.Models;
+﻿using BusinessObjects.DTO;
+using BusinessObjects.Models;
 using DAO;
 using DAO.Dao;
 using Repositories.Interface;
+using Tools;
 
 namespace Repositories.Implementation;
 
@@ -18,4 +20,27 @@ public class CounterRepository(CounterDao counterDao) : ICounterRepository
     {
        return await CounterDao.GetCounterById(id); 
     }
+
+    public async Task<int> Create(CounterDto entity)
+    {
+        var counter = new Counter
+        {
+            CounterId = Generator.GenerateId(),
+            CreatedAt = DateTime.UtcNow,
+            UpdatedAt = DateTime.UtcNow,
+            Number = entity.Number,
+        };
+        return await CounterDao.CreateCounter(counter);
+    }
+
+    public async Task<int> Delete(string id)
+    {
+        return await CounterDao.DeleteCounter(id);
+    }
+
+    public async Task<int> Update(string id, UpdateCounter entity)
+    {
+        return await CounterDao.UpdateCounter(id, entity);
+    }
+    
 }
