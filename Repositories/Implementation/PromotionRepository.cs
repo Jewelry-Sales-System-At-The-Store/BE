@@ -11,8 +11,7 @@ namespace Repositories.Implementation
 
         public async Task<int> Create(Promotion promotion)
         {
-            var result = await PromotionDao.CreatePromotion(promotion);
-            return result;
+            return await PromotionDao.CreatePromotion(promotion);
         }
 
         public async Task<int> Delete(string id)
