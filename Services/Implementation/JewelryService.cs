@@ -98,14 +98,19 @@ namespace Services.Implementation
             throw new NotImplementedException();
         }
 
-        public async Task<int> UpdateJewelry(string id, Jewelry jewelry)
+        public async Task<int> UpdateJewelry(string id, JewelryRequestDto jewelry)
         {
-            return await JewelryRepository.Update(id, jewelry);
+            throw new NotImplementedException();
         }
 
         public async Task<int> GetSoldJewelryCount()
         {
             return await JewelryRepository.GetSoldJewelryCount();
+        }
+
+        public async Task<int> UpdateJewelryWithMaterial(string id, JewelryRequestDto jewelryRequestDto)
+        {
+            return await JewelryRepository.UpdateJewelryWithMaterial(id, jewelryRequestDto);
         }
     }
 }

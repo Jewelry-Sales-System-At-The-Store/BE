@@ -11,8 +11,9 @@ namespace Services.Interface
         public Task<JewelryResponseDto?> GetJewelryById(string id);
         public Task<PagingResponse?> GetJewelryByType(string jewelryTypeId, int pageNumBer, int pageSize);
         public Task<int> CreateJewelry(JewelryRequestDto jewelryRequestDto);
-        public Task<int> UpdateJewelry(string id, Jewelry jewelry);
+        public Task<int> UpdateJewelry(string id, JewelryRequestDto jewelryRequestDto);
         public Task<int> DeleteJewelry(string id);
         public Task<int> GetSoldJewelryCount();
+        public Task<int> UpdateJewelryWithMaterial(string id, JewelryRequestDto jewelryRequestDto);
     }
 }

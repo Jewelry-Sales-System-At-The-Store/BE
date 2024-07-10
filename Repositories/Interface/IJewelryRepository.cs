@@ -1,4 +1,5 @@
-﻿using BusinessObjects.Dto.ResponseDto;
+﻿using BusinessObjects.Dto.Jewelry;
+using BusinessObjects.Dto.ResponseDto;
 using BusinessObjects.Models;
 using Repositories.Interface.GenericRepository;
 
@@ -15,4 +16,6 @@ public interface IJewelryRepository : IReadRepository<JewelryResponseDto>, ICrea
     Task<Jewelry?> GetJewelryById(string id);
 
     Task<int> GetSoldJewelryCount();
+    public Task<int> UpdateJewelryWithMaterial(string id, JewelryRequestDto jewelryRequestDto);
+
 }

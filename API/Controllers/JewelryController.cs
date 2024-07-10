@@ -48,8 +48,7 @@ public class JewelryController(IJewelryService jewelryService, IMapper mapper) :
     [HttpPut("UpdateJewelry/{id}")]
     public async Task<IActionResult> UpdateJewelry(string id, JewelryRequestDto jewelryRequestDto)
     {
-        var jewelry = Mapper.Map<Jewelry>(jewelryRequestDto);
-        var result = await JewelryService.UpdateJewelry(id, jewelry);
+        var result = await JewelryService.UpdateJewelryWithMaterial(id, jewelryRequestDto);
         return Ok(result);
     }
 
