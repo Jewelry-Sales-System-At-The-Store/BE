@@ -1,4 +1,5 @@
-﻿using BusinessObjects.Dto.ResponseDto;
+﻿using BusinessObjects.Dto.Jewelry;
+using BusinessObjects.Dto.ResponseDto;
 using BusinessObjects.Models;
 using DAO;
 using DAO.Dao;
@@ -269,6 +270,55 @@ namespace Repositories.Implementation
         public async Task<int> GetSoldJewelryCount()
         {
             return await JewelryDao.GetTotalSellJewelry();
+        }
+
+        public async Task<int> UpdateJewelryWithMaterial(string id, JewelryRequestDto jewelryRequestDto)
+        {
+            var jewelry = await JewelryDao.GetJewelryById(id);
+            if (jewelry == null)
+            {
+                return 0;
+            }
+
+            var jewelryType = await JewelryTypeDao.GetJewelryTypeById(jewelryRequestDto.JewelryTypeId);
+            if (jewelryType == null)
+            {
+                return 0;
+            }
+
+            var jewelryMaterial = await JewelryMaterialDao.GetJewelryMaterialByJewelry(id);
+            if (jewelryMaterial == null)
+            {
+                return 0;
+            }
+
+            var goldPrice = await GoldPriceDao.GetGoldPriceById(jewelryRequestDto.JewelryMaterial.GoldId);
+            if (goldPrice == null)
+            {
+                return 0;
+            }
+
+            var gemPrice = await GemPriceDao.GetStonePriceById(jewelryRequestDto.JewelryMaterial.GemId);
+            if (gemPrice == null)
+            {
+                return 0;
+            }
+
+            jewelry.Name = jewelryRequestDto.Name;
+            jewelry.ImageUrl = jewelryRequestDto.ImageUrl;
+            jewelry.JewelryTypeId = jewelryRequestDto.JewelryTypeId;
+            jewelry.Barcode = jewelryRequestDto.Barcode;
+            jewelry.LaborCost = jewelryRequestDto.LaborCost;
+
+            jewelryMaterial.GoldPriceId = jewelryRequestDto.JewelryMaterial.GoldId;
+            jewelryMaterial.GoldQuantity = jewelryRequestDto.JewelryMaterial.GoldQuantity;
+            jewelryMaterial.StonePriceId = jewelryRequestDto.JewelryMaterial.GemId;
+            jewelryMaterial.StoneQuantity = jewelryRequestDto.JewelryMaterial.GemQuantity;
+
+            await JewelryDao.UpdateJewelry(id, jewelry);
+            await JewelryMaterialDao.UpdateJewelryMaterial(jewelryMaterial);
+
+            return 1;
         }
     }
 }

@@ -43,4 +43,10 @@ public class JewelryMaterialDao
     {
         return await _context.JewelryMaterials.Where(jm => jm.JewelryId == jewelryId).ToListAsync();
     }
+
+    public async Task<int> UpdateJewelryMaterial(JewelryMaterial jewelryMaterial)
+    {
+        _context.JewelryMaterials.Update(jewelryMaterial);
+        return await _context.SaveChangesAsync();
+    }
 }
