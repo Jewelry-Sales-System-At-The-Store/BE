@@ -13,5 +13,6 @@ namespace Services.Interface
         public Task<int> CreateJewelry(JewelryRequestDto jewelryRequestDto);
         public Task<int> UpdateJewelry(string id, Jewelry jewelry);
         public Task<int> DeleteJewelry(string id);
+        public Task<int> GetSoldJewelryCount();
     }
 }

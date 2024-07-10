@@ -17,20 +17,4 @@ namespace BusinessObjects.Dto.BuyBack
         public double LaborCost { get; set; }
         public bool HasGuarantee { get; set; }
     }
-
-    public class JewelryMaterialDto
-    {
-        public string GoldId { get; set; }
-        public string StoneId { get; set; }
-        public int GoldQuantity { get; set; }
-        public int StoneQuantity { get; set; }
-    }
-
-    public class BuybackCustomerDto
-    {
-        public string FullName { get; set; }
-        public string Phone { get; set; }
-        public string Address { get; set; }
-    }
-
 }

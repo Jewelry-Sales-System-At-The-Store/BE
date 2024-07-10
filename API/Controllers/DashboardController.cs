@@ -9,10 +9,11 @@ namespace API.Controllers
     public class DashboardController : ControllerBase
     {
         private readonly IDashboardService _dashboardService;
-
-        public DashboardController(IDashboardService dashboardService)
+        private readonly IJewelryService _jewelryService;
+        public DashboardController(IDashboardService dashboardService, IJewelryService jewelryService)
         {
             _dashboardService = dashboardService;
+            _jewelryService = jewelryService;
         }
 
         [HttpGet("TotalRevenueAllTime")]
@@ -111,6 +112,11 @@ namespace API.Controllers
         {
             var totalRevenueByProductTypes = await _dashboardService.GetTotalRevenueByProductTypes();
             return Ok(totalRevenueByProductTypes);
+        }
+        [HttpGet("TotalSoldJewelry")]
+        public async Task<IActionResult> GetTotalSoldJewelry()
+        {
+            return Ok(await _jewelryService.GetSoldJewelryCount());
         }
     }
 }

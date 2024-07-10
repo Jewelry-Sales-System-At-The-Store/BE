@@ -13,4 +13,6 @@ public interface IJewelryRepository : IReadRepository<JewelryResponseDto>, ICrea
     Task<(int, int, IEnumerable<JewelryResponseDto>)> GetsJewelryPagingByType(string jewelryTypeId, int pageNumber,
         int pageSize);
     Task<Jewelry?> GetJewelryById(string id);
+
+    Task<int> GetSoldJewelryCount();
 }

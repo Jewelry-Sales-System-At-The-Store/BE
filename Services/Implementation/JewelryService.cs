@@ -102,5 +102,10 @@ namespace Services.Implementation
         {
             return await JewelryRepository.Update(id, jewelry);
         }
+
+        public async Task<int> GetSoldJewelryCount()
+        {
+            return await JewelryRepository.GetSoldJewelryCount();
+        }
     }
 }

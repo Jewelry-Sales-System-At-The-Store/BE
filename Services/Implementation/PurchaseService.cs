@@ -1,16 +1,11 @@
 ﻿using BusinessObjects.Dto.BillReqRes;
 using BusinessObjects.Dto.BuyBack;
 using BusinessObjects.Models;
-using Microsoft.EntityFrameworkCore;
 using Repositories.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Services.Interface;
 using Tools;
 
-namespace Repositories.Implementation
+namespace Services.Implementation
 {
     public class PurchaseService : IPurchaseService
     {

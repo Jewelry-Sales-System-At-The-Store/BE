@@ -80,7 +80,7 @@ namespace Repositories.Implementation
                 {
                     JewelryId = jewelry.JewelryId,
                     Name = jewelry.Name,
-                    Type = jewelryType.Name,
+                    Type = jewelryType?.Name,
                     ImageUrl = jewelry.ImageUrl,
                     Barcode = jewelry.Barcode,
                     LaborCost = jewelry.LaborCost,
@@ -264,6 +264,11 @@ namespace Repositories.Implementation
             }
 
             return totalPrice;
+        }
+
+        public async Task<int> GetSoldJewelryCount()
+        {
+            return await JewelryDao.GetTotalSellJewelry();
         }
     }
 }
