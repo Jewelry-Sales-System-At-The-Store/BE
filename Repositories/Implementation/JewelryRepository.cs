@@ -1,7 +1,6 @@
 ﻿using BusinessObjects.Dto.Jewelry;
 using BusinessObjects.Dto.ResponseDto;
 using BusinessObjects.Models;
-using DAO;
 using DAO.Dao;
 using Repositories.Interface;
 
@@ -81,6 +80,7 @@ namespace Repositories.Implementation
                 {
                     JewelryId = jewelry.JewelryId,
                     Name = jewelry.Name,
+                    JewelryTypeId = jewelryType?.JewelryTypeId,
                     Type = jewelryType?.Name,
                     ImageUrl = jewelry.ImageUrl,
                     Barcode = jewelry.Barcode,
@@ -89,12 +89,14 @@ namespace Repositories.Implementation
                     {
                         Gold = new GoldResponseDto
                         {
+                            GoldId = jm.GoldPriceId,
                             GoldType = jm.GoldPrice?.Type,
                             GoldQuantity = jm.GoldQuantity,
                             GoldPrice = jm.GoldPrice?.SellPrice ?? 0
                         },
                         Gem = new GemResponseDto
                         {
+                            GemId = jm.StonePriceId,
                             Gem = jm.StonePrice?.Type,
                             GemQuantity = jm.StoneQuantity,
                             GemPrice = jm.StonePrice?.SellPrice ?? 0
@@ -144,8 +146,9 @@ namespace Repositories.Implementation
                 var jewelryResponseDto = new JewelryResponseDto
                 {
                     JewelryId = jewelry.JewelryId,
+                    JewelryTypeId = jewelryType?.JewelryTypeId,
                     Name = jewelry.Name,
-                    Type = jewelryType.Name,
+                    Type = jewelryType?.Name,
                     ImageUrl = jewelry.ImageUrl,
                     Barcode = jewelry.Barcode,
                     LaborCost = jewelry.LaborCost,
@@ -153,12 +156,14 @@ namespace Repositories.Implementation
                     {
                         Gold = new GoldResponseDto
                         {
+                            GoldId = jm.GoldPriceId,
                             GoldType = jm.GoldPrice?.Type,
                             GoldQuantity = jm.GoldQuantity,
                             GoldPrice = jm.GoldPrice?.SellPrice ?? 0
                         },
                         Gem = new GemResponseDto
                         {
+                            GemId = jm.StonePriceId,
                             Gem = jm.StonePrice?.Type,
                             GemQuantity = jm.StoneQuantity,
                             GemPrice = jm.StonePrice?.SellPrice ?? 0
@@ -183,7 +188,7 @@ namespace Repositories.Implementation
             throw new NotImplementedException();
         }
 
-        public async Task<JewelryResponseDto> GetById(string id)
+        public async Task<JewelryResponseDto?> GetById(string id)
         {
             var jewelry = await JewelryDao.GetJewelryById(id);
             var jewelryType = await JewelryTypeDao.GetJewelryTypeById(jewelry.JewelryTypeId);
@@ -203,21 +208,24 @@ namespace Repositories.Implementation
                 JewelryId = jewelry.JewelryId,
                 Name = jewelry.Name,
                 ImageUrl = jewelry.ImageUrl,
-                Type = jewelryType.Name,
+                JewelryTypeId = jewelryType?.JewelryTypeId,
+                Type = jewelryType?.Name,
                 Barcode = jewelry.Barcode,
                 JewelryPrice = CalculateJewelryPrice(jewelryMaterial),
                 LaborCost = jewelry.LaborCost,
-                IsSold = (bool)jewelry.IsSold,
+                IsSold = (bool)jewelry.IsSold!,
                 Materials = jewelry.JewelryMaterials.Select(jm => new Materials
                 {
                     Gold = new GoldResponseDto
                     {
+                        GoldId = jm.GoldPriceId,
                         GoldType = jm.GoldPrice?.Type,
                         GoldQuantity = jm.GoldQuantity,
                         GoldPrice = jm.GoldPrice?.SellPrice ?? 0
                     },
                     Gem = new GemResponseDto
                     {
+                        GemId = jm.StonePriceId,
                         Gem = jm.StonePrice?.Type,
                         GemQuantity = jm.StoneQuantity,
                         GemPrice = jm.StonePrice?.SellPrice ?? 0
