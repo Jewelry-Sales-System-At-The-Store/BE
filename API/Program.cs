@@ -92,7 +92,7 @@ var app = builder.Build();
 # endregion
 # region Middleware
 app.UseMiddleware<AuthMiddleware>();
-//app.UseMiddleware<ErrorHandlingMiddleware>();
+app.UseMiddleware<ErrorHandlingMiddleware>();
 # endregion
 app.UseCors();
 app.UseAuthentication();

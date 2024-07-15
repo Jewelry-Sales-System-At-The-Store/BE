@@ -1,4 +1,4 @@
-using BusinessObjects.DTO;
+using BusinessObjects.Dto.Counter;
 using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interface;
