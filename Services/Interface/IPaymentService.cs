@@ -1,8 +1,9 @@
-﻿using BusinessObjects.Dto.ResponseDto;
+﻿using BusinessObjects.Dto;
+using BusinessObjects.Dto.ResponseDto;
 
 namespace Services.Interface;
 
 public interface IPaymentService
 {
-    Task<BillCheckoutResponse> CheckoutBill(string billId);
+    Task<BillCheckoutResponse> CheckoutBill(string billId,PaymentRequestDto paymentRequestDto);
 }

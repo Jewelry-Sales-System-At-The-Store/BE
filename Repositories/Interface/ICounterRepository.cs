@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.Metrics;
 using BusinessObjects.DTO;
+using BusinessObjects.Dto.Counter;
 using BusinessObjects.Models;
 using Repositories.Interface.GenericRepository;
 

@@ -1,11 +1,9 @@
-﻿using AutoMapper;
+
 using BusinessObjects.DTO;
-using BusinessObjects.Dto.BillReqRes;
+using BusinessObjects.Dto.Counter;
 using BusinessObjects.Models;
-using DAO;
 using DAO.Dao;
-using Microsoft.Extensions.Configuration;
-using MongoDB.Driver;
+
 using Repositories.Interface;
 using Tools;
 

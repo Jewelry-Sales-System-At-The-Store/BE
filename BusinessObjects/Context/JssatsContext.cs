@@ -60,6 +60,8 @@ namespace BusinessObjects.Context
 
         public DbSet<Gold> Golds { get; set; }
         public DbSet<Gem> Gems { get; set; }
+        
+        public DbSet<Payment> Payments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -184,7 +186,11 @@ namespace BusinessObjects.Context
                 .WithMany(r => r.Users)
                 .HasForeignKey(u => u.RoleId)
                 .OnDelete(DeleteBehavior.NoAction);
-
+            
+            modelBuilder.Entity<Bill>()
+                .HasOne(b => b.Payment)
+                .WithOne(p => p.Bill)
+                .HasForeignKey<Payment>(p => p.BillId);
             // Seed data
 
             modelBuilder.Entity<Role>().HasData(
