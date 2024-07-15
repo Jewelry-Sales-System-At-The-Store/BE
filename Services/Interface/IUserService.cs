@@ -7,6 +7,7 @@ namespace Services.Interface
     public interface IUserService
     {
         public Task<User?> Login(LoginDto loginDto);
+        public Task<User?> Logout(User user);
         public Task<IEnumerable<UserResponseDto?>?> GetUsers();
         public Task<bool> IsUser(LoginDto loginDto);
         public Task<int> AddUser(UserDto userDto);

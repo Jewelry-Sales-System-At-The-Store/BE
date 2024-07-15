@@ -60,4 +60,28 @@ public class UserDao
         }
         return 1;
     }
+
+    public async Task<int> UpdateCounterForUser(string userId, string newCounterId)
+    {
+        var user = await _context.Users.Where(x => x.UserId == userId).FirstOrDefaultAsync();
+
+        if (user == null)
+        {
+            // Nếu không tìm thấy người dùng với userId tương ứng, trả về 0 hoặc xử lý tùy ý.
+            return 0;
+        }
+        user.CounterId = newCounterId;
+
+        // Cập nhật vào context và lưu thay đổi
+        try
+        {
+            _context.Users.Update(user);
+            return await _context.SaveChangesAsync();
+        }
+        catch
+        {
+            // Xử lý ngoại lệ nếu có lỗi trong quá trình lưu
+            return 0;
+        }
+    }
 }
