@@ -5,5 +5,5 @@ namespace Services.Interface;
 
 public interface IPaymentService
 {
-    Task<BillCheckoutResponse> CheckoutBill(PaymentRequestDto paymentRequestDto);
+    Task<BillCheckoutResponse> CheckoutBill(string billId,PaymentRequestDto paymentRequestDto);
 }

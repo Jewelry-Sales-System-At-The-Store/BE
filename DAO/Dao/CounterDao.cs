@@ -1,5 +1,5 @@
 using BusinessObjects.Context;
-using BusinessObjects.DTO;
+using BusinessObjects.Dto.Counter;
 using BusinessObjects.Models;
 using Microsoft.EntityFrameworkCore;
 using Tools;

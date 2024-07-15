@@ -15,9 +15,3 @@ public class Payment
     // Navigation properties
     public Bill? Bill { get; set; }
 }
-public enum PaymentStatus
-{
-    Pending = 1,
-    Success = 2,
-    Failed = 3
-}

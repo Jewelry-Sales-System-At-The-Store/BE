@@ -31,10 +31,10 @@ public class BillController(IUserManagement userManagement, IPaymentService paym
     {
         return Ok(await UserManagement.CreateBill(billRequestDto));
     }
-    [HttpGet("CheckoutOnline/{id}")]
-    public async Task<IActionResult> CheckoutOnline(PaymentRequestDto paymentRequestDto)
+    [HttpPost("CheckoutOnline/{id}")]
+    public async Task<IActionResult> CheckoutOnline(string id,PaymentRequestDto paymentRequestDto)
     {
-        return Ok(await PaymentService.CheckoutBill(paymentRequestDto));
+        return Ok(await PaymentService.CheckoutBill(id,paymentRequestDto));
     }
 
     [HttpPost("CheckoutOffline/{id}")]

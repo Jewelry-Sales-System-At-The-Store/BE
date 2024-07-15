@@ -27,4 +27,3 @@ public partial class Jewelry
     public virtual IList<JewelryMaterial> JewelryMaterials { get; set; } = new List<JewelryMaterial>();
     public virtual ICollection<Purchase> Purchases { get; set; } = new List<Purchase>();
 }
- 
