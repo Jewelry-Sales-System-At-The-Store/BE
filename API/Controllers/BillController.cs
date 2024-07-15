@@ -1,4 +1,5 @@
-﻿using BusinessObjects.Dto.BillReqRes;
+﻿using BusinessObjects.Dto;
+using BusinessObjects.Dto.BillReqRes;
 using Management.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interface;
@@ -31,9 +32,9 @@ public class BillController(IUserManagement userManagement, IPaymentService paym
         return Ok(await UserManagement.CreateBill(billRequestDto));
     }
     [HttpGet("CheckoutOnline/{id}")]
-    public async Task<IActionResult> CheckoutOnline(string id)
+    public async Task<IActionResult> CheckoutOnline(PaymentRequestDto paymentRequestDto)
     {
-        return Ok(await PaymentService.CheckoutBill(id));
+        return Ok(await PaymentService.CheckoutBill(paymentRequestDto));
     }
 
     [HttpPost("CheckoutOffline/{id}")]

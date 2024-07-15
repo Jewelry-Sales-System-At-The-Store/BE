@@ -1,4 +1,5 @@
-﻿using BusinessObjects.Dto.ResponseDto;
+﻿using BusinessObjects.Dto;
+using BusinessObjects.Dto.ResponseDto;
 using Microsoft.Extensions.Configuration;
 using Net.payOS;
 using Net.payOS.Types;
@@ -18,7 +19,7 @@ public class PaymentService : IPaymentService
         _payOs = new PayOS(configuration["PayOs:ClientId"] ?? "", configuration["PayOs:ApiKey"] ?? "", configuration["PayOs:ChecksumKey"] ?? "");
     }
 
-    public async Task<BillCheckoutResponse> CheckoutBill(string billId)
+    public async Task<BillCheckoutResponse> CheckoutBill(PaymentRequestDto  paymentRequestDto)
     {
         var orderCode = Generator.GeneratePaymemtCode();
         var returnUrl = "";

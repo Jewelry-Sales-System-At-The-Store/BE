@@ -25,6 +25,7 @@ public partial class Bill
     
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }
+    // Navigation properties
     public virtual ICollection<BillJewelry> BillJewelries { get; set; } = new List<BillJewelry>();
     public virtual ICollection<BillPromotion> BillPromotions { get; set; } = new List<BillPromotion>();
 
@@ -33,4 +34,6 @@ public partial class Bill
     public virtual User? User { get; set; }
     
     public virtual Counter? Counter { get; set; }
+    
+    public virtual Payment? Payment { get; set; }
 }
