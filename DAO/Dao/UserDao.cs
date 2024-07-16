@@ -29,6 +29,7 @@ public class UserDao
     public async Task<int> CreateUser(User user)
     {
         user.UserId = Generator.GenerateId();
+        user.CreatedAt = DateTime.UtcNow.ToUniversalTime();
         await _context.Users.AddAsync(user);
         return await _context.SaveChangesAsync();
     }
@@ -36,9 +37,17 @@ public class UserDao
     {
         var existUser = await _context.Users.FirstOrDefaultAsync(x => x.UserId == id);
         if (existUser == null) return 0;
-        user.UserId = id;
-        _context.Entry(existUser).CurrentValues.SetValues(user);
-        _context.Entry(existUser).State = EntityState.Modified;
+
+        existUser.RoleId = user.RoleId;
+        existUser.Password = user.Password;
+        existUser.CounterId = user.CounterId;
+        existUser.Gender = user.Gender;
+        existUser.Email = user.Email;
+        existUser.PhoneNumber = user.PhoneNumber;
+        existUser.FullName = user.FullName;
+        
+        existUser.UpdatedAt = DateTime.UtcNow.ToUniversalTime();
+        
         return await _context.SaveChangesAsync();
     }
     public async Task<User?> GetUserById(string id)
