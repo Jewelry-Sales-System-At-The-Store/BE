@@ -13,25 +13,30 @@ public class UserDao
     {
         _context = new JssatsContext();
     }
+
     public async Task<User?> GetUser(string email, string password)
     {
         return await _context.Users.FirstOrDefaultAsync(p => p.Email == email && p.Password == password);
     }
+
     public async Task<IEnumerable<User?>?> GetUsers()
     {
         return await _context.Users.ToListAsync();
     }
+
     public async Task<int> AddUser(User user)
     {
         _context.Users.Add(user);
         return await _context.SaveChangesAsync();
     }
+
     public async Task<int> CreateUser(User user)
     {
         user.UserId = Generator.GenerateId();
         await _context.Users.AddAsync(user);
         return await _context.SaveChangesAsync();
     }
+
     public async Task<int> UpdateUser(string id, User user)
     {
         var existUser = await _context.Users.FirstOrDefaultAsync(x => x.UserId == id);
@@ -41,10 +46,12 @@ public class UserDao
         _context.Entry(existUser).State = EntityState.Modified;
         return await _context.SaveChangesAsync();
     }
+
     public async Task<User?> GetUserById(string id)
     {
         return await _context.Users.FindAsync(id);
     }
+
     public async Task<int> DeleteUser(string id)
     {
         var user = await _context.Users.FindAsync(id);
@@ -58,30 +65,15 @@ public class UserDao
         {
             return 0;
         }
+
         return 1;
     }
 
-    public async Task<int> UpdateCounterForUser(string userId, string newCounterId)
+    public async Task UpdateCounterForUser(string userId, string newCounterId)
     {
         var user = await _context.Users.Where(x => x.UserId == userId).FirstOrDefaultAsync();
-
-        if (user == null)
-        {
-            // Nếu không tìm thấy người dùng với userId tương ứng, trả về 0 hoặc xử lý tùy ý.
-            return 0;
-        }
         user.CounterId = newCounterId;
-
-        // Cập nhật vào context và lưu thay đổi
-        try
-        {
-            _context.Users.Update(user);
-            return await _context.SaveChangesAsync();
-        }
-        catch
-        {
-            // Xử lý ngoại lệ nếu có lỗi trong quá trình lưu
-            return 0;
-        }
+        _context.Users.Update(user);
+        await _context.SaveChangesAsync();
     }
 }

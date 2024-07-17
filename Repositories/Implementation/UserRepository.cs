@@ -91,10 +91,10 @@ namespace Repositories.Implementation
             {
                 return false;
             }
-
+            
             await CounterDao.UpdateCounterStatus(counter.CounterId, true);
 
-            user.CounterId = counter.CounterId;
+            user.CounterId = counterId;
             await UserDao.UpdateUser(user.UserId, user);
 
             return true;
