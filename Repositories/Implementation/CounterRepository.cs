@@ -1,7 +1,9 @@
-﻿using BusinessObjects.Dto.Counter;
+
+using BusinessObjects.DTO;
+using BusinessObjects.Dto.Counter;
 using BusinessObjects.Models;
-using DAO;
 using DAO.Dao;
+
 using Repositories.Interface;
 using Tools;
 
@@ -18,7 +20,7 @@ public class CounterRepository(CounterDao counterDao) : ICounterRepository
 
     public async Task<Counter?> GetById(string id)
     {
-       return await CounterDao.GetCounterById(id); 
+        return await CounterDao.GetCounterByIdv2(id);
     }
 
     public async Task<int> Create(CounterDto entity)
@@ -33,6 +35,11 @@ public class CounterRepository(CounterDao counterDao) : ICounterRepository
         return await CounterDao.CreateCounter(counter);
     }
 
+    public async Task AddMongo(CounterStatus counterStatus)
+    {
+        await CounterDao.AddCounter(counterStatus);
+    }
+
     public async Task<int> Delete(string id)
     {
         return await CounterDao.DeleteCounter(id);
@@ -43,8 +50,8 @@ public class CounterRepository(CounterDao counterDao) : ICounterRepository
         return await CounterDao.UpdateCounter(id, entity);
     }
 
-    public async Task<IEnumerable<Counter>> GetAvailableCounters()
+    public async Task<IEnumerable<CounterStatus>> GetAvailableCounters()
     {
-        return await CounterDao.GetAvailableCounters();
+        return await CounterDao.GetAvailableCountersv2();
     }
 }

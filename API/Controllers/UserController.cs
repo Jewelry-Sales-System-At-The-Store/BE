@@ -1,8 +1,10 @@
 ﻿using BusinessObjects.Dto;
+using BusinessObjects.Models;
 using Management.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
+using Services.Implementation;
 
 namespace API.Controllers;
 
@@ -32,6 +34,12 @@ public class UserController(IUserManagement userManagement) : ControllerBase
         var token = await UserManagement.Login(loginDto);
         if (token != null) return Ok(token);
         return NotFound(new { message = "Login fail" });
+    }
+    [HttpPost("Logout")]
+    public async Task<IActionResult> Logout(string userId)
+    {
+        var logoutCounter = await UserManagement.Logout(userId);
+        return Ok(logoutCounter);
     }
     [HttpPost("AddUser")]
     public async Task<IActionResult> AddUser(UserDto userDto)
