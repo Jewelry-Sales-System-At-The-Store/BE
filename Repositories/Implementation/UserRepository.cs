@@ -93,8 +93,9 @@ namespace Repositories.Implementation
             }
             
             await CounterDao.UpdateCounterStatus(counter.CounterId, true);
-
-            user.CounterId = counterId;
+            var counterPostgres = await CounterDao.GetCounterByIdv2(counterId);
+            
+            user.CounterId = counterPostgres?.CounterId;
             await UserDao.UpdateUser(user.UserId, user);
 
             return true;

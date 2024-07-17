@@ -36,9 +36,9 @@ public class UserController(IUserManagement userManagement) : ControllerBase
         return NotFound(new { message = "Login fail" });
     }
     [HttpPost("Logout")]
-    public async Task<IActionResult> Logout(User user)
+    public async Task<IActionResult> Logout(string userId)
     {
-        var logoutCounter = await UserManagement.Logout(user);
+        var logoutCounter = await UserManagement.Logout(userId);
         return Ok(logoutCounter);
     }
     [HttpPost("AddUser")]

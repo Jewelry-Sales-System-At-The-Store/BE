@@ -23,9 +23,9 @@ namespace Management.Implementation
             return token;
         }
 
-        public async Task<int?> Logout(User user)
+        public async Task<int?> Logout(string id)
         {
-            var result = await UserService.Logout(user);
+            var result = await UserService.Logout(id);
             return 1;
         }
 

@@ -6,19 +6,26 @@ using Repositories.Interface;
 using Services.Interface;
 namespace Services.Implementation;
 
-public class UserService(IUserRepository userRepository, IMapper mapper) : IUserService
+public class UserService(IUserRepository userRepository, ICounterRepository counterRepository, IMapper mapper) : IUserService
 {
     private IUserRepository UserRepository { get; } = userRepository;
+    private ICounterRepository CounterRepository { get; } = counterRepository;
     private IMapper Mapper { get; } = mapper;
 
     public async Task<User?> Login(LoginDto loginDto)
     {
         var user = await UserRepository.GetUser(loginDto.Email ?? "", loginDto.Password ?? "");
-        await UserRepository.AssignCounterToUser(user, loginDto.CounterId);
+        if (loginDto.CounterId != null)
+        {
+            var counter = await CounterRepository.GetById(loginDto.CounterId);
+            await UserRepository.AssignCounterToUser(user, counter.CounterId);
+        }
+
         return user ?? null;
     }
-    public async Task<User?> Logout(User user)
+    public async Task<User?> Logout(string userId)
     {
+        var user = await UserRepository.GetUserById(userId);
         await UserRepository.ReleaseCounterFromUser(user);
         return user ?? null;
     }

@@ -1,6 +1,7 @@
 ﻿using BusinessObjects.Context;
 using BusinessObjects.Models;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using Tools;
 
 namespace DAO.Dao;
@@ -33,6 +34,7 @@ public class UserDao
     public async Task<int> CreateUser(User user)
     {
         user.UserId = Generator.GenerateId();
+        user.CreatedAt = DateTime.UtcNow.ToUniversalTime();
         await _context.Users.AddAsync(user);
         return await _context.SaveChangesAsync();
     }
@@ -41,9 +43,16 @@ public class UserDao
     {
         var existUser = await _context.Users.FirstOrDefaultAsync(x => x.UserId == id);
         if (existUser == null) return 0;
-        user.UserId = id;
-        _context.Entry(existUser).CurrentValues.SetValues(user);
-        _context.Entry(existUser).State = EntityState.Modified;
+        
+        existUser.Password = user.Password;
+        existUser.CounterId = user.CounterId;
+        existUser.Gender = user.Gender;
+        existUser.Email = user.Email;
+        existUser.PhoneNumber = user.PhoneNumber;
+        existUser.FullName = user.FullName;
+        
+        existUser.UpdatedAt = DateTime.UtcNow.ToUniversalTime();
+        _context.Users.Update(existUser);
         return await _context.SaveChangesAsync();
     }
 
@@ -67,13 +76,5 @@ public class UserDao
         }
 
         return 1;
-    }
-
-    public async Task UpdateCounterForUser(string userId, string newCounterId)
-    {
-        var user = await _context.Users.Where(x => x.UserId == userId).FirstOrDefaultAsync();
-        user.CounterId = newCounterId;
-        _context.Users.Update(user);
-        await _context.SaveChangesAsync();
     }
 }
