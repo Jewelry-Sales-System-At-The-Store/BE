@@ -36,7 +36,7 @@ namespace API.Controllers
             try
             {
                 var result = await _purchaseService.ProcessBuybackByName(request);
-                return Ok(result);
+                return Ok(new { Message = result });
             }
             catch (Exception ex)
             {
@@ -50,7 +50,7 @@ namespace API.Controllers
             try
             {
                 var result = await _purchaseService.CountProcessBuybackByName(request);
-                return Ok(result);
+                return Ok(new { Message = result });
             }
             catch (Exception ex)
             {
