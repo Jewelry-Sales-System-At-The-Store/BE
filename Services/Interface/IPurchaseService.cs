@@ -6,5 +6,7 @@ namespace Services.Interface
     {
         Task<string> ProcessBuybackById(string jewelryId);
         Task<string> ProcessBuybackByName(BuybackByNameRequest request);
+        Task<string> CountProcessBuybackByName(CountBuybackByNameRequest request);
+        Task<string> CountProcessBuybackById(string jewelryId);
     }
 }
