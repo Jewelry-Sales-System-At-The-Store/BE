@@ -23,6 +23,11 @@ namespace Repositories.Implementation
             return await _purchaseDao.GetPurchaseByJewelryId(jewelryId);
         }
 
+        public async Task<Purchase> GetPurchaseByJewelryIdWithBuyBack0(string jewelryId)
+        {
+            return await _purchaseDao.GetPurchaseByJewelryIdWithBuyBack0(jewelryId);
+        }
+
         public async Task<Jewelry?> GetJewelryById(string jewelryId)
         {
             return await _purchaseDao.GetJewelryById(jewelryId);

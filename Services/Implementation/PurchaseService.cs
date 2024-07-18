@@ -22,24 +22,21 @@ namespace Services.Implementation
             _customerRepository = customerRepository;
         }
 
-        public async Task<string> ProcessBuybackById(string jewelryId)
+        public async Task<ProcessBuybackByIdResponse> ProcessBuybackById(string jewelryId)
         {
             var purchase = await _purchaseRepository.GetPurchaseByJewelryId(jewelryId);
 
-            if (purchase == null)
-            {
-                return "Jewelry not found or not eligible for buyback.";
-            }
-
-            if (purchase.IsBuyBack == 1 || purchase.IsBuyBack == 2 || purchase.IsBuyBack == 3)
+            if (purchase.IsBuyBack != 0)
             {
                 purchase.IsBuyBack = -1;
+                await _purchaseRepository.UpdatePurchase(purchase);
+                throw new Exception("Jewelry not found or not eligible for buyback.");
             }
-
+            
             var jewelry = await _purchaseRepository.GetJewelryById(jewelryId);
             if (jewelry == null)
             {
-                return "Jewelry not found.";
+                throw new Exception("Jewelry not found.");
             }
 
             var materials = await _purchaseRepository.GetJewelryMaterialByJewelryId(jewelryId);
@@ -63,15 +60,15 @@ namespace Services.Implementation
                 TotalDiscount = 0,
                 SaleDate = purchase.PurchaseDate,
                 Items = new List<BillItemResponse?>
-        {
-            new BillItemResponse
-            {
-                JewelryId = purchase.JewelryId,
-                Name = jewelry.Name,
-                JewelryPrice = totalPrice,
-                TotalPrice = totalPrice
-            }
-        },
+                {
+                    new BillItemResponse
+                    {
+                        JewelryId = purchase.JewelryId,
+                        Name = jewelry.Name,
+                        JewelryPrice = totalPrice,
+                        TotalPrice = totalPrice
+                    }
+                },
                 Promotions = new List<BillPromotionResponse?>(),
                 AdditionalDiscount = 0,
                 PointsUsed = 0,
@@ -84,22 +81,26 @@ namespace Services.Implementation
 
             await _purchaseRepository.UpdatePurchase(purchase);
 
-            return $"Jewelry updated with purchase price {totalPrice}. Bill ID: {purchase.BillId}.";
+            return new ProcessBuybackByIdResponse
+            {
+                TotalPrice = totalPrice,
+                BillId = purchase.BillId
+            };
         }
 
-        public async Task<string> CountProcessBuybackById(string jewelryId)
+        public async Task<CountProcessBuybackByIdResponse> CountProcessBuybackById(string jewelryId)
         {
-            var purchase = await _purchaseRepository.GetPurchaseByJewelryId(jewelryId);
+            var purchase = await _purchaseRepository.GetPurchaseByJewelryIdWithBuyBack0(jewelryId);
 
             if (purchase == null)
             {
-                return "Jewelry not found or not eligible for buyback.";
+                throw new Exception("Jewelry not found or not eligible for buyback.");
             }
 
             var jewelry = await _purchaseRepository.GetJewelryById(jewelryId);
             if (jewelry == null)
             {
-                return "Jewelry not found.";
+                throw new Exception("Jewelry not found.");
             }
 
             var materials = await _purchaseRepository.GetJewelryMaterialByJewelryId(jewelryId);
@@ -107,11 +108,13 @@ namespace Services.Implementation
 
             var totalPrice = CalculateTotalPrice(jewelry.JewelryMaterials, jewelry.LaborCost);
 
-            return totalPrice.ToString(); 
+            return new CountProcessBuybackByIdResponse
+            {
+                TotalPrice = totalPrice
+            };
         }
 
-
-        public async Task<string> ProcessBuybackByName(BuybackByNameRequest request)
+        public async Task<ProcessBuybackByNameResponse> ProcessBuybackByName(BuybackByNameRequest request)
         {
             var jewelryId = Generator.GenerateId();
             var jewelry = new Jewelry
@@ -182,15 +185,15 @@ namespace Services.Implementation
                 TotalDiscount = 0,
                 SaleDate = purchase.PurchaseDate,
                 Items = new List<BillItemResponse?>
-        {
-            new BillItemResponse
-            {
-                JewelryId = purchase.JewelryId,
-                Name = jewelry.Name,
-                JewelryPrice = totalPrice,
-                TotalPrice = totalPrice
-            }
-        },
+                {
+                    new BillItemResponse
+                    {
+                        JewelryId = purchase.JewelryId,
+                        Name = jewelry.Name,
+                        JewelryPrice = totalPrice,
+                        TotalPrice = totalPrice
+                    }
+                },
                 Promotions = new List<BillPromotionResponse?>(),
                 AdditionalDiscount = 0,
                 PointsUsed = 0,
@@ -203,19 +206,23 @@ namespace Services.Implementation
 
             await _purchaseRepository.CreatePurchase(purchase);
 
-            return $"Jewelry inserted with buyback {(request.HasGuarantee ? "Graduate" : "Not Graduate")} and purchase price {purchase.PurchasePrice}. Bill ID: {purchase.BillId}.";
+            return new ProcessBuybackByNameResponse
+            {
+                TotalPrice = totalPrice,
+                BillId = purchase.BillId
+            };
         }
 
-        public async Task<string> CountProcessBuybackByName(CountBuybackByNameRequest request)
+        public async Task<CountProcessBuybackByNameResponse> CountProcessBuybackByName(CountBuybackByNameRequest request)
         {
             if (request == null)
             {
-                return "Request is null";
+                throw new Exception("Request is null");
             }
 
             if (request.JewelryMaterial == null)
             {
-                return "JewelryMaterial in request is null";
+                throw new Exception("JewelryMaterial in request is null");
             }
 
             // Extract necessary details from the request
@@ -230,17 +237,17 @@ namespace Services.Implementation
 
             if (goldPrice == null || stonePrice == null)
             {
-                return "Gold price or stone price not found.";
+                throw new Exception("Gold price or stone price not found.");
             }
 
             // Calculate the total price using the updated CalculateTotalPrice method
             var totalPrice = CalculateTotalPriceForName(goldPrice.BuyPrice, goldQuantity, stonePrice.BuyPrice, stoneQuantity, request.LaborCost);
 
-            return totalPrice.ToString(); 
+            return new CountProcessBuybackByNameResponse
+            {
+                TotalPrice = totalPrice
+            };
         }
-
-
-
 
         private static float CalculateTotalPrice(IEnumerable<JewelryMaterial> jewelryMaterials, double? laborCost)
         {
