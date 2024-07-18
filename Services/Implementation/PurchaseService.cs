@@ -28,6 +28,7 @@ namespace Services.Implementation
 
             if (purchase == null)
             {
+                purchase.IsBuyBack = -1;
                 return "Jewelry not found or not eligible for buyback.";
             }
 
@@ -81,6 +82,30 @@ namespace Services.Implementation
 
             return $"Jewelry updated with purchase price {totalPrice}.";
         }
+
+        public async Task<string> CountProcessBuybackById(string jewelryId)
+        {
+            var purchase = await _purchaseRepository.GetPurchaseByJewelryId(jewelryId);
+
+            if (purchase == null)
+            {
+                return "Jewelry not found or not eligible for buyback.";
+            }
+
+            var jewelry = await _purchaseRepository.GetJewelryById(jewelryId);
+            if (jewelry == null)
+            {
+                return "Jewelry not found.";
+            }
+
+            var materials = await _purchaseRepository.GetJewelryMaterialByJewelryId(jewelryId);
+            jewelry.JewelryMaterials = new List<JewelryMaterial> { materials };
+
+            var totalPrice = CalculateTotalPrice(jewelry.JewelryMaterials, jewelry.LaborCost);
+
+            return totalPrice.ToString(); 
+        }
+
 
         public async Task<string> ProcessBuybackByName(BuybackByNameRequest request)
         {
@@ -178,6 +203,42 @@ namespace Services.Implementation
             return $"Jewelry inserted with buyback {(request.HasGuarantee ? "Graduate"  : "Not Graduate")} and purchase price {purchase.PurchasePrice}";
         }
 
+        public async Task<string> CountProcessBuybackByName(CountBuybackByNameRequest request)
+        {
+            if (request == null)
+            {
+                return "Request is null";
+            }
+
+            if (request.JewelryMaterial == null)
+            {
+                return "JewelryMaterial in request is null";
+            }
+
+            // Extract necessary details from the request
+            var goldPriceId = request.JewelryMaterial.GoldId;
+            var stonePriceId = request.JewelryMaterial.StoneId;
+            var goldQuantity = request.JewelryMaterial.GoldQuantity;
+            var stoneQuantity = request.JewelryMaterial.StoneQuantity;
+
+            // Fetch the gold and stone prices from the database or repository
+            var goldPrice = await _purchaseRepository.GetGoldPriceById(goldPriceId);
+            var stonePrice = await _purchaseRepository.GetStonePriceById(stonePriceId);
+
+            if (goldPrice == null || stonePrice == null)
+            {
+                return "Gold price or stone price not found.";
+            }
+
+            // Calculate the total price using the updated CalculateTotalPrice method
+            var totalPrice = CalculateTotalPriceForName(goldPrice.BuyPrice, goldQuantity, stonePrice.BuyPrice, stoneQuantity, request.LaborCost);
+
+            return totalPrice.ToString(); // Return total price as string
+        }
+
+
+
+
         private static float CalculateTotalPrice(IEnumerable<JewelryMaterial> jewelryMaterials, double? laborCost)
         {
             float totalPrice = 0;
@@ -193,6 +254,21 @@ namespace Services.Implementation
                     totalPrice += material.StonePrice.BuyPrice * material.StoneQuantity;
                 }
             }
+
+            if (laborCost.HasValue)
+            {
+                totalPrice += (float)laborCost.Value;
+            }
+
+            return totalPrice;
+        }
+
+        private static float CalculateTotalPriceForName(float goldPrice, float goldQuantity, float stonePrice, float stoneQuantity, double? laborCost)
+        {
+            float totalPrice = 0;
+
+            totalPrice += goldPrice * goldQuantity;
+            totalPrice += stonePrice * stoneQuantity;
 
             if (laborCost.HasValue)
             {
