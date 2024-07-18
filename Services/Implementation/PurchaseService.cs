@@ -172,6 +172,8 @@ namespace Services.Implementation
                 IsBuyBack = request.HasGuarantee ? 2 : 3
             };
 
+            var purchasePrice = purchase.PurchasePrice;
+
             var customer = await _customerRepository.GetById(purchase.CustomerId);
             var user = await _userRepository.GetUserById(purchase.UserId);
 
@@ -208,7 +210,7 @@ namespace Services.Implementation
 
             return new ProcessBuybackByNameResponse
             {
-                TotalPrice = totalPrice,
+                TotalPrice = (float)purchasePrice,
                 BillId = purchase.BillId
             };
         }
@@ -242,6 +244,12 @@ namespace Services.Implementation
 
             // Calculate the total price using the updated CalculateTotalPrice method
             var totalPrice = CalculateTotalPriceForName(goldPrice.BuyPrice, goldQuantity, stonePrice.BuyPrice, stoneQuantity, request.LaborCost);
+
+            // Adjust the total price if HasGuarantee is false
+            if (!request.HasGuarantee)
+            {
+                totalPrice *= 0.3f;
+            }
 
             return new CountProcessBuybackByNameResponse
             {
