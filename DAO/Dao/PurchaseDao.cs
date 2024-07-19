@@ -14,7 +14,7 @@ namespace DAO.Dao
             _context = new JssatsContext();
         }
 
-        public async Task<Purchase?> GetPurchaseByJewelryId(string jewelryId)
+        public async Task<Purchase?> GetPurchaseByJewelryIdWithBuyBack0(string jewelryId)
         {
             return await _context.Purchases
                 .Include(p => p.Jewelry)
@@ -24,6 +24,18 @@ namespace DAO.Dao
                 .ThenInclude(j => j.JewelryMaterials)
                 .ThenInclude(jm => jm.StonePrice)
                 .FirstOrDefaultAsync(p => p.JewelryId == jewelryId && p.IsBuyBack == 0);
+        }
+
+        public async Task<Purchase?> GetPurchaseByJewelryId(string jewelryId)
+        {
+            return await _context.Purchases
+                .Include(p => p.Jewelry)
+                .ThenInclude(j => j.JewelryMaterials)
+                .ThenInclude(jm => jm.GoldPrice)
+                .Include(p => p.Jewelry)
+                .ThenInclude(j => j.JewelryMaterials)
+                .ThenInclude(jm => jm.StonePrice)
+                .FirstOrDefaultAsync(p => p.JewelryId == jewelryId);
         }
 
         public async Task<Jewelry?> GetJewelryById(string jewelryId)

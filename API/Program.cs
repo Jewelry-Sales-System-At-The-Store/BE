@@ -4,6 +4,8 @@ using API.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
+using Serilog.Formatting.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -76,9 +78,20 @@ builder.Services.AddCors(options =>
 });
 #endregion
 
+#region Serilog
+builder.Host.UseSerilog((context, loggerConfig) =>
+{
+    loggerConfig.WriteTo.Console().MinimumLevel.Information();
+    loggerConfig.WriteTo.File(
+        path: AppDomain.CurrentDomain.BaseDirectory + "/logs/log-.txt",
+        rollingInterval: RollingInterval.Day,
+        rollOnFileSizeLimit: true,
+        formatter: new JsonFormatter()).MinimumLevel.Information();
+});
+#endregion
 
 var app = builder.Build();
-
+app.UseSerilogRequestLogging();
 # region Swagger
 
     app.UseSwagger();

@@ -1,6 +1,7 @@
 ﻿using BusinessObjects.Context;
 using BusinessObjects.Models;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using Tools;
 
 namespace DAO.Dao;
@@ -13,19 +14,23 @@ public class UserDao
     {
         _context = new JssatsContext();
     }
+
     public async Task<User?> GetUser(string email, string password)
     {
         return await _context.Users.FirstOrDefaultAsync(p => p.Email == email && p.Password == password);
     }
+
     public async Task<IEnumerable<User?>?> GetUsers()
     {
         return await _context.Users.ToListAsync();
     }
+
     public async Task<int> AddUser(User user)
     {
         _context.Users.Add(user);
         return await _context.SaveChangesAsync();
     }
+
     public async Task<int> CreateUser(User user)
     {
         user.UserId = Generator.GenerateId();
@@ -33,12 +38,12 @@ public class UserDao
         await _context.Users.AddAsync(user);
         return await _context.SaveChangesAsync();
     }
+
     public async Task<int> UpdateUser(string id, User user)
     {
         var existUser = await _context.Users.FirstOrDefaultAsync(x => x.UserId == id);
         if (existUser == null) return 0;
-
-        existUser.RoleId = user.RoleId;
+        
         existUser.Password = user.Password;
         existUser.CounterId = user.CounterId;
         existUser.Gender = user.Gender;
@@ -47,7 +52,7 @@ public class UserDao
         existUser.FullName = user.FullName;
         
         existUser.UpdatedAt = DateTime.UtcNow.ToUniversalTime();
-        
+        _context.Users.Update(existUser);
         return await _context.SaveChangesAsync();
     }
 
@@ -64,6 +69,7 @@ public class UserDao
     {
         return await _context.Users.FindAsync(id);
     }
+
     public async Task<int> DeleteUser(string id)
     {
         var user = await _context.Users.FindAsync(id);
@@ -77,6 +83,7 @@ public class UserDao
         {
             return 0;
         }
+
         return 1;
     }
 }

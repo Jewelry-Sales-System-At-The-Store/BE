@@ -23,13 +23,34 @@ namespace API.Controllers
             return Ok(new { Message = result });
         }
 
+        [HttpPost("CountBuyBackById")]
+        public async Task<IActionResult> CountBuyBackById([FromBody] BuybackByIdRequest request)
+        {
+            var result = await _purchaseService.CountProcessBuybackById(request.JewelryId);
+            return Ok(new { Message = result });
+        }
+
         [HttpPost("BuyBackByName")]
         public async Task<IActionResult> BuybackByName([FromBody] BuybackByNameRequest request)
         {
             try
             {
                 var result = await _purchaseService.ProcessBuybackByName(request);
-                return Ok(result);
+                return Ok(new { Message = result });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = ex.Message });
+            }
+        }
+
+        [HttpPost("CountBuyBackByName")]
+        public async Task<IActionResult> CountBuybackByName([FromBody] CountBuybackByNameRequest request)
+        {
+            try
+            {
+                var result = await _purchaseService.CountProcessBuybackByName(request);
+                return Ok(new { Message = result });
             }
             catch (Exception ex)
             {

@@ -1,7 +1,9 @@
-﻿using BusinessObjects.Models;
+﻿using BusinessObjects.DTO;
+using BusinessObjects.Models;
 using DAO;
 using DAO.Dao;
 using Repositories.Interface;
+using Tools;
 
 namespace Repositories.Implementation
 {
@@ -33,7 +35,7 @@ namespace Repositories.Implementation
             var user = await UserDao.GetUserById(id);
             if (user == null) return null;
             var role = await RoleDao.GetRoleById(user.RoleId);
-            var counter = await CounterDao.GetCounterById(user.CounterId);
+            var counter = await CounterDao.GetCounterByIdv2(user.CounterId);
             user.Role = role;
             user.Counter = counter;
             return user;
@@ -41,7 +43,7 @@ namespace Repositories.Implementation
 
         public async Task<int> Update(string id, User entity)
         {
-           return await UserDao.UpdateUser(id, entity);
+            return await UserDao.UpdateUser(id, entity);
         }
 
         public async Task<IEnumerable<User>?> Gets()
@@ -51,10 +53,11 @@ namespace Repositories.Implementation
             foreach (var user in users)
             {
                 var userRole = await RoleDao.GetRoleById(user.RoleId);
-                var counter = await CounterDao.GetCounterById(user.CounterId);
+                var counter = await CounterDao.GetCounterByIdv2(user.CounterId);
                 user.Role = userRole;
                 user.Counter = counter;
             }
+
             return users;
         }
 
@@ -62,6 +65,7 @@ namespace Repositories.Implementation
         {
             return await UserDao.CreateUser(entity);
         }
+
         public async Task<int> Delete(string id)
         {
             return await UserDao.DeleteUser(id);
@@ -70,6 +74,49 @@ namespace Repositories.Implementation
         public async Task<User?> GetUserById(string id)
         {
             return await UserDao.GetUserById(id);
+        }
+
+        public async Task<IEnumerable<string>> GetAvailableCounters()
+        {
+            var availableCounters = await CounterDao.GetAvailableCountersv2();
+            return availableCounters.Select(c => c.CounterId);
+        }
+        
+        public async Task<bool> AssignCounterToUser(User user, string counterId)
+        {
+            var counter = await CounterDao.GetCounterById(counterId);
+            if (counter == null)
+            {
+                return false;
+            }
+
+            if (counter.IsOccupied)
+            {
+                return false;
+            }
+            
+            await CounterDao.UpdateCounterStatus(counter.CounterId, true);
+            var counterPostgres = await CounterDao.GetCounterByIdv2(counterId);
+            
+            user.CounterId = counterPostgres?.CounterId;
+            await UserDao.UpdateUser(user.UserId, user);
+
+            return true;
+        }
+
+        public async Task<bool> ReleaseCounterFromUser(User user)
+        {
+            if (!string.IsNullOrEmpty(user.CounterId))
+            {
+                var counter = await CounterDao.GetCounterById(user.CounterId);
+                if (counter != null)
+                {
+                    await CounterDao.UpdateCounterStatus(counter.CounterId, false);
+                }
+                user.CounterId = null;
+                await UserDao.UpdateUser(user.UserId, user);
+            }
+            return true;
         }
     }
 }

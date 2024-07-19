@@ -1,4 +1,5 @@
 using System.Diagnostics.Metrics;
+using BusinessObjects.DTO;
 using BusinessObjects.Dto.Counter;
 using BusinessObjects.Dto.Other;
 using BusinessObjects.Models;
@@ -25,6 +26,10 @@ namespace Services.Implementation
         {
             return await CounterRepository.Create(counterDto);
         }
+        public async Task CreateCounterMongo(CounterStatus counterDto)
+        {
+            await CounterRepository.AddMongo(counterDto);
+        }
 
         public async Task<int> UpdateCounter(string id, UpdateCounter counterDto)
         {
@@ -36,7 +41,7 @@ namespace Services.Implementation
             return await CounterRepository.Delete(id);
         }
         
-        public async Task<IEnumerable<Counter>> GetAvailableCounters()
+        public async Task<IEnumerable<CounterStatus>> GetAvailableCounters()
         {
             return await CounterRepository.GetAvailableCounters();
         }

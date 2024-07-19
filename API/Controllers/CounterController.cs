@@ -1,3 +1,4 @@
+using BusinessObjects.DTO;
 using BusinessObjects.Dto.Counter;
 using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -39,6 +40,13 @@ public class CounterController(ICounterService counterService) : ControllerBase
     {
         var newCounter = await CounterService.CreateCounter(counter);
         return Ok(newCounter);
+    }
+    
+    [HttpPost("CreateCounterMongo")]
+    public async Task<IActionResult> CreateCounter(CounterStatus counter)
+    {
+        await CounterService.CreateCounterMongo(counter);
+        return Ok();
     }
 
     [HttpPut("UpdateCounter")]

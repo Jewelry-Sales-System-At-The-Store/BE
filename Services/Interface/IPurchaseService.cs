@@ -4,7 +4,9 @@ namespace Services.Interface
 {
     public interface IPurchaseService
     {
-        Task<string> ProcessBuybackById(string jewelryId);
-        Task<string> ProcessBuybackByName(BuybackByNameRequest request);
+        Task<ProcessBuybackByIdResponse> ProcessBuybackById(string jewelryId);
+        Task<ProcessBuybackByNameResponse> ProcessBuybackByName(BuybackByNameRequest request);
+        Task<CountProcessBuybackByNameResponse> CountProcessBuybackByName(CountBuybackByNameRequest request);
+        Task<CountProcessBuybackByIdResponse> CountProcessBuybackById(string jewelryId);
     }
 }

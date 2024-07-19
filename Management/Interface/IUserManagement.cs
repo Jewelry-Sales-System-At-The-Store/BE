@@ -2,12 +2,14 @@
 using BusinessObjects.Dto.BillReqRes;
 using BusinessObjects.Dto.Other;
 using BusinessObjects.Dto.ResponseDto;
+using BusinessObjects.Models;
 
 namespace Management.Interface
 {
     public interface IUserManagement
     {
         public Task<TokenResponseDto?> Login(LoginDto loginDto);
+        public Task<int?> Logout(string id);
         //Bill
         public Task<PagingResponse> GetBills(int pageNumber, int pageSize);
         public Task<BillDetailDto?> GetBillById(string id);
