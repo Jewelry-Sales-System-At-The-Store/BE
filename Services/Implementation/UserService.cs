@@ -17,14 +17,10 @@ public class UserService(IUserRepository userRepository, ICounterRepository coun
     public async Task<User?> Login(LoginDto loginDto)
     {
         var user = await UserRepository.GetUser(loginDto.Email ?? "", loginDto.Password ?? "");
-        var userId = user?.UserId;
         if (loginDto.CounterId != null)
-        {
-            // var counter = await CounterRepository.GetById(loginDto.CounterId);
-            if (userId != null) await UserRepository.UpdateCounterByUserId(userId, loginDto.CounterId);
-            if (user != null) await UserRepository.AssignCounterToUser(loginDto.CounterId);
+        { 
+            await UserRepository.AssignCounterToUser(user.UserId, loginDto.CounterId);
         }
-
         return user ?? null;
     }
 
