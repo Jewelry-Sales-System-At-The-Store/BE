@@ -12,6 +12,7 @@ namespace Repositories.Interface
         Task<Purchase> GetPurchaseByJewelryId(string jewelryId);
         Task<Jewelry> GetJewelryById(string jewelryId);
         Task<JewelryMaterial> GetJewelryMaterialByJewelryId(string jewelryId);
+        Task<Purchase> GetPurchaseByJewelryIdWithBuyBack0(string jewelryId);
         Task<Gold> GetGoldPriceById(string goldPriceId);
         Task<Gem> GetStonePriceById(string stonePriceId);
         Task CreateJewelry(Jewelry jewelry);

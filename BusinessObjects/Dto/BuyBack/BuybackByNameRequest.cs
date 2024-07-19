@@ -17,4 +17,13 @@ namespace BusinessObjects.Dto.BuyBack
         public double LaborCost { get; set; }
         public bool HasGuarantee { get; set; }
     }
+
+    public class CountBuybackByNameRequest
+    {
+        public string JewelryName { get; set; }
+        public string JewelryTypeId { get; set; }
+        public JewelryMaterialDto JewelryMaterial { get; set; }
+        public double LaborCost { get; set; }
+        public bool HasGuarantee { get; set; }
+    }
 }

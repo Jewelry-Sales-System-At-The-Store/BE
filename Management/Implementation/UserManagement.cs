@@ -23,6 +23,12 @@ namespace Management.Implementation
             return token;
         }
 
+        public async Task<int?> Logout(string id)
+        {
+            var result = await UserService.Logout(id);
+            return 1;
+        }
+
         public async Task<BillCashCheckoutResponseDto> CheckoutBill(string id, float cashAmount)
         {
             return await BillService.CheckoutBill(id, cashAmount);
