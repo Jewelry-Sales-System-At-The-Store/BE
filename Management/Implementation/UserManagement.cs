@@ -1,5 +1,6 @@
 ﻿using BusinessObjects.Dto;
 using BusinessObjects.Dto.BillReqRes;
+using BusinessObjects.Dto.Counter;
 using BusinessObjects.Dto.Other;
 using BusinessObjects.Dto.ResponseDto;
 using BusinessObjects.Models;

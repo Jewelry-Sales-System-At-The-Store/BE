@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.Dto;
+using BusinessObjects.Dto.Counter;
 using BusinessObjects.Models;
 using Management.Interface;
 using Microsoft.AspNetCore.Authorization;
@@ -35,6 +36,7 @@ public class UserController(IUserManagement userManagement) : ControllerBase
         if (token != null) return Ok(token);
         return NotFound(new { message = "Login fail" });
     }
+    
     [HttpPost("Logout")]
     public async Task<IActionResult> Logout(string userId)
     {

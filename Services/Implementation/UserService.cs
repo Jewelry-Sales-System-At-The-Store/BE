@@ -18,7 +18,7 @@ public class UserService(IUserRepository userRepository, ICounterRepository coun
         if (loginDto.CounterId != null)
         {
             var counter = await CounterRepository.GetById(loginDto.CounterId);
-            await UserRepository.AssignCounterToUser(user, counter.CounterId);
+            await UserRepository.AssignCounterToUser(user, counter.CounterId);  
         }
 
         return user ?? null;
