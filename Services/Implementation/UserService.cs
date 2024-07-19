@@ -16,7 +16,10 @@ public class UserService(IUserRepository userRepository, IMapper mapper) : IUser
         var user = await UserRepository.GetUser(loginDto.Email ?? "", loginDto.Password ?? "");
         return user ?? null;
     }
-
+    public async Task<bool> UpdateCounterByUserId(string userId, string counterId)
+    {
+      return await userRepository.UpdateCounterByUserId(userId, counterId);
+    }
     public async Task<IEnumerable<UserResponseDto?>> GetUsers()
     {
         var users = await UserRepository.Gets();

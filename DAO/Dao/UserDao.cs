@@ -50,6 +50,16 @@ public class UserDao
         
         return await _context.SaveChangesAsync();
     }
+
+    public async Task<bool> UpdateCounterByUserId(string userId, string counterId)
+    {
+        var user = await _context.Users.FirstOrDefaultAsync(x => x.UserId == userId);
+        if (user == null) return false;
+        user.CounterId = counterId;
+        await _context.SaveChangesAsync();
+        return true;
+    }
+
     public async Task<User?> GetUserById(string id)
     {
         return await _context.Users.FindAsync(id);
