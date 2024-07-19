@@ -3,7 +3,6 @@ using Management.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
-using Services.Implementation;
 using Services.Interface;
 
 namespace API.Controllers;
