@@ -5,14 +5,16 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Services.Implementation;
+using Services.Interface;
 
 namespace API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class UserController(IUserManagement userManagement) : ControllerBase
+public class UserController(IUserManagement userManagement, IUserService userService) : ControllerBase
 {
     private IUserManagement UserManagement { get; } = userManagement;
+    private IUserService UserService { get; } = userService;
     [EnableQuery]
     [HttpGet("GetUsers")]
     public async Task<IActionResult> Get()
@@ -54,6 +56,13 @@ public class UserController(IUserManagement userManagement) : ControllerBase
         var result = await UserManagement.UpdateUser(id, userDto);
         if (result > 0) return Ok(new { message = "Update user success" });
         return BadRequest(new { message = "Update user fail" });
+    }
+    [HttpPut("UpdateCounterByUserId/{userId}/{counterId}")]
+    public async Task<IActionResult> UpdateCounterByUserId(string userId, string counterId)
+    {
+        var result = await UserService.UpdateCounterByUserId(userId, counterId);
+        if (result) return Ok(new { message = "Update counter success" });
+        return BadRequest(new { message = "Update counter fail" });
     }
     [HttpDelete("DeleteUser/{id}")]
     public async Task<IActionResult> DeleteUser(string id)

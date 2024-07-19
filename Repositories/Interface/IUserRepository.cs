@@ -6,6 +6,7 @@ namespace Repositories.Interface
     {
         public Task<User?> GetUser(string email, string password);
         Task<User?> GetUserById(string id);
+        Task<bool> UpdateCounterByUserId(string userId, string counterId);
         Task<IEnumerable<string>> GetAvailableCounters();
         Task<bool> AssignCounterToUser(User user, string counterId);
         Task<bool> ReleaseCounterFromUser(User user);

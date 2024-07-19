@@ -29,7 +29,10 @@ public class UserService(IUserRepository userRepository, ICounterRepository coun
         await UserRepository.ReleaseCounterFromUser(user);
         return user ?? null;
     }
-
+    public async Task<bool> UpdateCounterByUserId(string userId, string counterId)
+    {
+      return await userRepository.UpdateCounterByUserId(userId, counterId);
+    }
     public async Task<IEnumerable<UserResponseDto?>> GetUsers()
     {
         var users = await UserRepository.Gets();

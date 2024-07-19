@@ -26,7 +26,10 @@ namespace Repositories.Implementation
             user.Role = role;
             return user;
         }
-
+        public async Task<bool> UpdateCounterByUserId(string userId, string counterId)
+        {
+            return await UserDao.UpdateCounterByUserId(userId, counterId);
+        }
         public async Task<User?> GetById(string id)
         {
             var user = await UserDao.GetUserById(id);
