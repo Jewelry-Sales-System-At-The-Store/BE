@@ -14,5 +14,6 @@ namespace Services.Interface
         public Task<int> UpdateUser(string id, UserDto userDto);
         public Task<UserResponseDto?> GetUserById(string id);
         public Task<int> DeleteUser(string id);
+        public Task<bool> UpdateCounterByUserId(string userId, string counterId);
     }
 }

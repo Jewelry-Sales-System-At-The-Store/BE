@@ -4,9 +4,11 @@ using BusinessObjects.Dto.ResponseDto;
 using BusinessObjects.Models;
 using Repositories.Interface;
 using Services.Interface;
+
 namespace Services.Implementation;
 
-public class UserService(IUserRepository userRepository, ICounterRepository counterRepository, IMapper mapper) : IUserService
+public class UserService(IUserRepository userRepository, ICounterRepository counterRepository, IMapper mapper)
+    : IUserService
 {
     private IUserRepository UserRepository { get; } = userRepository;
     private ICounterRepository CounterRepository { get; } = counterRepository;
@@ -15,19 +17,27 @@ public class UserService(IUserRepository userRepository, ICounterRepository coun
     public async Task<User?> Login(LoginDto loginDto)
     {
         var user = await UserRepository.GetUser(loginDto.Email ?? "", loginDto.Password ?? "");
+        var userId = user?.UserId;
         if (loginDto.CounterId != null)
         {
-            var counter = await CounterRepository.GetById(loginDto.CounterId);
-            await UserRepository.AssignCounterToUser(user, counter.CounterId);  
+            // var counter = await CounterRepository.GetById(loginDto.CounterId);
+            if (userId != null) await UserRepository.UpdateCounterByUserId(userId, loginDto.CounterId);
+            if (user != null) await UserRepository.AssignCounterToUser(loginDto.CounterId);
         }
 
         return user ?? null;
     }
+
     public async Task<User?> Logout(string userId)
     {
         var user = await UserRepository.GetUserById(userId);
         await UserRepository.ReleaseCounterFromUser(user);
         return user ?? null;
+    }
+
+    public async Task<bool> UpdateCounterByUserId(string userId, string counterId)
+    {
+        return await userRepository.UpdateCounterByUserId(userId, counterId);
     }
 
     public async Task<IEnumerable<UserResponseDto?>> GetUsers()
@@ -50,7 +60,7 @@ public class UserService(IUserRepository userRepository, ICounterRepository coun
         var users = await UserRepository.Find(a => a.Email == loginDto.Email && a.Password == loginDto.Password);
         return users.Any();
     }
-    
+
     public async Task<int> UpdateUser(string id, UserDto userDto)
     {
         var user = Mapper.Map<User>(userDto);

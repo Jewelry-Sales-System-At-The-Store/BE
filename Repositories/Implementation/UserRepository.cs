@@ -26,7 +26,10 @@ namespace Repositories.Implementation
             user.Role = role;
             return user;
         }
-
+        public async Task<bool> UpdateCounterByUserId(string userId, string counterId)
+        {
+            return await UserDao.UpdateCounterByUserId(userId, counterId);
+        }
         public async Task<User?> GetById(string id)
         {
             var user = await UserDao.GetUserById(id);
@@ -79,7 +82,7 @@ namespace Repositories.Implementation
             return availableCounters.Select(c => c.CounterId);
         }
         
-        public async Task<bool> AssignCounterToUser(User user, string counterId)
+        public async Task<bool> AssignCounterToUser(string counterId)
         {
             var counter = await CounterDao.GetCounterById(counterId);
             if (counter == null)
@@ -91,13 +94,7 @@ namespace Repositories.Implementation
             {
                 return false;
             }
-            
             await CounterDao.UpdateCounterStatus(counter.CounterId, true);
-            var counterPostgres = await CounterDao.GetCounterByIdv2(counterId);
-            
-            user.CounterId = counterPostgres?.CounterId;
-            await UserDao.UpdateUser(user.UserId, user);
-
             return true;
         }
 
@@ -111,7 +108,7 @@ namespace Repositories.Implementation
                     await CounterDao.UpdateCounterStatus(counter.CounterId, false);
                 }
                 user.CounterId = null;
-                await UserDao.UpdateUser(user.UserId, user);
+                await UserDao.UpdateCounterByUserId(user.UserId, user.CounterId);
             }
             return true;
         }
