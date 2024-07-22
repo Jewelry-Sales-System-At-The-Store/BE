@@ -33,11 +33,10 @@ public class UserService(IUserRepository userRepository, ICounterRepository coun
     {
       return await userRepository.UpdateCounterByUserId(userId, counterId);
     }
-    public async Task<IEnumerable<UserResponseDto?>> GetUsers()
+    public async Task<IEnumerable<UserResponseDto>?> GetUsers()
     {
         var users = await UserRepository.Gets();
         var userResponseDtos = Mapper.Map<IEnumerable<UserResponseDto>>(users);
-
         foreach (var userResponseDto in userResponseDtos)
         {
             var user = await UserRepository.GetById(userResponseDto.UserId);
@@ -71,7 +70,7 @@ public class UserService(IUserRepository userRepository, ICounterRepository coun
         var user = await UserRepository.GetById(id);
         var userResponseDto = Mapper.Map<UserResponseDto>(user);
         userResponseDto.CounterNumber = user?.Counter?.Number;
-        userResponseDto.RoleName = user.Role.RoleName;
+        userResponseDto.RoleName = user?.Role?.RoleName;
         return userResponseDto;
     }
 
