@@ -17,7 +17,7 @@ namespace DAO.Dao
             var totalRecord = await _context.Jewelries.CountAsync(j=>j.IsSold == false);
             var totalPage = (int)Math.Ceiling((double)totalRecord / pageSize);
             var jewelries = await _context.Jewelries
-                .Where(x => x.IsSold == false)
+                .Where(x => x.IsSold == false && x.IsEnable == true)
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
@@ -44,9 +44,17 @@ namespace DAO.Dao
 
         public async Task<int> CreateJewelry(Jewelry jewelry)
         {
-            jewelry.JewelryId = Generator.GenerateId();
-            jewelry.IsSold = false;
-            _context.Jewelries.Add(jewelry);
+            
+            try
+            {
+                jewelry.JewelryId = Generator.GenerateId();
+                jewelry.IsSold = false;
+                _context.Jewelries.Add(jewelry);
+            }
+            catch {
+                throw new Exception("Error while creating jewelry");
+            }
+           
             return await _context.SaveChangesAsync();
         }
 
@@ -81,6 +89,13 @@ namespace DAO.Dao
         public async Task<int> GetTotalSellJewelry()
         {
             return await _context.Jewelries.CountAsync(j => j.IsSold == true);
+        }
+        public async Task<bool> DisableJewelry(string id)
+        {
+            var jewelry = await _context.Jewelries.FindAsync(id);
+            if (jewelry == null) return false;
+            jewelry.IsEnable = false;
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }
