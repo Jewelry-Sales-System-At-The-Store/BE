@@ -17,5 +17,6 @@ public interface IJewelryRepository : IReadRepository<JewelryResponseDto>, ICrea
 
     Task<int> GetSoldJewelryCount();
     public Task<int> UpdateJewelryWithMaterial(string id, JewelryRequestDto jewelryRequestDto);
+    public Task<bool> DisableJewelry(string id);
 
 }

@@ -328,5 +328,10 @@ namespace Repositories.Implementation
 
             return 1;
         }
+
+        public async Task<bool> DisableJewelry(string id)
+        {
+            return await jewelryDao.DisableJewelry(id);
+        }
     }
 }

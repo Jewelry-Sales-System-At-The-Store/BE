@@ -112,5 +112,9 @@ namespace Services.Implementation
         {
             return await JewelryRepository.UpdateJewelryWithMaterial(id, jewelryRequestDto);
         }
+        public async Task<bool> DisableJewelry(string id)
+        {
+            return await JewelryRepository.DisableJewelry(id);
+        }
     }
 }
