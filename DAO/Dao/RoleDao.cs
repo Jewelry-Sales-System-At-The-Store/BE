@@ -14,7 +14,7 @@ public class RoleDao
     }
     public async Task<Role?> GetRoleById(string id)
     {
-        return await _context.Roles.FirstOrDefaultAsync(r=>r.RoleId == id);
+        return await _context.Roles.FindAsync(id);
     }
     public async Task<IEnumerable<Role?>?> GetRoles()
     {

@@ -17,7 +17,9 @@ public class UserDao
 
     public async Task<User?> GetUser(string email, string password)
     {
-        return await _context.Users.FirstOrDefaultAsync(p => p.Email == email && p.Password == password);
+        return await _context.Users
+            .Include(r => r.Role)
+            .FirstOrDefaultAsync(p => p.Email == email && p.Password == password);
     }
 
     public async Task<IEnumerable<User?>?> GetUsers()
