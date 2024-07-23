@@ -1,9 +1,7 @@
-
 using BusinessObjects.DTO;
 using BusinessObjects.Dto.Counter;
 using BusinessObjects.Models;
 using DAO.Dao;
-
 using Repositories.Interface;
 using Tools;
 
@@ -13,14 +11,14 @@ public class CounterRepository(CounterDao counterDao) : ICounterRepository
 {
     private CounterDao CounterDao { get; } = counterDao;
 
-    public async Task<IEnumerable<Counter>?> Gets()
+    public async Task<IEnumerable<ViewCounterDto>?> GetCounters()
     {
         return await CounterDao.GetCounters();
     }
 
-    public async Task<Counter?> GetById(string id)
+    public async Task<ViewCounterDto?> GetCounterById(string id)
     {
-        return await CounterDao.GetCounterByIdv2(id);
+        return await CounterDao.GetCounterByCounterId(id);
     }
 
     public async Task<int> Create(CounterDto entity)
@@ -53,5 +51,15 @@ public class CounterRepository(CounterDao counterDao) : ICounterRepository
     public async Task<IEnumerable<CounterStatus>> GetAvailableCounters()
     {
         return await CounterDao.GetAvailableCountersv2();
+    }
+
+    public Task<IEnumerable<Counter>?> Gets()
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<Counter?> GetById(string id)
+    {
+        return await CounterDao.GetCounterByIdv2(id);
     }
 }

@@ -12,4 +12,6 @@ public interface ICounterRepository : IReadRepository<Counter>, IDeleteRepositor
     Task<int> Update(string id, UpdateCounter entity);
     Task<IEnumerable<CounterStatus>> GetAvailableCounters();
     Task AddMongo(CounterStatus counterStatus);
+    Task<IEnumerable<ViewCounterDto>?> GetCounters();
+    Task<ViewCounterDto?> GetCounterById(string id);
 }

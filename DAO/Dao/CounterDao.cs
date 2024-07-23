@@ -20,7 +20,7 @@ public class CounterDao
         var database = client.GetDatabase(databaseName);
         _counterCollection = database.GetCollection<CounterStatus>("CounterStatuses");
     }
-    
+
     public async Task<CounterStatus?> GetCounterById(string counterId)
     {
         return await _counterCollection.Find(c => c.CounterId == counterId).FirstOrDefaultAsync();
@@ -31,19 +31,47 @@ public class CounterDao
         counter.Id = Generator.GenerateId();
         await _counterCollection.InsertOneAsync(counter);
     }
+
     public async Task<IEnumerable<CounterStatus>> GetAvailableCountersv2()
     {
         return await _counterCollection.Find(c => !c.IsOccupied).ToListAsync();
     }
-    
-    public async Task<IEnumerable<Counter>> GetCounters()
+
+    public async Task<IEnumerable<ViewCounterDto>> GetCounters()
     {
-        return await _context.Counters.ToListAsync();
+        var counter = await _context.Counters
+            .Include(b => b.Bills)
+            .Select(c => new ViewCounterDto
+            {
+                CounterId = c.CounterId,
+                Number = c.Number,
+                CreatedAt = c.CreatedAt,
+                UpdatedAt = c.UpdatedAt,
+                Bill = c.Bills.First()
+            })
+            .ToListAsync();
+        return counter;
     }
 
     public async Task<Counter?> GetCounterByIdv2(string id)
     {
         return await _context.Counters.FindAsync(id);
+    }
+    
+    public async Task<ViewCounterDto?> GetCounterByCounterId(string id)
+    {
+        return await _context.Counters
+            .Where(counterId => counterId.CounterId == id)
+            .Include(b => b.Bills)
+            .Select(c => new ViewCounterDto
+            {
+                CounterId = c.CounterId,
+                Number = c.Number,
+                CreatedAt = c.CreatedAt,
+                UpdatedAt = c.UpdatedAt,
+                Bill = c.Bills.First()
+            })
+            .FirstOrDefaultAsync();
     }
 
     public async Task<int> CreateCounter(Counter counter)
@@ -79,20 +107,12 @@ public class CounterDao
         _context.Counters.Remove(counter);
         return await _context.SaveChangesAsync();
     }
-   
-    public async Task<IEnumerable<Counter>> GetAvailableCounters()
-    {
-        var availableCounters = await _context.Counters
-            .Where(c => !c.IsOccupied)
-            .ToListAsync();
-        return availableCounters;
-    }
-    
+
+
     public async Task UpdateCounterStatus(string counterId, bool isOccupied)
     {
         var filter = Builders<CounterStatus>.Filter.Eq(c => c.CounterId, counterId);
         var update = Builders<CounterStatus>.Update.Set(c => c.IsOccupied, isOccupied);
         await _counterCollection.UpdateOneAsync(filter, update);
     }
-
 }
