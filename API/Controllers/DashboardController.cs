@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Services.Interface;
 
 namespace API.Controllers
@@ -9,12 +10,14 @@ namespace API.Controllers
     {
         private readonly IDashboardService _dashboardService;
         private readonly IJewelryService _jewelryService;
+
         public DashboardController(IDashboardService dashboardService, IJewelryService jewelryService)
         {
             _dashboardService = dashboardService;
             _jewelryService = jewelryService;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("TotalRevenueAllTime")]
         public async Task<IActionResult> GetTotalRevenueAllTime()
         {
@@ -22,6 +25,7 @@ namespace API.Controllers
             return Ok(totalRevenue);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("GetTotalRevenue")]
         public async Task<IActionResult> GetTotalRevenue(DateTime startDate, DateTime endDate)
         {
@@ -29,6 +33,7 @@ namespace API.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("TotalRevenueByMonth")]
         public async Task<IActionResult> GetTotalRevenueByMonth([FromQuery] int month, [FromQuery] int year)
         {
@@ -36,6 +41,7 @@ namespace API.Controllers
             return Ok(totalRevenue);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("GetRevenueByCounter")]
         public async Task<IActionResult> GetRevenueByCounter(string counterId)
         {
@@ -43,6 +49,7 @@ namespace API.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("GetRevenueByEmployee")]
         public async Task<IActionResult> GetRevenueByEmployee(string userId)
         {
@@ -50,6 +57,7 @@ namespace API.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("GetRevenueByProductType")]
         public async Task<IActionResult> GetRevenueByProductType(string typeId)
         {
@@ -57,6 +65,7 @@ namespace API.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("TotalCustomers")]
         public async Task<IActionResult> GetTotalCustomers()
         {
@@ -64,6 +73,7 @@ namespace API.Controllers
             return Ok(totalCustomers);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("NewCustomers")]
         public async Task<IActionResult> GetNewCustomers([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
         {
@@ -71,6 +81,7 @@ namespace API.Controllers
             return Ok(newCustomers);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("RepeatCustomers")]
         public async Task<IActionResult> GetRepeatCustomers()
         {
@@ -78,13 +89,16 @@ namespace API.Controllers
             return Ok(repeatCustomers);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("ActiveCustomers")]
-        public async Task<IActionResult> GetActiveCustomers([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
+        public async Task<IActionResult> GetActiveCustomers([FromQuery] DateTime startDate,
+            [FromQuery] DateTime endDate)
         {
             var activeCustomers = await _dashboardService.GetActiveCustomers(startDate, endDate);
             return Ok(activeCustomers);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("BestSellingJewelry")]
         public async Task<IActionResult> GetBestSellingProducts()
         {
@@ -92,6 +106,7 @@ namespace API.Controllers
             return Ok(bestSellingProducts);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("BestSellingJewelryTypes")]
         public async Task<IActionResult> GetBestSellingProductTypes()
         {
@@ -99,6 +114,7 @@ namespace API.Controllers
             return Ok(bestSellingProductTypes);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("TotalRevenueByJewelry")]
         public async Task<IActionResult> GetTotalRevenueByProducts()
         {
@@ -106,12 +122,15 @@ namespace API.Controllers
             return Ok(totalRevenueByProducts);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("TotalRevenueByJewelryTypes")]
         public async Task<IActionResult> GetTotalRevenueByProductTypes()
         {
             var totalRevenueByProductTypes = await _dashboardService.GetTotalRevenueByProductTypes();
             return Ok(totalRevenueByProductTypes);
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpGet("TotalSoldJewelry")]
         public async Task<IActionResult> GetTotalSoldJewelry()
         {

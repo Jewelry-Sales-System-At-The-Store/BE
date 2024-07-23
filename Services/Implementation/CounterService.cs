@@ -3,6 +3,7 @@ using BusinessObjects.DTO;
 using BusinessObjects.Dto.Counter;
 using BusinessObjects.Dto.Other;
 using BusinessObjects.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Repositories.Interface;
 using Services.Interface;
 
@@ -12,14 +13,14 @@ namespace Services.Implementation
     {
         private ICounterRepository CounterRepository { get; } = counterRepository;
 
-        public async Task<IEnumerable<Counter>?> GetCounters()
+        public async Task<IEnumerable<ViewCounterDto>?> GetCounters()
         {
-            return await CounterRepository.Gets();
+            return await CounterRepository.GetCounters();
         }
 
-        public async Task<Counter?> GetCounterById(string id)
+        public async Task<ViewCounterDto?> GetCounterById(string id)
         {
-            return await CounterRepository.GetById(id);
+            return await CounterRepository.GetCounterById(id);
         }
 
         public async Task<int> CreateCounter(CounterDto counterDto)

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Services.Interface;
 
 namespace API.Controllers
@@ -10,12 +11,15 @@ namespace API.Controllers
         private IGoldPriceService GoldPriceService { get; } = goldPriceService;
         private IGemPriceService GemPriceService { get; } = gemPriceService;
 
+        [Authorize(Roles = "Admin, Manager")]
         [HttpGet("GetGoldPrices")]
         public async Task<IActionResult> GetGoldPrices()
         {
             var goldPrices = await GoldPriceService.GetGoldPrices();
             return Ok(goldPrices);
         }
+
+        [Authorize(Roles = "Admin, Manager")]
         [HttpGet("GetGemPrices")]
         public async Task<IActionResult> GetGemPrices()
         {
