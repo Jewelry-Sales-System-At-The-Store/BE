@@ -23,7 +23,13 @@ namespace Management.Implementation
             var token = await TokenService.CreateToken(user);
             return token;
         }
-
+        public async Task<TokenResponseDto?> CustomerLogin(CustomerLoginDto customerLoginDto)
+        {
+            var customer = await UserService.LoginCustomer(customerLoginDto);
+            if (customer == null) return null;
+            var token = await TokenService.CreateToken(customer);
+            return token;
+        } 
         public async Task<int?> Logout(string id)
         {
             var result = await UserService.Logout(id);

@@ -22,5 +22,8 @@ namespace Management.Interface
         public Task<int> AddUser(UserDto userDto);
         public Task<int> UpdateUser(string id, UserDto userDto);
         public Task<int> DeleteUser(string id);
+        //Customer
+        public Task<TokenResponseDto?> CustomerLogin(CustomerLoginDto customerLoginDto);
+
     }
 }

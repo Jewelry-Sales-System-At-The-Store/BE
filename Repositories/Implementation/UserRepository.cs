@@ -7,11 +7,13 @@ using Tools;
 
 namespace Repositories.Implementation
 {
-    public class UserRepository(UserDao userDao, RoleDao roleDao, CounterDao counterDao) : IUserRepository
+
+    public class UserRepository(UserDao userDao, RoleDao roleDao, CounterDao counterDao, CustomerDao customerDao) : IUserRepository
     {
         public UserDao UserDao { get; } = userDao;
         public RoleDao RoleDao { get; } = roleDao;
         public CounterDao CounterDao { get; } = counterDao;
+        public CustomerDao CustomerDao { get; } = customerDao;
 
         public Task<IEnumerable<User>> Find(Func<User, bool> predicate)
         {
@@ -25,8 +27,6 @@ namespace Repositories.Implementation
             {
                 throw new InvalidOperationException("User roleId not found");
             }
-            // var role = await RoleDao.GetRoleById(user.RoleId);
-            // user.Role = role;
             return user;
         }
 
@@ -121,6 +121,10 @@ namespace Repositories.Implementation
             }
 
             return true;
+        }
+        public async Task<Customer> GetCustomer(Customer customer)
+        {
+            return await customerDao.CustomerLogin(customer.Email, customer.Password);    
         }
     }
 }

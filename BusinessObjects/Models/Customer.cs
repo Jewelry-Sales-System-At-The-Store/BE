@@ -24,6 +24,8 @@ public partial class Customer
     public string? Gender { get; set; }
     [MaxLength(255)]
     public string? Address { get; set; }
+    [MaxLength(255)]
+    public string? Password { get; set; }
     public int? Point { get; set; }
 
     public DateTimeOffset CreatedAt { get; set; }
