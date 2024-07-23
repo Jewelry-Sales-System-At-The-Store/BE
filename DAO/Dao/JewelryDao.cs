@@ -14,7 +14,7 @@ namespace DAO.Dao
         }
         public async Task<(int,int,IEnumerable<Jewelry>)> GetJewelries(int pageNumber, int pageSize)
         {
-            var totalRecord = await _context.Jewelries.CountAsync(j=>j.IsSold == false);
+            var totalRecord = await _context.Jewelries.CountAsync(j=>j.IsSold == false && j.IsEnable == true);
             var totalPage = (int)Math.Ceiling((double)totalRecord / pageSize);
             var jewelries = await _context.Jewelries
                 .Where(x => x.IsSold == false && x.IsEnable == true)
