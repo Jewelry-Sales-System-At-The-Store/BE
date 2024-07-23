@@ -3,6 +3,7 @@ using System;
 using BusinessObjects.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BusinessObjects.Migrations
 {
     [DbContext(typeof(JssatsContext))]
-    partial class JssatsContextModelSnapshot : ModelSnapshot
+    [Migration("20240722150143_add_unique_barcode_jewelry")]
+    partial class add_unique_barcode_jewelry
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,8 +79,7 @@ namespace BusinessObjects.Migrations
                             CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             CustomerId = "1",
                             IsPaid = false,
-
-                            SaleDate = new DateTimeOffset(new DateTime(2024, 7, 23, 9, 39, 11, 637, DateTimeKind.Unspecified).AddTicks(9547), new TimeSpan(0, 7, 0, 0, 0)),
+                            SaleDate = new DateTimeOffset(new DateTime(2024, 7, 22, 22, 1, 42, 895, DateTimeKind.Unspecified).AddTicks(7134), new TimeSpan(0, 7, 0, 0, 0)),
                             TotalAmount = 500.0,
                             UpdatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             UserId = "1"
@@ -89,7 +91,7 @@ namespace BusinessObjects.Migrations
                             CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             CustomerId = "2",
                             IsPaid = false,
-                            SaleDate = new DateTimeOffset(new DateTime(2024, 7, 23, 9, 39, 11, 637, DateTimeKind.Unspecified).AddTicks(9549), new TimeSpan(0, 7, 0, 0, 0)),
+                            SaleDate = new DateTimeOffset(new DateTime(2024, 7, 22, 22, 1, 42, 895, DateTimeKind.Unspecified).AddTicks(7136), new TimeSpan(0, 7, 0, 0, 0)),
                             TotalAmount = 1200.0,
                             UpdatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             UserId = "2"
@@ -199,6 +201,9 @@ namespace BusinessObjects.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<bool>("IsOccupied")
+                        .HasColumnType("boolean");
+
                     b.Property<int?>("Number")
                         .HasColumnType("integer");
 
@@ -214,6 +219,7 @@ namespace BusinessObjects.Migrations
                         {
                             CounterId = "1",
                             CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            IsOccupied = false,
                             Number = 312,
                             UpdatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
                         },
@@ -221,6 +227,7 @@ namespace BusinessObjects.Migrations
                         {
                             CounterId = "2",
                             CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            IsOccupied = false,
                             Number = 231,
                             UpdatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
                         },
@@ -228,6 +235,7 @@ namespace BusinessObjects.Migrations
                         {
                             CounterId = "3",
                             CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            IsOccupied = false,
                             Number = 431,
                             UpdatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
                         });
@@ -255,10 +263,6 @@ namespace BusinessObjects.Migrations
                         .HasColumnType("character varying(255)");
 
                     b.Property<string>("Gender")
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
-
-                    b.Property<string>("Password")
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
@@ -343,7 +347,7 @@ namespace BusinessObjects.Migrations
                             GemId = "1",
                             BuyPrice = 300f,
                             City = "Ha Noi",
-                            LastUpdated = new DateTimeOffset(new DateTime(2024, 7, 23, 9, 39, 11, 637, DateTimeKind.Unspecified).AddTicks(9611), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdated = new DateTimeOffset(new DateTime(2024, 7, 22, 22, 1, 42, 895, DateTimeKind.Unspecified).AddTicks(7199), new TimeSpan(0, 7, 0, 0, 0)),
                             SellPrice = 400f,
                             Type = "Ruby"
                         },
@@ -352,7 +356,7 @@ namespace BusinessObjects.Migrations
                             GemId = "2",
                             BuyPrice = 400f,
                             City = "Ha Noi",
-                            LastUpdated = new DateTimeOffset(new DateTime(2024, 7, 23, 9, 39, 11, 637, DateTimeKind.Unspecified).AddTicks(9614), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdated = new DateTimeOffset(new DateTime(2024, 7, 22, 22, 1, 42, 895, DateTimeKind.Unspecified).AddTicks(7201), new TimeSpan(0, 7, 0, 0, 0)),
                             SellPrice = 500f,
                             Type = "Sapphire"
                         },
@@ -361,7 +365,7 @@ namespace BusinessObjects.Migrations
                             GemId = "3",
                             BuyPrice = 500f,
                             City = "Ha Noi",
-                            LastUpdated = new DateTimeOffset(new DateTime(2024, 7, 23, 9, 39, 11, 637, DateTimeKind.Unspecified).AddTicks(9615), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdated = new DateTimeOffset(new DateTime(2024, 7, 22, 22, 1, 42, 895, DateTimeKind.Unspecified).AddTicks(7203), new TimeSpan(0, 7, 0, 0, 0)),
                             SellPrice = 600f,
                             Type = "Emerald"
                         });
@@ -400,7 +404,7 @@ namespace BusinessObjects.Migrations
                             GoldId = "1",
                             BuyPrice = 1000f,
                             City = "Ha Noi",
-                            LastUpdated = new DateTimeOffset(new DateTime(2024, 7, 23, 9, 39, 11, 637, DateTimeKind.Unspecified).AddTicks(9641), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdated = new DateTimeOffset(new DateTime(2024, 7, 22, 22, 1, 42, 895, DateTimeKind.Unspecified).AddTicks(7230), new TimeSpan(0, 7, 0, 0, 0)),
                             SellPrice = 1200f,
                             Type = "9999"
                         },
@@ -409,7 +413,7 @@ namespace BusinessObjects.Migrations
                             GoldId = "2",
                             BuyPrice = 1200f,
                             City = "Ha Noi",
-                            LastUpdated = new DateTimeOffset(new DateTime(2024, 7, 23, 9, 39, 11, 637, DateTimeKind.Unspecified).AddTicks(9644), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdated = new DateTimeOffset(new DateTime(2024, 7, 22, 22, 1, 42, 895, DateTimeKind.Unspecified).AddTicks(7233), new TimeSpan(0, 7, 0, 0, 0)),
                             SellPrice = 1400f,
                             Type = "SCJ"
                         },
@@ -418,7 +422,7 @@ namespace BusinessObjects.Migrations
                             GoldId = "3",
                             BuyPrice = 1400f,
                             City = "Ha Noi",
-                            LastUpdated = new DateTimeOffset(new DateTime(2024, 7, 23, 9, 39, 11, 637, DateTimeKind.Unspecified).AddTicks(9646), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdated = new DateTimeOffset(new DateTime(2024, 7, 22, 22, 1, 42, 895, DateTimeKind.Unspecified).AddTicks(7235), new TimeSpan(0, 7, 0, 0, 0)),
                             SellPrice = 1600f,
                             Type = "18k"
                         });
@@ -660,8 +664,8 @@ namespace BusinessObjects.Migrations
                             PromotionId = "1",
                             Description = "Giam gia 10%",
                             DiscountRate = 1.0,
-                            EndDate = new DateTimeOffset(new DateTime(2024, 8, 2, 9, 39, 11, 637, DateTimeKind.Unspecified).AddTicks(9514), new TimeSpan(0, 7, 0, 0, 0)),
-                            StartDate = new DateTimeOffset(new DateTime(2024, 7, 23, 9, 39, 11, 637, DateTimeKind.Unspecified).AddTicks(9487), new TimeSpan(0, 7, 0, 0, 0)),
+                            EndDate = new DateTimeOffset(new DateTime(2024, 8, 1, 22, 1, 42, 895, DateTimeKind.Unspecified).AddTicks(7104), new TimeSpan(0, 7, 0, 0, 0)),
+                            StartDate = new DateTimeOffset(new DateTime(2024, 7, 22, 22, 1, 42, 895, DateTimeKind.Unspecified).AddTicks(7079), new TimeSpan(0, 7, 0, 0, 0)),
                             Type = "Giam gia"
                         },
                         new
@@ -669,8 +673,8 @@ namespace BusinessObjects.Migrations
                             PromotionId = "2",
                             Description = "Giam gia 20%",
                             DiscountRate = 2.0,
-                            EndDate = new DateTimeOffset(new DateTime(2024, 8, 2, 9, 39, 11, 637, DateTimeKind.Unspecified).AddTicks(9521), new TimeSpan(0, 7, 0, 0, 0)),
-                            StartDate = new DateTimeOffset(new DateTime(2024, 7, 23, 9, 39, 11, 637, DateTimeKind.Unspecified).AddTicks(9520), new TimeSpan(0, 7, 0, 0, 0)),
+                            EndDate = new DateTimeOffset(new DateTime(2024, 8, 1, 22, 1, 42, 895, DateTimeKind.Unspecified).AddTicks(7110), new TimeSpan(0, 7, 0, 0, 0)),
+                            StartDate = new DateTimeOffset(new DateTime(2024, 7, 22, 22, 1, 42, 895, DateTimeKind.Unspecified).AddTicks(7109), new TimeSpan(0, 7, 0, 0, 0)),
                             Type = "Giam gia"
                         },
                         new
@@ -678,8 +682,8 @@ namespace BusinessObjects.Migrations
                             PromotionId = "3",
                             Description = "Giam gia 30%",
                             DiscountRate = 3.0,
-                            EndDate = new DateTimeOffset(new DateTime(2024, 8, 2, 9, 39, 11, 637, DateTimeKind.Unspecified).AddTicks(9526), new TimeSpan(0, 7, 0, 0, 0)),
-                            StartDate = new DateTimeOffset(new DateTime(2024, 7, 23, 9, 39, 11, 637, DateTimeKind.Unspecified).AddTicks(9525), new TimeSpan(0, 7, 0, 0, 0)),
+                            EndDate = new DateTimeOffset(new DateTime(2024, 8, 1, 22, 1, 42, 895, DateTimeKind.Unspecified).AddTicks(7114), new TimeSpan(0, 7, 0, 0, 0)),
+                            StartDate = new DateTimeOffset(new DateTime(2024, 7, 22, 22, 1, 42, 895, DateTimeKind.Unspecified).AddTicks(7113), new TimeSpan(0, 7, 0, 0, 0)),
                             Type = "Giam gia"
                         });
                 });
@@ -732,7 +736,7 @@ namespace BusinessObjects.Migrations
                             CustomerId = "1",
                             IsBuyBack = 0,
                             JewelryId = "1",
-                            PurchaseDate = new DateTimeOffset(new DateTime(2024, 7, 23, 9, 39, 11, 637, DateTimeKind.Unspecified).AddTicks(9667), new TimeSpan(0, 7, 0, 0, 0)),
+                            PurchaseDate = new DateTimeOffset(new DateTime(2024, 7, 22, 22, 1, 42, 895, DateTimeKind.Unspecified).AddTicks(7256), new TimeSpan(0, 7, 0, 0, 0)),
                             PurchasePrice = 500.0,
                             UserId = "1"
                         },
@@ -742,7 +746,7 @@ namespace BusinessObjects.Migrations
                             CustomerId = "2",
                             IsBuyBack = 1,
                             JewelryId = "2",
-                            PurchaseDate = new DateTimeOffset(new DateTime(2024, 7, 23, 9, 39, 11, 637, DateTimeKind.Unspecified).AddTicks(9670), new TimeSpan(0, 7, 0, 0, 0)),
+                            PurchaseDate = new DateTimeOffset(new DateTime(2024, 7, 22, 22, 1, 42, 895, DateTimeKind.Unspecified).AddTicks(7259), new TimeSpan(0, 7, 0, 0, 0)),
                             PurchasePrice = 300.0,
                             UserId = "1"
                         });

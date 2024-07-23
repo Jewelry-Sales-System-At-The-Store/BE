@@ -81,6 +81,11 @@ namespace BusinessObjects.Context
                 .HasKey(gp => gp.GoldId);
             modelBuilder.Entity<Jewelry>()
                 .HasKey(j => j.JewelryId);
+            
+            modelBuilder.Entity<Jewelry>()
+                .HasIndex(j=>j.Barcode)
+                .IsUnique();
+            
             modelBuilder.Entity<JewelryType>()
                 .HasKey(jt => jt.JewelryTypeId);
             modelBuilder.Entity<Promotion>()

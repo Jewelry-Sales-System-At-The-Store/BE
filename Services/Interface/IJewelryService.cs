@@ -15,5 +15,6 @@ namespace Services.Interface
         public Task<int> DeleteJewelry(string id);
         public Task<int> GetSoldJewelryCount();
         public Task<int> UpdateJewelryWithMaterial(string id, JewelryRequestDto jewelryRequestDto);
+        public Task<bool> DisableJewelry(string id);
     }
 }

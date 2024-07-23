@@ -19,6 +19,7 @@ public partial class Jewelry
     public string? ImageUrl { get; set; }
     public double? LaborCost { get; set; }
     public bool? IsSold { get; set; }
+    public bool? IsEnable { get; set; }
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }
     public virtual ICollection<BillJewelry> BillJewelries { get; set; } = new List<BillJewelry>();

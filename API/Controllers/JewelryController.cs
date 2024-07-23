@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using BusinessObjects.Dto.Jewelry;
-using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interface;
 
@@ -55,7 +54,8 @@ public class JewelryController(IJewelryService jewelryService, IMapper mapper) :
     [HttpDelete("DeleteJewelry/{id}")]
     public async Task<IActionResult> DeleteJewelry(string id)
     {
-        var result = await JewelryService.DeleteJewelry(id);
-        return Ok(result);
+        var result = await JewelryService.DisableJewelry(id);
+        if (!result) return NotFound();
+        return Ok("Jewelry has been disabled");
     }
 }

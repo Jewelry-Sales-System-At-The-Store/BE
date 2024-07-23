@@ -5,7 +5,6 @@ using Management.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
-using Services.Implementation;
 using Services.Interface;
 
 namespace API.Controllers;
@@ -44,6 +43,14 @@ public class UserController(IUserManagement userManagement, IUserService userSer
         return NotFound(new { message = "Login fail" });
     }
 
+    [AllowAnonymous]
+    [HttpPost("CustomerLogin")]
+    public async Task<IActionResult> CustomerLogin(CustomerLoginDto customerLoginDto)
+    {
+        var result = await userManagement.CustomerLogin(customerLoginDto);
+        if (result == null) return Unauthorized();
+        return Ok(result);
+    }
     [AllowAnonymous]
     [HttpPost("Logout")]
     public async Task<IActionResult> Logout(string userId)

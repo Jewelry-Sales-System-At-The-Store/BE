@@ -10,5 +10,6 @@ namespace Repositories.Interface
         Task<IEnumerable<string>> GetAvailableCounters();
         Task<bool> AssignCounterToUser(string userId,string counterId);
         Task<bool> ReleaseCounterFromUser(User user);
+        Task<Customer> GetCustomer(Customer customer);
     }
 }
