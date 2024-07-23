@@ -80,4 +80,9 @@ public class UserService(IUserRepository userRepository, ICounterRepository coun
     {
         return UserRepository.Delete(id);
     }
+    public Task<Customer> LoginCustomer(CustomerLoginDto customerLoginDto)
+    {
+        var customer = Mapper.Map<Customer>(customerLoginDto);
+        return UserRepository.GetCustomer(customer);
+    }   
 }

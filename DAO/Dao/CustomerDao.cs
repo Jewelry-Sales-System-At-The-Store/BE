@@ -72,5 +72,9 @@ namespace DAO.Dao
         {
             return _context.Customers.AsQueryable();
         }
+        public async Task<Customer> CustomerLogin(string email, string password)
+        {
+            return await _context.Customers.FirstOrDefaultAsync(c => c.Email == email && c.Password == password);
+        }
     }
 }

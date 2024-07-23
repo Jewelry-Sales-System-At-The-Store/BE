@@ -37,7 +37,16 @@ public class UserController(IUserManagement userManagement, IUserService userSer
         if (token != null) return Ok(token);
         return NotFound(new { message = "Login fail" });
     }
-    
+
+    [AllowAnonymous]
+    [HttpPost("CustomerLogin")]
+    public async Task<IActionResult> CustomerLogin(CustomerLoginDto customerLoginDto)
+    {
+        var result = await userManagement.CustomerLogin(customerLoginDto);
+        if (result == null) return Unauthorized();
+        return Ok(result);
+    }
+    [AllowAnonymous]
     [HttpPost("Logout")]
     public async Task<IActionResult> Logout(string userId)
     {
