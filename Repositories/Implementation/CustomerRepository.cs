@@ -38,6 +38,11 @@ namespace Repositories.Implementation
             return await CustomerDao.GetCustomerById(id);
         }
 
+        public async Task<bool> RegisterCustomer(Customer customer)
+        {
+            return await CustomerDao.RegisterCustomer(customer);
+        }
+
         public Task<int> Update(string id, Customer entity)
         {
             return CustomerDao.UpdateCustomer(id, entity);

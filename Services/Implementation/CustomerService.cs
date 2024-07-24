@@ -66,5 +66,10 @@ namespace Services.Implementation
             var customer = Mapper.Map<Customer>(customerDto);
             return await CustomerRepository.Update(id, customer);
         }
+        public async Task<bool> RegisterCustomer(CustomerRegisterDto customerRegisterDto)
+        {
+            var customer = Mapper.Map<Customer>(customerRegisterDto);
+            return await CustomerRepository.RegisterCustomer(customer);
+        }
     }
 }

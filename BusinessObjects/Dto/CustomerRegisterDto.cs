@@ -1,13 +1,13 @@
-﻿using System;
+using System;
 using System.Text.RegularExpressions;
 
 namespace BusinessObjects.Dto
 {
-    public class CustomerLoginDto
+    public class CustomerRegisterDto
     {
         private string? _phone;
 
-        public string? Phone
+        public required string? Phone
         {
             get => _phone;
             set
@@ -20,8 +20,12 @@ namespace BusinessObjects.Dto
             }
         }
 
-        public string? Password { get; set; }
-
+        public required string Password { get; set; }
+        public string? UserName { get; set; }
+        public string? FullName { get; set; }
+        public string? Email { get; set; }
+        public string? Gender { get; set; }
+        public string? Address { get; set; }
         private bool IsValidPhoneNumber(string phoneNumber)
         {
             // Updated pattern to match a 10-digit phone number
