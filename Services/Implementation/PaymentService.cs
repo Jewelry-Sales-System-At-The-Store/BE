@@ -18,12 +18,15 @@ public class PaymentService : IPaymentService
     private readonly IPaymentRepository _paymentRepository;
     private readonly IBillRepository _billRepository;
     private readonly IBillDetailRepository _detailRepository;
-    public PaymentService(IConfiguration configuration, IPaymentRepository paymentRepository, IBillRepository billRepository, IBillDetailRepository detailRepository)
+    private readonly IJewelryRepository _jewelryRepository;
+
+    public PaymentService(IConfiguration configuration, IPaymentRepository paymentRepository, IBillRepository billRepository, IBillDetailRepository detailRepository, IJewelryRepository jewelryRepository)
     {
         _configuration = configuration;
         _paymentRepository = paymentRepository;
         _billRepository = billRepository;
         _detailRepository = detailRepository;
+        _jewelryRepository = jewelryRepository;
         _payOs = new PayOS(configuration["PayOs:ClientId"] ?? "", configuration["PayOs:ApiKey"] ?? "", configuration["PayOs:ChecksumKey"] ?? "");
     }
 
@@ -79,5 +82,19 @@ public class PaymentService : IPaymentService
         if (bill == null) throw new Exception("Bill not found");
         bill.IsPaid = true;
         return (await _billRepository.UpdateBill(bill)  != 0 );
+    }
+
+    public async Task<bool> UpdateJewelryStatus(string billId)
+    {
+        var billDetail = await _detailRepository.GetBillDetail(billId);
+        if (billDetail == null) throw new Exception("Bill not found");
+        foreach (var item in billDetail.Items)
+        {
+            var jewelry = await _jewelryRepository.GetJewelryById(item.JewelryId);
+            if (jewelry == null) throw new Exception("Jewelry not found");
+            jewelry.IsSold = true;
+            await _jewelryRepository.Update(item.JewelryId, jewelry);
+        }
+        return true;
     }
 }
