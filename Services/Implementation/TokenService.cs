@@ -29,7 +29,7 @@ public class TokenService(IConfiguration configuration) : ITokenService
                 new Claim(ClaimTypes.Role, user.Role?.RoleName ?? string.Empty),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             }),
-            Expires = DateTime.UtcNow.ToUniversalTime().AddMinutes(1),
+            Expires = DateTime.UtcNow.ToUniversalTime().AddMinutes(60),
             Issuer = issuer,
             Audience = audience,
             SigningCredentials = new SigningCredentials(

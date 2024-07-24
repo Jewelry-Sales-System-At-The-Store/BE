@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.Dto.BuyBack;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repositories.Interface;
 using Services.Interface;
@@ -15,13 +16,14 @@ namespace API.Controllers
         {
             _purchaseService = purchaseService;
         }
-
+        [Authorize(Roles = "Admin, Manager, Staff")]
         [HttpPost("BuyBackById")]
         public async Task<IActionResult> BuybackById([FromBody] BuybackByIdRequest request)
         {
             var result = await _purchaseService.ProcessBuybackById(request.JewelryId);
             return Ok(new { Message = result });
         }
+        [Authorize(Roles = "Admin, Manager, Staff")]
 
         [HttpPost("CountBuyBackById")]
         public async Task<IActionResult> CountBuyBackById([FromBody] BuybackByIdRequest request)
@@ -29,6 +31,7 @@ namespace API.Controllers
             var result = await _purchaseService.CountProcessBuybackById(request.JewelryId);
             return Ok(new { Message = result });
         }
+        [Authorize(Roles = "Admin, Manager, Staff")]
 
         [HttpPost("BuyBackByName")]
         public async Task<IActionResult> BuybackByName([FromBody] BuybackByNameRequest request)
@@ -43,6 +46,7 @@ namespace API.Controllers
                 return StatusCode(500, new { error = ex.Message });
             }
         }
+        [Authorize(Roles = "Admin, Manager, Staff")]
 
         [HttpPost("CountBuyBackByName")]
         public async Task<IActionResult> CountBuybackByName([FromBody] CountBuybackByNameRequest request)

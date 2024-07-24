@@ -10,8 +10,9 @@ namespace API.Controllers
     {
         private IGoldPriceService GoldPriceService { get; } = goldPriceService;
         private IGemPriceService GemPriceService { get; } = gemPriceService;
-
-        [Authorize(Roles = "Admin, Manager")]
+        
+        
+        [Authorize(Roles = "Admin, Manager, Staff")]
         [HttpGet("GetGoldPrices")]
         public async Task<IActionResult> GetGoldPrices()
         {
@@ -19,7 +20,7 @@ namespace API.Controllers
             return Ok(goldPrices);
         }
 
-        [Authorize(Roles = "Admin, Manager")]
+        [Authorize(Roles = "Admin, Manager, Staff")]
         [HttpGet("GetGemPrices")]
         public async Task<IActionResult> GetGemPrices()
         {

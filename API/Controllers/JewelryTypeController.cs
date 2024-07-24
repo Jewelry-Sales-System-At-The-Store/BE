@@ -11,7 +11,7 @@ public class JewelryTypeController(IJewelryTypeService service, IMapper mapper) 
 {
     private IJewelryTypeService Service { get; } = service;
     private IMapper Mapper { get; } = mapper;
-
+    
     [HttpGet("GetJewelryTypes")]
     public async Task<IActionResult> Get()
     {
