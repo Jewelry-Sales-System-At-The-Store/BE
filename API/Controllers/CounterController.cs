@@ -31,7 +31,7 @@ public class CounterController(ICounterService counterService) : ControllerBase
         return Ok(counter);
     }
 
-    [Authorize(Roles = "Admin, Manager, Staff")]
+    //[Authorize(Roles = "Admin, Manager, Staff")]
     [HttpGet("GetAvailableCounters")]
     public async Task<IActionResult> GetAvailableCounters()
     {
