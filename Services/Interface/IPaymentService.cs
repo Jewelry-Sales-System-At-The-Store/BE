@@ -9,4 +9,5 @@ public interface IPaymentService
     Task<BillCheckoutResponse> CheckoutBill(string billId, int amount,long orderCode, string returnUrl, string cancelUrl);
     Task<bool> UpdatePaymentStatus(long orderCode, PaymentStatus paymentStatus);
     Task<bool> UpdateBillStatus(string billId);
+    Task<bool> UpdateJewelryStatus(string billId);
 }
