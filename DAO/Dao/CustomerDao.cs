@@ -1,6 +1,7 @@
 ﻿using BusinessObjects.Context;
 using BusinessObjects.Models;
 using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver;
 using Tools;
 
 namespace DAO.Dao
@@ -72,9 +73,20 @@ namespace DAO.Dao
         {
             return _context.Customers.AsQueryable();
         }
-        public async Task<Customer> CustomerLogin(string email, string password)
+        public async Task<Customer> CustomerLogin(string phone, string password)
         {
-            return await _context.Customers.FirstOrDefaultAsync(c => c.Email == email && c.Password == password);
+            return await _context.Customers.FirstOrDefaultAsync(c => c.Phone == phone && c.Password == password);
+        }
+        public async Task<bool> RegisterCustomer(Customer customer)
+        {
+            var existingCustomer = await _context.Customers
+                .FirstOrDefaultAsync(c => c.Phone == customer.Phone);
+            if (existingCustomer != null) return false;
+            customer.CustomerId = Generator.GenerateId();
+            customer.CreatedAt = DateTime.UtcNow.ToUniversalTime();
+            customer.Point = 0;
+            _context.Customers.Add(customer);
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

@@ -11,10 +11,11 @@ namespace API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class UserController(IUserManagement userManagement, IUserService userService) : ControllerBase
+public class UserController(IUserManagement userManagement, IUserService userService, ICustomerService customerService) : ControllerBase
 {
     private IUserManagement UserManagement { get; } = userManagement;
     private IUserService UserService { get; } = userService;
+    public ICustomerService CustomerService { get; } = customerService;
 
     [EnableQuery]
     [Authorize(Roles = "Admin, Staff, Manager")]
@@ -50,6 +51,14 @@ public class UserController(IUserManagement userManagement, IUserService userSer
         var result = await userManagement.CustomerLogin(customerLoginDto);
         if (result == null) return Unauthorized();
         return Ok(result);
+    }
+    [AllowAnonymous]
+    [HttpPost("CustomerRegister")]
+    public async Task<IActionResult> CustomerRegister(CustomerRegisterDto customerRegisterDto)
+    {
+        var result = await CustomerService.RegisterCustomer(customerRegisterDto);
+        if (!result) return BadRequest();
+        return Ok("Register success");
     }
     [AllowAnonymous]
     [HttpPost("Logout")]

@@ -19,5 +19,6 @@ namespace Services.Interface
         public Task<CustomerResponseDto> CreateCustomer(CustomerDto customer);
         public Task<int> UpdateCustomer(string id,CustomerDto customer);
         public Task<int> DeleteCustomer(string id);
+        Task<bool> RegisterCustomer(CustomerRegisterDto customerRegisterDto);
     }
 }

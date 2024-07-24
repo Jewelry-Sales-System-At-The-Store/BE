@@ -22,6 +22,7 @@ public class MappingProfile : Profile
         CreateMap<Role, RoleDto>().ReverseMap();
         CreateMap<Customer, CustomerDto>().ReverseMap();
         CreateMap<Customer, CustomerLoginDto>().ReverseMap();
+        CreateMap<Customer, CustomerRegisterDto>().ReverseMap();
         // ResponseDto Mapping
         CreateMap<Gold, GoldPriceResponseDto>().ReverseMap();
         CreateMap<Gem, GemPriceResponseDto>().ReverseMap();

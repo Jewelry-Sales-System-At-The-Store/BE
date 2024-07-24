@@ -13,5 +13,6 @@ namespace Repositories.Interface
         Task<int> GetRepeatCustomers();
         Task<int> GetActiveCustomers(DateTime startDate, DateTime endDate);
         Task<Customer?> GetById(string id);
+        Task<bool> RegisterCustomer(Customer customer);
     }
 }

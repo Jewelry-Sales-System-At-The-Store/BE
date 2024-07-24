@@ -124,7 +124,7 @@ namespace Repositories.Implementation
         }
         public async Task<Customer> GetCustomer(Customer customer)
         {
-            return await customerDao.CustomerLogin(customer.Email, customer.Password);    
+            return await customerDao.CustomerLogin(customer.Phone, customer.Password);    
         }
     }
 }
