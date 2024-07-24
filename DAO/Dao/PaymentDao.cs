@@ -33,12 +33,16 @@ public class PaymentDao
        return await _context.Payments.FirstOrDefaultAsync(x => x.BillId == billId);
     }
 
-    public async Task<Payment?> UpdatePaymentStatus(string id, PaymentStatus paymentStatus)
+    public async Task<Payment?> UpdatePaymentStatus(long orderCode, PaymentStatus paymentStatus)
     {
-        var payment = await _context.Payments.FirstOrDefaultAsync(x => x.BillId == id);
+        var payment = await _context.Payments.FirstOrDefaultAsync(x => x.OrderCode == orderCode);
         if (payment == null) return payment;
         payment.PaymentStatus = paymentStatus;
         await _context.SaveChangesAsync();
         return payment;
+    }
+    public async Task<Payment?> GetPaymentByOrderCode(long orderCode)
+    {
+        return await _context.Payments.FirstOrDefaultAsync(x => x.OrderCode == orderCode);
     }
 }

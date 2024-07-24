@@ -6,6 +6,7 @@ namespace Repositories.Interface;
 public interface IPaymentRepository
 {
     Task<Payment> Create(Payment entity);
-    Task<Payment?> UpdatePaymentStatus(string id, PaymentStatus paymentStatus);
+    Task<Payment?> UpdatePaymentStatus(long orderCode, PaymentStatus paymentStatus);
     Task<Payment?> GetPaymentByBillId(string billId);
+    Task<Payment?> GetPaymentByOrderCode(long orderCode);
 }
