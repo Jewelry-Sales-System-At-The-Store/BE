@@ -5,7 +5,6 @@ using Management.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interface;
-using Snappier;
 using Tools;
 
 namespace API.Controllers;

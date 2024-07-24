@@ -11,7 +11,6 @@ namespace API.Controllers
         private IGoldPriceService GoldPriceService { get; } = goldPriceService;
         private IGemPriceService GemPriceService { get; } = gemPriceService;
         
-        
         [Authorize(Roles = "Admin, Manager, Staff")]
         [HttpGet("GetGoldPrices")]
         public async Task<IActionResult> GetGoldPrices()

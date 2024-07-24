@@ -13,7 +13,6 @@ public class JewelryController(IJewelryService jewelryService, IMapper mapper) :
     private IJewelryService JewelryService { get; } = jewelryService;
     private IMapper Mapper { get; } = mapper;
     
-    [Authorize(Roles = "Admin, Manager, Staff")]
     [HttpGet("GetJewelries")]
     public async Task<IActionResult> GetJewelries(int pageNumber, int pageSize, string? name, string? typeId)
     {
