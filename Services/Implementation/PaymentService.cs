@@ -2,6 +2,7 @@
 using BusinessObjects.Dto.ResponseDto;
 using BusinessObjects.Models;
 using Microsoft.Extensions.Configuration;
+using MongoDB.Driver;
 using Net.payOS;
 using Net.payOS.Types;
 using Repositories.Interface;
@@ -26,29 +27,27 @@ public class PaymentService : IPaymentService
         _payOs = new PayOS(configuration["PayOs:ClientId"] ?? "", configuration["PayOs:ApiKey"] ?? "", configuration["PayOs:ChecksumKey"] ?? "");
     }
 
-    public async Task<BillCheckoutResponse> CheckoutBill(string billId, PaymentRequestDto  paymentRequestDto)
+    public async Task<BillCheckoutResponse> CheckoutBill(string billId, int amount,long orderCode, string returnUrl, string cancelUrl)
     {
         var bill = await _billRepository.GetById(billId);
+        
         if (bill == null) throw new Exception("Bill not found");
-        var orderCode = Generator.GeneratePaymemtCode();
+        
+        if(bill.IsPaid == true) throw new Exception("Bill is already paid");
 
         var payment = new Payment
         {
             BillId = bill.BillId,
             PaymentId = "",
-            Amount = paymentRequestDto.Amount,
+            Amount = amount,
             PaymentStatus = PaymentStatus.Pending,
             PaymentDate = DateTime.UtcNow.ToUniversalTime(),
             OrderCode = orderCode,
         };
-        //var billPayment = _paymentRepository.GetPaymentByBillId(billId);
-        //if (billPayment != null) throw new InvalidOperationException("This payment are already exist");
         var paymentResult = await _paymentRepository.Create(payment);
         if (paymentResult == null) throw new Exception("Payment failed");
         
        
-        var returnUrl = paymentRequestDto.ReturnUrl;
-        var cancelUrl = "";
         var description =  $"Thanh toán: ";
         var signature = "";
         
@@ -59,7 +58,7 @@ public class PaymentService : IPaymentService
             items.Add(new ItemData(item.Name, 1, (int)item.TotalPrice));
         }
         
-        var paymentData = new PaymentData(orderCode, paymentRequestDto.Amount, description,items,cancelUrl,$"{returnUrl}/Status=Complete",signature);
+        var paymentData = new PaymentData(orderCode, amount, description,items,cancelUrl ,returnUrl ,signature);
         var result = await _payOs.createPaymentLink(paymentData);
         var response = new BillCheckoutResponse
         {
@@ -67,5 +66,18 @@ public class PaymentService : IPaymentService
             OrderCode = orderCode
         };
         return response;
+    }
+    public async Task<bool> UpdatePaymentStatus(long orderCode, PaymentStatus paymentStatus)
+    {
+        var result = await _paymentRepository.UpdatePaymentStatus(orderCode, paymentStatus);
+        return result != null;
+    }
+
+    public async Task<bool> UpdateBillStatus(string billId)
+    {
+        var bill = await _billRepository.GetById(billId);
+        if (bill == null) throw new Exception("Bill not found");
+        bill.IsPaid = true;
+        return (await _billRepository.UpdateBill(bill)  != 0 );
     }
 }

@@ -1,8 +1,11 @@
 ﻿using BusinessObjects.Dto;
 using BusinessObjects.Dto.BillReqRes;
+using BusinessObjects.Models;
 using Management.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interface;
+using Snappier;
+using Tools;
 
 namespace API.Controllers;
 
@@ -31,15 +34,32 @@ public class BillController(IUserManagement userManagement, IPaymentService paym
     {
         return Ok(await UserManagement.CreateBill(billRequestDto));
     }
-    [HttpPost("CheckoutOnline/{id}")]
-    public async Task<IActionResult> CheckoutOnline(string id,PaymentRequestDto paymentRequestDto)
+    [HttpPost("CheckoutOnline/{billId}")]
+    public async Task<IActionResult> CheckoutOnline(string billId,PaymentRequestDto paymentRequestDto)
     {
-        return Ok(await PaymentService.CheckoutBill(id,paymentRequestDto));
+        var orderCode = Generator.GeneratePaymemtCode();
+        var cancelUrl = Url.Action("CancelPayment","Bill",new {paymentRequestDto.ReturnUrl,orderCode},Request.Scheme);
+        var suscessUrl = Url.Action("SuccessPayment","Bill",new {billId,paymentRequestDto.ReturnUrl,orderCode},Request.Scheme);
+        return Ok(await PaymentService.CheckoutBill(billId,paymentRequestDto.Amount,orderCode,suscessUrl,cancelUrl));
     }
 
     [HttpPost("CheckoutOffline/{id}")]
     public async Task<IActionResult> CheckoutOffline(string id, float cashAmount)
     {
         return Ok(await UserManagement.CheckoutBill(id,cashAmount));
+    }
+
+    [HttpGet("CancelPayment")]
+    public async Task<IActionResult> CancelPayment(string returnUrl,long orderCode)
+    {
+        await paymentService.UpdatePaymentStatus(orderCode, PaymentStatus.Failed);
+        return Redirect($"{returnUrl}/status=canceled");
+    }
+    [HttpGet("SuccessPayment")]
+    public async Task<IActionResult> SuccessPayment(string billId,string returnUrl,long orderCode)
+    {
+        await paymentService.UpdatePaymentStatus(orderCode, PaymentStatus.Success);
+        await paymentService.UpdateBillStatus(billId);
+        return Redirect($"{returnUrl}/status=success");
     }
 }
