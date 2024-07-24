@@ -2,6 +2,7 @@
 using BusinessObjects.Dto.BillReqRes;
 using BusinessObjects.Models;
 using Management.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interface;
 using Snappier;
@@ -15,13 +16,15 @@ public class BillController(IUserManagement userManagement, IPaymentService paym
 {
     private IUserManagement UserManagement { get; } = userManagement;
     private IPaymentService PaymentService { get; } = paymentService;
-
+    [Authorize(Roles = "Admin, Manager, Staff")]
     [HttpGet("GetBills")]
     public async Task<IActionResult> Get(int pageNumber, int pageSize)
     {
         var bills = await UserManagement.GetBills(pageNumber, pageSize);
         return Ok(bills);
     }
+    [Authorize(Roles = "Admin, Manager, Staff")]
+
     [HttpGet("GetBillById/{id}")]
     public async Task<IActionResult> Get(string id)
     {
@@ -29,11 +32,15 @@ public class BillController(IUserManagement userManagement, IPaymentService paym
         if (bill == null) return NotFound();
         return Ok(bill);
     }
+    [Authorize(Roles = "Admin, Manager, Staff")]
+
     [HttpPost("CreateBill")]
     public async Task<IActionResult> Create(BillRequestDto billRequestDto)
     {
         return Ok(await UserManagement.CreateBill(billRequestDto));
     }
+    [Authorize(Roles = "Admin, Manager, Staff")]
+
     [HttpPost("CheckoutOnline/{billId}")]
     public async Task<IActionResult> CheckoutOnline(string billId,PaymentRequestDto paymentRequestDto)
     {
@@ -42,6 +49,7 @@ public class BillController(IUserManagement userManagement, IPaymentService paym
         var suscessUrl = Url.Action("SuccessPayment","Bill",new {billId,paymentRequestDto.ReturnUrl,orderCode},Request.Scheme);
         return Ok(await PaymentService.CheckoutBill(billId,paymentRequestDto.Amount,orderCode,suscessUrl,cancelUrl));
     }
+    [Authorize(Roles = "Admin, Manager, Staff")]
 
     [HttpPost("CheckoutOffline/{id}")]
     public async Task<IActionResult> CheckoutOffline(string id, float cashAmount)

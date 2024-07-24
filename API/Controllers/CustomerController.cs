@@ -1,5 +1,6 @@
 ﻿using BusinessObjects.Dto;
 using BusinessObjects.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interface;
 
@@ -10,6 +11,7 @@ namespace API.Controllers;
 public class CustomerController(ICustomerService customerService) : ControllerBase
 {
     private ICustomerService CustomerService { get; } = customerService;
+    [Authorize(Roles = "Admin, Manager")]
     [HttpGet("GetCustomers")]
     public async Task<IActionResult> GetCustomersPaging(int pageNumber, int pageSize)
     {
