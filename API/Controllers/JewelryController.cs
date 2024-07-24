@@ -12,27 +12,27 @@ public class JewelryController(IJewelryService jewelryService, IMapper mapper) :
 {
     private IJewelryService JewelryService { get; } = jewelryService;
     private IMapper Mapper { get; } = mapper;
-    
-    [Authorize(Roles = "Admin, Manager, Staff")]
+
+    //[Authorize(Roles = "Admin, Manager, Staff")]
     [HttpGet("GetJewelries")]
     public async Task<IActionResult> GetJewelries(int pageNumber, int pageSize, string? name, string? typeId)
     {
         var jewelries = await JewelryService.GetJewelries(pageNumber, pageSize, name, typeId);
         return Ok(jewelries);
     }
-    [Authorize(Roles = "Admin, Manager, Staff")]
+    //[Authorize(Roles = "Admin, Manager, Staff")]
 
     [HttpGet("GetJewelriesByType")]
     private async Task<IActionResult> GetJewelriesByType(string? jewelryTypeId, int pageNumber, int pageSize)
     {
-        if(jewelryTypeId == null)
+        if (jewelryTypeId == null)
         {
             return await GetJewelries(pageNumber, pageSize, "", "");
         }
         var jewelries = await JewelryService.GetJewelryByType(jewelryTypeId, pageNumber, pageSize);
         return Ok(jewelries);
     }
-    [Authorize(Roles = "Admin, Manager, Staff")]
+    //[Authorize(Roles = "Admin, Manager, Staff")]
 
     [HttpGet("GetJewelryById/{id}")]
     public async Task<IActionResult> GetJewelryById(string id)
