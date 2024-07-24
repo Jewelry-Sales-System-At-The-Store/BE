@@ -49,6 +49,7 @@ namespace DAO.Dao
             {
                 jewelry.JewelryId = Generator.GenerateId();
                 jewelry.IsSold = false;
+                jewelry.IsEnable = true;
                 _context.Jewelries.Add(jewelry);
             }
             catch {
