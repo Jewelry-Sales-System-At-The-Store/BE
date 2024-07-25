@@ -232,13 +232,11 @@ namespace Services.Implementation
                 throw new Exception("JewelryMaterial in request is null");
             }
 
-            // Extract necessary details from the request
             var goldPriceId = request.JewelryMaterial.GoldId;
             var stonePriceId = request.JewelryMaterial.StoneId;
             var goldQuantity = request.JewelryMaterial.GoldQuantity;
             var stoneQuantity = request.JewelryMaterial.StoneQuantity;
 
-            // Fetch the gold and stone prices from the database or repository
             var goldPrice = await _purchaseRepository.GetGoldPriceById(goldPriceId);
             var stonePrice = await _purchaseRepository.GetStonePriceById(stonePriceId);
 
