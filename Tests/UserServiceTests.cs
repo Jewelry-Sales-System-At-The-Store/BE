@@ -46,12 +46,45 @@ namespace Tests
         }
 
         [TestMethod]
+        public async Task Login_ShouldReturnNull_WhenCredentialsAreInvalid()
+        {
+            // Arrange
+            var loginDto = new LoginDto { Email = "invalid@example.com", Password = "wrongpassword" };
+            _userRepositoryMock.Setup(repo => repo.GetUser(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync((User)null);
+
+            // Act
+            var result = await _userService.Login(loginDto);
+
+            // Assert
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public async Task Login_ShouldAssignCounterToUser_WhenCounterIdIsProvided()
+        {
+            // Arrange
+            var loginDto = new LoginDto { Email = "test@example.com", Password = "password", CounterId = "2" };
+            var user = new User { UserId = "1" };
+            _userRepositoryMock.Setup(repo => repo.GetUser(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(user);
+            _userRepositoryMock.Setup(repo => repo.AssignCounterToUser(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(true);
+
+            // Act
+            var result = await _userService.Login(loginDto);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(user, result);
+            _userRepositoryMock.Verify(repo => repo.AssignCounterToUser(user.UserId, loginDto.CounterId), Times.Once);
+        }
+
+        [TestMethod]
         public async Task Logout_ShouldReturnUser_WhenUserIdIsValid()
         {
             // Arrange
             var userId = "1";
             var user = new User { UserId = userId };
             _userRepositoryMock.Setup(repo => repo.GetUserById(It.IsAny<string>())).ReturnsAsync(user);
+            _userRepositoryMock.Setup(repo => repo.ReleaseCounterFromUser(It.IsAny<User>())).ReturnsAsync(true);
 
             // Act
             var result = await _userService.Logout(userId);
@@ -59,6 +92,20 @@ namespace Tests
             // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(user, result);
+        }
+
+        [TestMethod]
+        public async Task Logout_ShouldReturnNull_WhenUserIdIsInvalid()
+        {
+            // Arrange
+            var userId = "999";
+            _userRepositoryMock.Setup(repo => repo.GetUserById(It.IsAny<string>())).ReturnsAsync((User)null);
+
+            // Act
+            var result = await _userService.Logout(userId);
+
+            // Assert
+            Assert.IsNull(result);
         }
 
         [TestMethod]
@@ -77,11 +124,43 @@ namespace Tests
         }
 
         [TestMethod]
+        public async Task UpdateCounterByUserId_ShouldReturnFalse_WhenUpdateIsUnsuccessful()
+        {
+            // Arrange
+            var userId = "1";
+            var counterId = "2";
+            _userRepositoryMock.Setup(repo => repo.UpdateCounterByUserId(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(false);
+
+            // Act
+            var result = await _userService.UpdateCounterByUserId(userId, counterId);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
         public async Task GetUsers_ShouldReturnUserResponseDtos()
         {
             // Arrange
             var users = new List<User> { new User { UserId = "1" } };
             var userResponseDtos = new List<UserResponseDto> { new UserResponseDto { UserId = "1" } };
+            _userRepositoryMock.Setup(repo => repo.Gets()).ReturnsAsync(users);
+            _mapperMock.Setup(mapper => mapper.Map<IEnumerable<UserResponseDto>>(It.IsAny<IEnumerable<User>>())).Returns(userResponseDtos);
+
+            // Act
+            var result = await _userService.GetUsers();
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(userResponseDtos.Count, result.Count());
+        }
+
+        [TestMethod]
+        public async Task GetUsers_ShouldReturnEmptyList_WhenNoUsersExist()
+        {
+            // Arrange
+            var users = new List<User>();
+            var userResponseDtos = new List<UserResponseDto>();
             _userRepositoryMock.Setup(repo => repo.Gets()).ReturnsAsync(users);
             _mapperMock.Setup(mapper => mapper.Map<IEnumerable<UserResponseDto>>(It.IsAny<IEnumerable<User>>())).Returns(userResponseDtos);
 
@@ -106,6 +185,21 @@ namespace Tests
 
             // Assert
             Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public async Task IsUser_ShouldReturnFalse_WhenUserDoesNotExist()
+        {
+            // Arrange
+            var loginDto = new LoginDto { Email = "test@example.com", Password = "password" };
+            var users = new List<User>();
+            _userRepositoryMock.Setup(repo => repo.Find(It.IsAny<Func<User, bool>>())).ReturnsAsync(users);
+
+            // Act
+            var result = await _userService.IsUser(loginDto);
+
+            // Assert
+            Assert.IsFalse(result);
         }
 
         [TestMethod]
@@ -188,6 +282,20 @@ namespace Tests
             // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(customer, result);
+        }
+
+        [TestMethod]
+        public async Task LoginCustomer_ShouldReturnNull_WhenCredentialsAreInvalid()
+        {
+            // Arrange
+            var customerLoginDto = new CustomerLoginDto { Phone = "0123456789", Password = "wrongpassword" };
+            _userRepositoryMock.Setup(repo => repo.GetCustomer(It.IsAny<Customer>())).ReturnsAsync((Customer)null);
+
+            // Act
+            var result = await _userService.LoginCustomer(customerLoginDto);
+
+            // Assert
+            Assert.IsNull(result);
         }
     }
 }
