@@ -28,7 +28,6 @@ namespace Services.Implementation
 
             if (purchase.IsBuyBack != 0)
             {
-                purchase.IsBuyBack = -1;
                 await _purchaseRepository.UpdatePurchase(purchase);
                 throw new Exception("Jewelry not found or not eligible for buyback.");
             }
@@ -116,6 +115,11 @@ namespace Services.Implementation
 
         public async Task<ProcessBuybackByNameResponse> ProcessBuybackByName(BuybackByNameRequest request)
         {
+            if (!request.HasGuarantee) 
+            {
+                throw new InvalidOperationException("Condition failed, returning error -1");
+            }
+
             var jewelryId = Generator.GenerateId();
             var jewelry = new Jewelry
             {
@@ -187,15 +191,15 @@ namespace Services.Implementation
                 TotalDiscount = 0,
                 SaleDate = purchase.PurchaseDate,
                 Items = new List<BillItemResponse?>
-                {
-                    new BillItemResponse
-                    {
-                        JewelryId = purchase.JewelryId,
-                        Name = jewelry.Name,
-                        JewelryPrice = totalPrice,
-                        TotalPrice = totalPrice
-                    }
-                },
+        {
+            new BillItemResponse
+            {
+                JewelryId = purchase.JewelryId,
+                Name = jewelry.Name,
+                JewelryPrice = totalPrice,
+                TotalPrice = totalPrice
+            }
+        },
                 Promotions = new List<BillPromotionResponse?>(),
                 AdditionalDiscount = 0,
                 PointsUsed = 0,
@@ -214,6 +218,7 @@ namespace Services.Implementation
                 BillId = purchase.BillId
             };
         }
+
 
         public async Task<CountProcessBuybackByNameResponse> CountProcessBuybackByName(CountBuybackByNameRequest request)
         {
@@ -242,10 +247,8 @@ namespace Services.Implementation
                 throw new Exception("Gold price or stone price not found.");
             }
 
-            // Calculate the total price using the updated CalculateTotalPrice method
             var totalPrice = CalculateTotalPriceForName(goldPrice.BuyPrice, goldQuantity, stonePrice.BuyPrice, stoneQuantity, request.LaborCost);
 
-            // Adjust the total price if HasGuarantee is false
             if (!request.HasGuarantee)
             {
                 totalPrice *= 0.3f;
