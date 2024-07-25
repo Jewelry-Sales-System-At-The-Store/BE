@@ -41,6 +41,10 @@ namespace API.Controllers
                 var result = await _purchaseService.ProcessBuybackByName(request);
                 return Ok(new { Message = result });
             }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { error = -1, message = ex.Message });
+            }
             catch (Exception ex)
             {
                 return StatusCode(500, new { error = ex.Message });
