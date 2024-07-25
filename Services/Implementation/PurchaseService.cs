@@ -24,14 +24,13 @@ namespace Services.Implementation
 
         public async Task<ProcessBuybackByIdResponse> ProcessBuybackById(string jewelryId)
         {
-            var purchase = await _purchaseRepository.GetPurchaseByJewelryId(jewelryId);
+            var purchase = await _purchaseRepository.GetPurchaseByJewelryIdWithBuyBack0(jewelryId);
 
-            if (purchase.IsBuyBack != 0)
+            if (purchase == null)
             {
-                await _purchaseRepository.UpdatePurchase(purchase);
                 throw new Exception("Jewelry not found or not eligible for buyback.");
             }
-            
+
             var jewelry = await _purchaseRepository.GetJewelryById(jewelryId);
             if (jewelry == null)
             {
@@ -115,10 +114,6 @@ namespace Services.Implementation
 
         public async Task<ProcessBuybackByNameResponse> ProcessBuybackByName(BuybackByNameRequest request)
         {
-            if (!request.HasGuarantee) 
-            {
-                throw new InvalidOperationException("Condition failed, returning error -1");
-            }
 
             var jewelryId = Generator.GenerateId();
             var jewelry = new Jewelry
@@ -232,13 +227,11 @@ namespace Services.Implementation
                 throw new Exception("JewelryMaterial in request is null");
             }
 
-            // Extract necessary details from the request
             var goldPriceId = request.JewelryMaterial.GoldId;
             var stonePriceId = request.JewelryMaterial.StoneId;
             var goldQuantity = request.JewelryMaterial.GoldQuantity;
             var stoneQuantity = request.JewelryMaterial.StoneQuantity;
 
-            // Fetch the gold and stone prices from the database or repository
             var goldPrice = await _purchaseRepository.GetGoldPriceById(goldPriceId);
             var stonePrice = await _purchaseRepository.GetStonePriceById(stonePriceId);
 
