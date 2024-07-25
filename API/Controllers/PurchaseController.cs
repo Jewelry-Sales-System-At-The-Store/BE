@@ -18,7 +18,7 @@ namespace API.Controllers
             _purchaseService = purchaseService;
         }
 
-        //[Authorize(Roles = "Admin, Manager, Staff")]
+        [Authorize(Roles = "Admin, Manager, Staff")]
         [HttpPost("BuyBackById")]
         public async Task<IActionResult> BuybackById([FromBody] BuybackByIdRequest request)
         {
@@ -37,7 +37,7 @@ namespace API.Controllers
             }
         }
 
-        //[Authorize(Roles = "Admin, Manager, Staff")]
+        [Authorize(Roles = "Admin, Manager, Staff")]
         [HttpPost("CountBuyBackById")]
         public async Task<IActionResult> CountBuyBackById([FromBody] BuybackByIdRequest request)
         {
