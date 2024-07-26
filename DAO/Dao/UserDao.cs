@@ -46,12 +46,13 @@ public class UserDao
         var existUser = await _context.Users.FirstOrDefaultAsync(x => x.UserId == id);
         if (existUser == null) return 0;
         
-        existUser.Password = user.Password;
         existUser.CounterId = user.CounterId;
         existUser.Gender = user.Gender;
         existUser.Email = user.Email;
         existUser.PhoneNumber = user.PhoneNumber;
         existUser.FullName = user.FullName;
+        existUser.Username = user.Username;
+        existUser.RoleId = user.RoleId;
         
         existUser.UpdatedAt = DateTime.UtcNow.ToUniversalTime();
         _context.Users.Update(existUser);
@@ -87,5 +88,10 @@ public class UserDao
         }
 
         return 1;
+    }
+    public async Task<string> GetUserIdByName(string name)
+    {
+        var user = await _context.Users.FirstOrDefaultAsync(c => c.Username == name);
+        return user?.UserId;
     }
 }

@@ -11,5 +11,6 @@ namespace Repositories.Interface
         Task<bool> AssignCounterToUser(string userId,string counterId);
         Task<bool> ReleaseCounterFromUser(User user);
         Task<Customer> GetCustomer(Customer customer);
+        Task<string> GetUserIdByName(string name);
     }
 }

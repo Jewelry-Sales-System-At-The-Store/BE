@@ -17,6 +17,7 @@ public class BillService(
     IBillDetailRepository billDetailRepository,
     ICustomerRepository customerRepository,
     IUserRepository userRepository,
+    IPurchaseRepository purchaseRepository,
     IJewelryRepository jewelryRepository) : IBillService
 {
     private IMapper Mapper { get; } = mapper;
@@ -28,6 +29,7 @@ public class BillService(
     private ICustomerRepository CustomerRepository { get; } = customerRepository;
     private IUserRepository UserRepository { get; } = userRepository;
     private IJewelryRepository JewelryRepository { get; } = jewelryRepository;
+    private IPurchaseRepository PurchaseRepository { get; } = purchaseRepository;
 
     public async Task<BillResponseDto> Create(BillRequestDto billRequestDto)
     {
@@ -191,7 +193,23 @@ public class BillService(
             CreatedAt = DateTime.UtcNow.ToUniversalTime(),
             Status = "Success"
         };
-        // Purchase 
+        // Purchase
+        foreach (var item in billDetail.Items)
+        {
+            var purchase = new Purchase
+            {
+                PurchaseId = Generator.GenerateId(),
+                BillId = billDetail.BillId,
+                IsBuyBack = 0,
+                CustomerId = await CustomerRepository.GetCustomerIdByName(billDetail.CustomerName),
+                JewelryId = item.JewelryId,
+                PurchaseDate = DateTime.UtcNow.ToUniversalTime(),
+                PurchasePrice = item.TotalPrice,
+                UserId = await UserRepository.GetUserIdByName(billDetail.StaffName)
+
+            };
+            await PurchaseRepository.CreatePurchase(purchase);
+         }
         return billCheckoutResponse;
     }
 

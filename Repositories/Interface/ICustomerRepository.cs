@@ -14,5 +14,9 @@ namespace Repositories.Interface
         Task<int> GetActiveCustomers(DateTime startDate, DateTime endDate);
         Task<Customer?> GetById(string id);
         Task<bool> RegisterCustomer(Customer customer);
+        Task<Customer?> GetCustomerByBillId(string? billId);
+
+        Task<string> GetCustomerIdByName(string name);
+        Task<int> AddPoint(string customerId, int point);
     }
 }

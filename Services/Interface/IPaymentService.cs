@@ -10,4 +10,5 @@ public interface IPaymentService
     Task<bool> UpdatePaymentStatus(long orderCode, PaymentStatus paymentStatus);
     Task<bool> UpdateBillStatus(string billId);
     Task<bool> UpdateJewelryStatus(string billId);
+    Task<bool> CreatePurchase(string billId);
 }
