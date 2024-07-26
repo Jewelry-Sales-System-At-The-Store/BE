@@ -126,5 +126,9 @@ namespace Repositories.Implementation
         {
             return await customerDao.CustomerLogin(customer.Phone, customer.Password);    
         }
+        public async Task<string> GetUserIdByName(string name)
+        {
+            return await UserDao.GetUserIdByName(name);
+        }
     }
 }

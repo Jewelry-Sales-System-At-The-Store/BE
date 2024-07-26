@@ -71,5 +71,15 @@ namespace Services.Implementation
             var customer = Mapper.Map<Customer>(customerRegisterDto);
             return await CustomerRepository.RegisterCustomer(customer);
         }
+
+        public Task<int> AddPoint(string customerId, int point)
+        {
+            return CustomerRepository.AddPoint(customerId, point);
+        }
+
+        public Task<Customer?> GetCustomerByBillId(string? billId)
+        {
+            return CustomerRepository.GetCustomerByBillId(billId);
+        }
     }
 }
