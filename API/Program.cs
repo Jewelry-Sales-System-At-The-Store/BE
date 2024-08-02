@@ -14,6 +14,7 @@ builder.Services.AddControllers();
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScopeService();
 builder.Services.AddEndpointsApiExplorer();
+
 #region Swagger
 builder.Services.AddSwaggerGen(c => {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "JSSATS", Version = "v1" });
@@ -92,6 +93,7 @@ builder.Host.UseSerilog((context, loggerConfig) =>
 
 var app = builder.Build();
 app.UseSerilogRequestLogging();
+
 # region Swagger
 
     app.UseSwagger();
@@ -103,6 +105,7 @@ app.UseSerilogRequestLogging();
     });
 
 # endregion
+
 # region Middleware
 app.UseMiddleware<AuthMiddleware>();
 app.UseMiddleware<ErrorHandlingMiddleware>();

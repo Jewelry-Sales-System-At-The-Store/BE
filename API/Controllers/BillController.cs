@@ -11,10 +11,12 @@ namespace API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class BillController(IUserManagement userManagement, IPaymentService paymentService) : ControllerBase
+public class BillController(IUserManagement userManagement, IPaymentService paymentService, ICustomerService customerService) : ControllerBase
 {
     private IUserManagement UserManagement { get; } = userManagement;
     private IPaymentService PaymentService { get; } = paymentService;
+    public ICustomerService CustomerService { get; } = customerService;
+
     [Authorize(Roles = "Admin, Manager, Staff")]
     [HttpGet("GetBills")]
     public async Task<IActionResult> Get(int pageNumber, int pageSize)
@@ -53,6 +55,8 @@ public class BillController(IUserManagement userManagement, IPaymentService paym
     [HttpPost("CheckoutOffline/{id}")]
     public async Task<IActionResult> CheckoutOffline(string id, float cashAmount)
     {
+        var customer = await customerService.GetCustomerByBillId(id);
+        await customerService.AddPoint(customer.CustomerId, 10);
         return Ok(await UserManagement.CheckoutBill(id,cashAmount));
     }
 
@@ -68,6 +72,9 @@ public class BillController(IUserManagement userManagement, IPaymentService paym
         await paymentService.UpdatePaymentStatus(orderCode, PaymentStatus.Success);
         await paymentService.UpdateBillStatus(billId);
         await paymentService.UpdateJewelryStatus(billId);
+        await PaymentService.CreatePurchase(billId);
+        var customer = await customerService.GetCustomerByBillId(billId);
+        await customerService.AddPoint(customer.CustomerId, 10);
         return Redirect($"{returnUrl}/status=success");
     }
 }

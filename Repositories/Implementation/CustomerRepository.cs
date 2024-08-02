@@ -43,6 +43,11 @@ namespace Repositories.Implementation
             return await CustomerDao.RegisterCustomer(customer);
         }
 
+        public Task<Customer?> GetCustomerByBillId(string? billId)
+        {
+            return CustomerDao.GetCustomerByBillId(billId);
+        }
+
         public Task<int> Update(string id, Customer entity)
         {
             return CustomerDao.UpdateCustomer(id, entity);
@@ -86,6 +91,15 @@ namespace Repositories.Implementation
 
             return await CustomerDao.GetAllCustomers()
                                      .CountAsync(c => c.Bills.Any(b => b.SaleDate >= utcStartDate && b.SaleDate <= utcEndDate));
+        }
+
+        public async Task<string> GetCustomerIdByName(string name)
+        {
+            return await CustomerDao.GetCustomerIdByName(name);
+        }
+        public async Task<int> AddPoint(string customerId, int point)
+        {
+            return await CustomerDao.AddPoint(customerId, point);
         }
     }
 }

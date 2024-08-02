@@ -58,7 +58,7 @@ namespace DAO.Dao
             _context.Customers.Remove(customer);
             return await _context.SaveChangesAsync();
         }
-        public async Task<Customer?> GetCustomerByBillId(int? billId)
+        public async Task<Customer?> GetCustomerByBillId(string? billId)
         {
             var bill = await _context.Bills.FindAsync(billId);
             if (bill == null) return null;
@@ -87,6 +87,18 @@ namespace DAO.Dao
             customer.Point = 0;
             _context.Customers.Add(customer);
             return await _context.SaveChangesAsync() > 0;
+        }
+        public async Task<string> GetCustomerIdByName(string name)
+        {
+            var customer = await _context.Customers.FirstOrDefaultAsync(c => c.FullName == name);
+            return customer?.CustomerId;
+        }
+        public async Task<int> AddPoint(string customerId, int point)
+        {
+            var customer = await _context.Customers.FindAsync(customerId);
+            if (customer == null) return 0;
+            customer.Point += point;
+            return await _context.SaveChangesAsync();
         }
     }
 }
